@@ -1,9 +1,10 @@
 import { Icon } from "../Icon";
-import { useState } from "react";
+import { StockStatus } from "../StockStatus";
+import { useEffect, useRef, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { availability } from "../domain/inventory";
 import type { Product, Variant } from "../domain/inventory";
-import { Button, EmptyState, Field, Form } from "../ui";
+import { BackButton, Button, EmptyState, Field, Form } from "../ui";
 import { money } from "../domain/format";
 import type { FeatureProps } from "./types";
 
@@ -20,6 +21,10 @@ export function Catalog(props: FeatureProps) {
   const [search, setSearch] = useState("");
   const [editor, setEditor] = useState<Product | null>(null);
   const [creating, setCreating] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selectedTrigger = useRef<HTMLButtonElement | null>(null);
+  const returnProductId = useRef<string | null>(null);
+  const selectedProduct = props.state.products.find(p => p.id === selectedId);
   if (creating || editor)
     return (
       <ProductForm
@@ -28,6 +33,7 @@ export function Catalog(props: FeatureProps) {
         close={() => {
           setCreating(false);
           setEditor(null);
+          setSelectedId(null);
         }}
       />
     );
@@ -36,7 +42,7 @@ export function Catalog(props: FeatureProps) {
   );
   return (
     <div className="stack catalog-page">
-      <div>
+      {!selectedProduct && <div>
         <div className="catalog-heading">
           <h1>สินค้า</h1>
           <Button className="add-product" onClick={() => void props.leave(() => setCreating(true))}>
@@ -44,7 +50,10 @@ export function Catalog(props: FeatureProps) {
             เพิ่มสินค้า
           </Button>
         </div>
-      </div>
+      </div>}
+      {selectedProduct ? <ProductView key={selectedProduct.id} {...props} product={selectedProduct}
+        edit={() => void props.leave(() => setEditor(selectedProduct))}
+        back={() => { setSelectedId(null); requestAnimationFrame(() => selectedTrigger.current?.focus()); }} /> : <>
       <div className="catalog-search">
         <Icon name="search" />
         <Field
@@ -79,115 +88,40 @@ export function Catalog(props: FeatureProps) {
       ) : (
         <div className="product-list">
           {products.map((p) => (
-            <ProductView
-              key={p.id}
-              {...props}
-              product={p}
-              edit={() => void props.leave(() => setEditor(p))}
-            />
+            <button type="button" className="product-card catalog-tile" key={p.id}
+              aria-label={`ดูไซซ์ / สีและจัดการ ${p.code}`}
+              ref={element => { if (p.id === returnProductId.current) selectedTrigger.current = element; }}
+              onClick={() => { returnProductId.current = p.id; setSelectedId(p.id); }}>
+              {p.photo ? <img className="photo" src={p.photo} alt={`สินค้า ${p.code}`} /> : <div className="photo photo-empty"><Icon name="photo" /><span>ไม่มีรูป</span></div>}
+              <h2>{p.code}</h2>
+            </button>
           ))}
         </div>
       )}
+      </>}
     </div>
   );
 }
-function ProductView({
-  state,
-  act,
-  ask,
-  product,
-  edit,
-}: FeatureProps & { product: Product; edit: () => void }) {
-  const variants = state.variants.filter((v) => v.productId === product.id);
-  const sizes = [...new Set(variants.map((v) => v.size))];
-  const [size, setSize] = useState(sizes[0] ?? "");
-  const selected = variants.filter((v) => v.size === size);
-  const totalAvailable = selected.reduce(
-    (sum, v) => sum + Math.max(0, availability(state, v.id)),
-    0,
-  );
-  const shortage = selected.some((v) => availability(state, v.id) < 0);
-  return (
-    <article className="product-card">
-      <details className="product-details">
-        <summary aria-label={`ดูไซซ์ / สีและจัดการ ${product.code}`}>
-          <div className="product-overview">
-            {product.photo ? (
-              <img
-                className="photo"
-                src={product.photo}
-                alt={`สินค้า ${product.code}`}
-              />
-            ) : (
-              <div className="photo photo-empty">
-                <Icon name="photo" />
-                <span>ไม่มีรูป</span>
-              </div>
-            )}
-            <div className="product-brief">
-              <h2>{product.code}</h2>
-              <p className="muted">
-                ไซซ์ {size} · {selected.length} สี / คละสี · หน่วย{" "}
-                {product.unit}
-              </p>
-              <div className="stock-summary">
-                <p>
-                  ขายได้ <span className="quantity">{totalAvailable}</span>{" "}
-                  {product.unit}
-                </p>
-                <span
-                  className={
-                    shortage
-                      ? "stock-status shortage"
-                      : totalAvailable === 0
-                        ? "stock-status unavailable"
-                        : "stock-status"
-                  }
-                >
-                  {shortage
-                    ? "ของไม่พอ"
-                    : totalAvailable === 0
-                      ? "หมด"
-                      : "พร้อมขาย"}
-                </span>
-              </div>
-            </div>
-            <Icon name="chevron" />
-          </div>
-        </summary>
-        <div className="product-body">
-          <div className="row justify-between">
-            <p className="muted">เลือกไซซ์เพื่อดูสีและจำนวน</p>
-            <Button variant="secondary" onClick={edit}>
-              แก้สินค้า
-            </Button>
-          </div>
-          <div className="row" aria-label={`เลือกไซซ์ ${product.code}`}>
-            {sizes.map((s) => (
-              <button
-                className="chip"
-                key={s}
-                aria-pressed={s === size}
-                onClick={() => setSize(s)}
-              >
-                {s}
-              </button>
-            ))}
-          </div>
-          {selected.map((v) => (
-            <VariantView
-              key={v.id}
-              variant={v}
-              product={product}
-              state={state}
-              act={act}
-              ask={ask}
-            />
-          ))}
-        </div>
-      </details>
-    </article>
-  );
+function ProductView({ state, act, ask, leave, product, edit, back }: FeatureProps & { product: Product; edit: () => void; back: () => void }) {
+  const variants = state.variants.filter(v => v.productId === product.id);
+  const sizes = [...new Set(variants.map(v => v.size))];
+  const [size, setSize] = useState("");
+  const title = useRef<HTMLHeadingElement>(null);
+  useEffect(() => { title.current?.focus({ preventScroll: true }); window.scrollTo({ top: 0 }); }, []);
+  return <section className="product-detail-page stack">
+    <div className="page-header">
+      <BackButton aria-label="กลับไปดูสินค้า" onClick={() => void leave(back)} />
+      <h1 ref={title} tabIndex={-1}>{product.code}</h1>
+    </div>
+    <div className="row justify-between">
+      <p>เลือกไซซ์เพื่อดูสีและจำนวน</p>
+      <Button variant="secondary" onClick={edit}>แก้สินค้า</Button>
+    </div>
+    <div className="row" aria-label={`เลือกไซซ์ ${product.code}`}>
+      {sizes.map(s => <button type="button" className="chip" key={s} aria-pressed={s === size} onClick={() => { if (s !== size) void leave(() => setSize(s)); }}>{s}</button>)}
+    </div>
+    {variants.filter(v => v.size === size).map(v => <VariantView key={v.id} variant={v} product={product} state={state} act={act} ask={ask} />)}
+  </section>;
 }
 function VariantView({
   variant: v,
@@ -221,15 +155,18 @@ function VariantView({
         </span>
       </div>
       {v.contents && <p className="muted">ในแพ็ก: {v.contents}</p>}
-      <p>
-        ขายได้{" "}
-        <span
-          className={`variant-quantity ${available < 0 ? "danger-text" : ""}`}
-        >
-          {Math.max(0, available)}
-        </span>{" "}
-        {product.unit}
-      </p>
+      <div className="variant-stock-summary">
+        <p>
+          ขายได้{" "}
+          <span
+            className={`variant-quantity ${available < 0 ? "danger-text" : available > 0 ? "stock-ready-quantity" : ""}`}
+          >
+            {Math.max(0, available)}
+          </span>{" "}
+          {product.unit}
+        </p>
+        <StockStatus available={available} />
+      </div>
       <p className="muted">
         คงเหลือ {v.stock} {product.unit} · จอง {v.stock - available} {product.unit}
       </p>
@@ -386,10 +323,8 @@ function ProductForm({
   }
   return (
     <Form noValidate className="stack catalog-form" onSubmit={submit}>
-      <div className="row">
-        <Button variant="secondary" onClick={() => void leave(close)}>
-          กลับ
-        </Button>
+      <div className="page-header">
+        <BackButton onClick={() => void leave(close)} />
         <h1>{existing ? "แก้สินค้า" : "เพิ่มสินค้า"}</h1>
       </div>
       <div className="product-form-layout">

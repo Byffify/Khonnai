@@ -1,8 +1,12 @@
 import { useContext, useEffect, useId, useRef, useState } from 'react'
 import { FormFailureContext, formFailureEvent } from './formFeedback'
+import { Icon } from './Icon'
 import type { ButtonHTMLAttributes, FormHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react'
 export function Button({ variant = 'primary', children, ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'danger' }) {
   return <>{props.type === 'submit' && <FormFailure />}<button {...props} type={props.type ?? 'button'} onClick={props.onClick} className={`button ${variant} ${props.className ?? ''}`}>{children}</button></>
+}
+export function BackButton(props: Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'type' | 'className'>) {
+  return <button {...props} type="button" className="back-button"><Icon name="back" /><span>กลับ</span></button>
 }
 function FormFailure() {
   const { message, sequence } = useContext(FormFailureContext)

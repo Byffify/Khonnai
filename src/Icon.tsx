@@ -5,7 +5,11 @@ const paths = {
   return: 'M8 4 3 9l5 5M3 9h11a6 6 0 0 1 0 12',
   settings: 'M9 3h6l1 3 3 1 2 5-2 5-3 1-1 3H9l-1-3-3-1-2-5 2-5 3-1 1-3ZM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8',
   plus: 'M12 5v14M5 12h14',
+  check: 'M5 12l4 4L19 6',
+  empty: 'M5 12h14',
+  warning: 'M12 3 2 21h20L12 3ZM12 9v5M12 17h.01',
   chevron: 'M9 5l7 7-7 7',
+  back: 'M20 12H4M11 5l-7 7 7 7',
   photo: 'M3 5h18v14H3V5ZM3 15l5-5 5 5 3-3 5 5M15 8h.01',
   search: 'M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14ZM15 15l6 6',
 }

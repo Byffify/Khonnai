@@ -139,6 +139,8 @@ components:
 
 **The Action Role Rule.** สีต้องคู่กับชื่อปุ่มหรือสถานะ: กรมท่าบันทึก ส้มเพิ่ม เขียวพร้อมขาย แดงลบ/ยกเลิก เทากดไม่ได้ ห้ามใช้สีอย่างเดียวบอกความหมาย
 
+กริดสินค้าแสดงเฉพาะรูปกับรหัสสินค้า ไม่แสดงไซซ์ สี จำนวน หน่วยหรือป้ายสถานะในหน้ารวม กดสินค้าเพื่อเปิดรายละเอียด เลือกไซซ์อย่างชัดเจนก่อนแสดงสีและจำนวน ป้ายพร้อมขายใช้ stock-action พร้อมเครื่องหมายถูกและยอด success เดิม หมดใช้ warning ของไม่พอใช้ danger พร้อมไอคอน/ข้อความ คงจำนวนที่ยังขายได้หลังหักจองตามเดิม ไม่ย้อมกระดาษบิล PNG
+
 ## Typography
 
 Modern sans-serif: IBM Plex Sans Thai Looped สำหรับไทย และ Plus Jakarta Sans สำหรับอังกฤษ ฟอนต์self-hostพร้อมใบอนุญาต ใช้body18, label16, caption14 หัวข้อ28/24/20 ไม่เพิ่มtrackingไทย โลโก้ชื่อแบรนด์24px/700บนมือถือ,22px/700บนsidebar Metadataเดิมบางแห่งใช้IBM Plex Monoคู่กับฟอนต์ไทย ขนาดh3สืบทอดline-height28pxจากbody
@@ -146,6 +148,8 @@ Modern sans-serif: IBM Plex Sans Thai Looped สำหรับไทย แล�
 ## Layout
 
 คงเมนูล่างมือถือ/sidebarที่1024px การ์ดสินค้าเรียงสินค้า → ไซซ์ → สี/คละสี พร้อมจำนวนและหน่วย รองรับ320px ฟอร์มสองคอลัมน์เดิมยุบเหลือหนึ่งบนมือถือ ปุ่มเพิ่มรายการ/ดาวน์โหลดพอดีข้อความ ปุ่มบันทึกบนมือถือกว้าง ลำดับDOM/focusเดิม
+
+Transaction rows align control tops rather than hint bottoms: quantity column132px desktop/112px mobile, labels16px/24px and entry text18px/28px. Remove aligns with controls on desktop and occupies its own row on mobile. Back/title rows share an optical baseline.
 
 ## Elevation & Depth
 
@@ -156,6 +160,10 @@ Modern sans-serif: IBM Plex Sans Thai Looped สำหรับไทย แล�
 ปุ่มและช่องกรอก8px การ์ด/dialog12px ไซซ์6px รูปสินค้า16px Badgeสถานะpillเท่านั้น ไม่ใช้pillทั้งหน้าจอ ปุ่มสูงอย่างน้อย52pxและตัวเลือกไซซ์อย่างน้อย48px
 
 ## Components
+
+ทุกหน้ารองใช้ BackButton เดียวกัน: ลูกศรย้อนกลับและคำว่า “กลับ” ชิดซ้ายเหนือชื่อหน้า ไม่มีกรอบปุ่มใหญ่ พื้นที่กดอย่างน้อย48px Hoverใช้ action-surface และ keyboard focus ใช้ action เดิม หน้าหลักไม่มีปุ่มกลับ ยังคง leave guard และปลายทางเดิม
+
+Navigation keyboard focus uses the existing cream outline on navy. Disabled controls retain neutral disabled fill even on hover/press; invalid field borders use existing danger red. Bill-tab strips reserve6px around focus rings. Backup selection uses the same native file input/OS picker behind a Thai “เลือกไฟล์สำรอง” affordance with visible keyboard focus; import validation/confirmation is unchanged.
 
 Feedback failures remain in the current task: a focused red message beside shared submit, without clearing entered values; page-only failures use the existing Notice. Product code search uses native input/select with a clear button and never preselects the first product. Return-reference changes confirm draft replacement. The visible navigation label “ร้าน/สำรอง” exposes backup. Quantity hints/remaining/reserved labels carry units using existing caption/body roles; no new decorative system.
 
@@ -177,3 +185,10 @@ Product entry price and opening-stock units sit inside the field on the right (�
 - Don't เพิ่มDashboard/กราฟ/Chat/แจ้งเตือนจากภาพreference
 - Don't เปลี่ยนlocalStorage key/schema กติกาสต็อกหรือflowบิล/จอง/คืนสินค้า
 - Don't ใช้โลโก้แอปแทนชื่อร้านในบิลหรือเพิ่มมาสคอตตกแต่งทุกหน้า
+
+
+## Catalog grid — approved 2026-10-14
+
+In product details, each color/mixed-color variant is a separate white card with a neutral1px border, existing12px card radius and20px padding on the cream canvas. Quantity, price, availability and stock actions stay inside that color's card; no extra shadows or inner colored panels.
+
+Single white product tiles with square contain-fit photos and readable product codes. Two columns on mobile, three from601px and four above1150px;12px mobile gaps and20px larger gaps. No quantities or size/color metadata in the grid. Detail view keeps shared Button, size chips and existing VariantView/stock Form, with no size preselected. Back restores keyboard focus and search; leaving or changing size protects unsaved stock drafts. Product schema and brand tokens remain unchanged.

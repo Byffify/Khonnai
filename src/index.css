@@ -299,3 +299,51 @@ input:not([type=file]), select, textarea { background: var(--ds-paper); border-c
 .input-with-suffix:focus-within { outline: 2px solid var(--ds-ink); outline-offset: 3px; }
 .input-with-suffix input:focus-visible { outline: none; }
 .input-suffix { align-self: center; max-width: 50%; padding: 8px 14px 8px 0; font-size: 16px; line-height: 24px; color: var(--ds-muted); overflow-wrap: anywhere; pointer-events: none; }
+
+/* Cross-page polish: consistent baselines and visible interaction states. */
+.row > h1 { margin: 0; }
+label.field { font-size: 16px; line-height: 24px; font-weight: 600; }
+.field :is(input, select, textarea) { font-size: 18px; line-height: 28px; font-weight: 400; }
+.field input[type=number] { font-variant-numeric: tabular-nums; }
+.line-item { grid-template-columns: minmax(0, 1fr) 132px auto; align-items: start; }
+.line-item > .remove { align-self: start; margin-top: 30px; }
+.line-item .field > label, .line-item label.field > span { line-height: 24px; }
+.app-nav button:focus-visible { outline: 2px solid var(--ds-canvas); outline-offset: 2px; }
+.button:disabled:hover, .button:disabled:active { background: var(--ds-disabled); color: var(--ds-muted); border-color: var(--ds-disabled); box-shadow: none; }
+.field input[aria-invalid=true], .field select[aria-invalid=true], .input-with-suffix:has(input[aria-invalid=true]) { border-color: var(--ds-danger); }
+.input-with-suffix:has(input:disabled) { background: var(--ds-disabled); }
+.bill-tabs { padding: 6px 6px 12px; }
+.badge { font-family: var(--ds-font); }
+
+/* Availability is a stock cue; navy actions and orange additions stay distinct. */
+.product-overview > .icon { align-self: center; flex-shrink: 0; }
+.product-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.catalog-tile { display: grid; gap: 12px; align-content: start; padding: 12px; text-align: left; color: var(--ds-ink); font-family: var(--ds-font); cursor: pointer; }
+.catalog-tile .photo { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; }
+.catalog-tile .photo-empty { display: flex; flex-direction: column; justify-content: center; background: var(--ds-canvas); }
+.catalog-tile .photo-empty .icon { width: 36px; height: 36px; }
+.catalog-tile h2 { font-size: 18px; line-height: 28px; overflow-wrap: anywhere; }
+.catalog-tile:hover { box-shadow: 0 4px 12px rgb(34 34 34 / 12%); }
+.product-detail-page h1:focus { outline: none; }
+.page-header { display: grid; justify-items: start; gap: 8px; }
+.page-header :is(h1, h2) { margin: 0; }
+.back-button { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 8px 12px; margin-left: -12px; background: transparent; border: 0; border-radius: var(--ds-control-radius); color: var(--ds-ink); font: 600 16px/24px var(--ds-font); cursor: pointer; }
+.back-button:hover { background: var(--ds-action-surface); }
+.back-button:focus-visible { outline: 2px solid var(--ds-action); outline-offset: 3px; }
+.product-detail-page .variant { background: var(--ds-paper); border: 1px solid var(--ds-border); border-radius: var(--ds-card-radius); padding: 20px; min-width: 0; }
+@media(min-width: 601px) { .product-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; } }
+@media(min-width: 1151px) { .product-list { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.stock-summary { justify-content: flex-start; }
+.product-card.stock-ready .quantity, .stock-ready-quantity { color: var(--ds-success); }
+.stock-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; font-weight: 600; }
+.stock-status.ready { background: var(--ds-stock-action); color: var(--ds-success); }
+.stock-status .icon { width: 16px; height: 16px; flex-shrink: 0; }
+.variant-stock-summary { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.backup-file-control { position: relative; display: flex; align-items: center; width: fit-content; min-height: 52px; padding: 10px 20px; border: 1px solid var(--ds-control-border); border-radius: var(--ds-control-radius); background: var(--ds-paper); color: var(--ds-ink); cursor: pointer; font-size: 16px; font-weight: 600; }
+.backup-file-control:hover { background: var(--ds-action-surface); border-color: var(--ds-action); }
+.backup-file-control:focus-within { outline: 2px solid var(--ds-ink); outline-offset: 3px; }
+.backup-file-control input.file-input { height: 1px; min-height: 0; padding: 0; }
+@media(max-width: 600px) {
+  .line-item { grid-template-columns: minmax(0, 1fr) 112px; }
+  .line-item > .remove { margin-top: 0; justify-self: start; }
+}

@@ -26,6 +26,8 @@
 
 ## Locale and state
 
+- Secondary product detail/create/edit, bill create/edit and reservation-create screens use shared BackButton above the title at the upper left. Visible label is “กลับ” with an arrow; product detail keeps its descriptive accessible name. Existing App leave confirmation and return destination/focus remain. Primary menu screens have no back control.
+
 - Failed form commands use shared Form feedback beside the submit action, focus and scroll to it, and retain inputs. Each failure has a new focus request so identical retries work without Web Locks. Page-only errors use focused Notice fallback. Field validation restores prior unit/hint descriptions after correction.
 - Transaction lines start with an empty required selection. Shared code filtering has a clear control, preserves selected variants and full context, and is transient rather than an unsaved data edit.
 - Replacing or clearing a nonempty incoming return draft through bill-reference selection requires confirmation. Cancel/Escape preserve reference, quantities and outgoing replacements.
@@ -37,7 +39,7 @@
 - Khonnai branding changes presentation only: navy save/navigation, orange additions, mint readiness, cream canvas and readable8px controls. Business states, route labels, field order and localStorage remain unchanged; the full paper receipt and PNG share current palette/fonts and preserve shop identity.
 
 - Responsive navigation has one shared owner in App: mobile bottom navigation and desktop sidebar at 1024px, with the same Thai labels, active state, busy state and unsaved-change guard.
-- Catalog cards use native details/summary for keyboard-accessible disclosure. The compact quantity totals availability for the selected size only; expanded rows show each color separately with units, reservations, shortage and existing stock actions. Disclosure and size selection do not write data.
+- Catalog uses native button tiles showing only photo and code: 2 columns on mobile, 3 at 601–1150px, 4 above1150px. Selecting opens a detail view without preselected size; explicit size selection reveals colors, quantities, units, reservations, shortages and existing stock actions. Back restores search and focus to the selected tile. Leaving details, editing or changing size uses the existing unsaved-change guard. Navigation and size selection do not write data. Products retain their existing code-only identity; no name field or storage migration is added.
 - Form columns and bill summary placement change with viewport width; validation, save destinations and data fields remain unchanged.
 - Selected transaction variants show complete code/size/color/unit/price/availability below the native select, even when its displayed option is clipped.
 - Bill total and its single submit action precede the full paper preview in DOM order; preview/export renderer and save semantics stay unchanged.
