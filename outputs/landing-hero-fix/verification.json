@@ -1,0 +1,354 @@
+[
+  {
+    "width": 1440,
+    "initial": {
+      "clip": "polygon(25% 25%, 75% 25%, 75% 75%, 25% 75%)",
+      "size": "170% auto",
+      "opacity": "1",
+      "height": 900
+    },
+    "headingBelowFold": true,
+    "phases": [
+      {
+        "scrollY": 300,
+        "clip": "polygon(20% 20%, 80% 20%, 80% 80%, 20% 80%)",
+        "size": "159.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 700,
+        "clip": "polygon(13.3333% 13.3333%, 86.6667% 13.3333%, 86.6667% 86.6667%, 13.3333% 86.6667%)",
+        "size": "145.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 1100,
+        "clip": "polygon(6.66667% 6.66667%, 93.3333% 6.66667%, 93.3333% 93.3333%, 6.66667% 93.3333%)",
+        "size": "131.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 1500,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "117.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 1800,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "107% auto",
+        "opacity": "0.4",
+        "overlap": false
+      },
+      {
+        "scrollY": 2000,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "100% auto",
+        "opacity": "0",
+        "overlap": false
+      },
+      {
+        "scrollY": 2350,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "100% auto",
+        "opacity": "0",
+        "overlap": false
+      }
+    ],
+    "borders": [
+      {
+        "border": "1px",
+        "background": "rgb(255, 255, 255)",
+        "shadow": "none"
+      },
+      {
+        "border": "2px",
+        "background": "rgb(255, 255, 255)",
+        "shadow": "none"
+      },
+      {
+        "border": "1px",
+        "background": "rgb(255, 255, 255)",
+        "shadow": "none"
+      }
+    ],
+    "nav": {
+      "blur": "blur(24px) saturate(1.45)",
+      "background": "rgba(255, 255, 255, 0.76)"
+    },
+    "priceSwitch": true,
+    "optionalDemo": 10,
+    "errors": [],
+    "storage": "empty"
+  },
+  {
+    "width": 390,
+    "initial": {
+      "clip": "polygon(25% 25%, 75% 25%, 75% 75%, 25% 75%)",
+      "size": "170% auto",
+      "opacity": "1",
+      "height": 844
+    },
+    "headingBelowFold": true,
+    "phases": [
+      {
+        "scrollY": 300,
+        "clip": "polygon(20% 20%, 80% 20%, 80% 80%, 20% 80%)",
+        "size": "159.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 700,
+        "clip": "polygon(13.3333% 13.3333%, 86.6667% 13.3333%, 86.6667% 86.6667%, 13.3333% 86.6667%)",
+        "size": "145.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 1100,
+        "clip": "polygon(6.66667% 6.66667%, 93.3333% 6.66667%, 93.3333% 93.3333%, 6.66667% 93.3333%)",
+        "size": "131.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 1500,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "117.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 1800,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "107% auto",
+        "opacity": "0.4",
+        "overlap": false
+      },
+      {
+        "scrollY": 2000,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "100% auto",
+        "opacity": "0",
+        "overlap": false
+      },
+      {
+        "scrollY": 2350,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "100% auto",
+        "opacity": "0",
+        "overlap": false
+      }
+    ],
+    "borders": [
+      {
+        "border": "1px",
+        "background": "rgb(255, 255, 255)",
+        "shadow": "none"
+      },
+      {
+        "border": "2px",
+        "background": "rgb(255, 255, 255)",
+        "shadow": "none"
+      },
+      {
+        "border": "1px",
+        "background": "rgb(255, 255, 255)",
+        "shadow": "none"
+      }
+    ],
+    "nav": {
+      "blur": "blur(24px) saturate(1.45)",
+      "background": "rgba(255, 255, 255, 0.76)"
+    },
+    "priceSwitch": true,
+    "optionalDemo": 10,
+    "errors": [],
+    "storage": "empty"
+  },
+  {
+    "width": 320,
+    "initial": {
+      "clip": "polygon(25% 25%, 75% 25%, 75% 75%, 25% 75%)",
+      "size": "170% auto",
+      "opacity": "1",
+      "height": 844
+    },
+    "headingBelowFold": true,
+    "phases": [
+      {
+        "scrollY": 300,
+        "clip": "polygon(20% 20%, 80% 20%, 80% 80%, 20% 80%)",
+        "size": "159.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 700,
+        "clip": "polygon(13.3333% 13.3333%, 86.6667% 13.3333%, 86.6667% 86.6667%, 13.3333% 86.6667%)",
+        "size": "145.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 1100,
+        "clip": "polygon(6.66667% 6.66667%, 93.3333% 6.66667%, 93.3333% 93.3333%, 6.66667% 93.3333%)",
+        "size": "131.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 1500,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "117.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 1800,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "107% auto",
+        "opacity": "0.4",
+        "overlap": false
+      },
+      {
+        "scrollY": 2000,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "100% auto",
+        "opacity": "0",
+        "overlap": false
+      },
+      {
+        "scrollY": 2350,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "100% auto",
+        "opacity": "0",
+        "overlap": false
+      }
+    ],
+    "borders": [
+      {
+        "border": "1px",
+        "background": "rgb(255, 255, 255)",
+        "shadow": "none"
+      },
+      {
+        "border": "2px",
+        "background": "rgb(255, 255, 255)",
+        "shadow": "none"
+      },
+      {
+        "border": "1px",
+        "background": "rgb(255, 255, 255)",
+        "shadow": "none"
+      }
+    ],
+    "nav": {
+      "blur": "blur(24px) saturate(1.45)",
+      "background": "rgba(255, 255, 255, 0.76)"
+    },
+    "priceSwitch": true,
+    "optionalDemo": 10,
+    "errors": [],
+    "storage": "empty"
+  },
+  {
+    "width": 768,
+    "initial": {
+      "clip": "polygon(25% 25%, 75% 25%, 75% 75%, 25% 75%)",
+      "size": "170% auto",
+      "opacity": "1",
+      "height": 900
+    },
+    "headingBelowFold": true,
+    "phases": [
+      {
+        "scrollY": 300,
+        "clip": "polygon(20% 20%, 80% 20%, 80% 80%, 20% 80%)",
+        "size": "159.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 700,
+        "clip": "polygon(13.3333% 13.3333%, 86.6667% 13.3333%, 86.6667% 86.6667%, 13.3333% 86.6667%)",
+        "size": "145.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 1100,
+        "clip": "polygon(6.66667% 6.66667%, 93.3333% 6.66667%, 93.3333% 93.3333%, 6.66667% 93.3333%)",
+        "size": "131.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 1500,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "117.5% auto",
+        "opacity": "1",
+        "overlap": false
+      },
+      {
+        "scrollY": 1800,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "107% auto",
+        "opacity": "0.4",
+        "overlap": false
+      },
+      {
+        "scrollY": 2000,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "100% auto",
+        "opacity": "0",
+        "overlap": false
+      },
+      {
+        "scrollY": 2350,
+        "clip": "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        "size": "100% auto",
+        "opacity": "0",
+        "overlap": false
+      }
+    ],
+    "borders": [
+      {
+        "border": "1px",
+        "background": "rgb(255, 255, 255)",
+        "shadow": "none"
+      },
+      {
+        "border": "2px",
+        "background": "rgb(255, 255, 255)",
+        "shadow": "none"
+      },
+      {
+        "border": "1px",
+        "background": "rgb(255, 255, 255)",
+        "shadow": "none"
+      }
+    ],
+    "nav": {
+      "blur": "blur(24px) saturate(1.45)",
+      "background": "rgba(255, 255, 255, 0.76)"
+    },
+    "priceSwitch": true,
+    "optionalDemo": 10,
+    "errors": [],
+    "storage": "empty"
+  },
+  {
+    "reducedMotion": true,
+    "staticGallery": 4,
+    "headingVisible": true
+  },
+  {
+    "productionSourceUnchanged": 33
+  }
+]

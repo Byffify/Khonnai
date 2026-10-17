@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises'
 import { emptyState, execute } from '../src/domain/inventory'
 
 test('language preference translates the real app without changing drafts or shop data', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'ตั้งค่า', exact: true }).click()
   await page.getByRole('button', { name: 'ข้อมูลร้าน', exact: true }).click()
   await page.getByLabel('ชื่อร้านบนบิล', { exact: true }).fill('ร้านจริง ไม่แปลข้อมูล')
@@ -56,7 +56,7 @@ test('language preference translates the real app without changing drafts or sho
 })
 
 test('language choice works for the session when preference storage fails', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'ตั้งค่า', exact: true }).click()
   await page.getByRole('button', { name: 'ภาษา / Language', exact: true }).click()
   await page.evaluate(() => { const original = Storage.prototype.setItem; Storage.prototype.setItem = function(key, value) { if (key === 'khonnai-language') throw new DOMException('Full', 'QuotaExceededError'); return original.call(this, key, value) } })
@@ -69,7 +69,7 @@ test('language choice works for the session when preference storage fails', asyn
 test('receipt keeps its approved appearance when application theme changes', async ({ page }) => {
   const baseline = JSON.parse(await readFile('outputs/fastwork-preview/baseline.json', 'utf8'))
   for (const language of ['th', 'en']) {
-  await page.goto('/')
+  await page.goto('/app')
   await page.evaluate(value => localStorage.setItem('khonnai-language', value), language)
   await page.reload()
   await expect(page.locator('html')).toHaveAttribute('lang', language)
@@ -96,7 +96,7 @@ test('failed sale keeps the quantity and focuses an error beside submit', async 
   state.products.push({ id: 'p', code: 'TEST-ERROR', unit: 'แพ็ก', photo: '' })
   state.variants.push({ id: 'v', productId: 'p', size: 'M', color: 'ดำ', contents: '', price: 10000, stock: 12 })
   await page.addInitScript(data => localStorage.setItem('micro-erp-v1', JSON.stringify(data)), state)
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'บิล', exact: true }).click()
   await page.getByRole('button', { name: 'สร้างบิล', exact: true }).click()
   await page.getByRole('button', { name: 'เพิ่มรายการสินค้า', exact: true }).click()
@@ -121,7 +121,7 @@ test('changing a return reference requires confirmation before replacing the dra
   state.variants.push({ id: 'v', productId: 'p', size: 'M', color: 'ดำ', contents: '', price: 10000, stock: 20 })
   state = execute(state, { id: 'sale', type: 'sale', customer: 'เจ้าของบิล', lines: [{ variantId: 'v', quantity: 1 }] })
   await page.addInitScript(data => localStorage.setItem('micro-erp-v1', JSON.stringify(data)), state)
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'คืน/เปลี่ยน', exact: true }).click()
   await page.getByRole('button', { name: 'เพิ่มรายการสินค้า', exact: true }).click()
   await page.getByLabel('สินค้ารับคืน 1', { exact: true }).selectOption('v')
@@ -148,7 +148,7 @@ test('transaction lines require a deliberate choice and can filter product codes
     for (const size of ['M', 'L']) state.variants.push({ id: id + size, productId: id, size, color: 'ดำ', contents: '', price: 10000, stock: 12 })
   }
   await page.addInitScript(data => localStorage.setItem('micro-erp-v1', JSON.stringify(data)), state)
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'บิล', exact: true }).click()
   await page.getByRole('button', { name: 'สร้างบิล', exact: true }).click()
   await page.getByRole('button', { name: 'เพิ่มรายการสินค้า', exact: true }).click()
@@ -174,7 +174,7 @@ test('stock failure is focused beside its action and quantity hints keep units',
   state.products.push({ id: 'p', code: 'TEST-STOCK-ERROR', unit: 'แพ็ก', photo: '' })
   state.variants.push({ id: 'v', productId: 'p', size: 'M', color: 'ดำ', contents: '', price: 10000, stock: 12 })
   await page.addInitScript(data => localStorage.setItem('micro-erp-v1', JSON.stringify(data)), state)
-  await page.goto('/')
+  await page.goto('/app')
   await expect(page.getByRole('button', { name: 'ตั้งค่า', exact: true })).toHaveText('ตั้งค่า')
   await page.getByLabel('ดูไซซ์ / สีและจัดการ TEST-STOCK-ERROR').click()
   await page.getByRole('button', { name: 'M', exact: true }).click()
@@ -202,7 +202,7 @@ test('bill archive groups Bangkok dates and reveals only the chosen customer bil
   state.bills[1].date = '2026-10-13T17:01:00Z'
   state.bills[2].date = '2026-10-14T03:00:00Z'
   await page.addInitScript(data => localStorage.setItem('micro-erp-v1', JSON.stringify(data)), state)
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'บิล', exact: true }).click()
   await expect(page.getByRole('tablist')).toHaveCount(2)
   await expect(page.getByRole('img', { name: /บิลเงินสด/ })).toHaveCount(0)
@@ -225,7 +225,7 @@ test('bill archive groups Bangkok dates and reveals only the chosen customer bil
 
 test('mobile: catalog, sale PNG, reservation conversion, returns, exchange and backups', async ({ page }) => {
   page.on('dialog', dialog => dialog.accept())
-  await page.goto('/')
+  await page.goto('/app')
   await expect(page.getByText('ยังไม่มีสินค้า', { exact: true })).toBeVisible()
   await page.screenshot({ path: '.audit-qa/mobile-empty.png', fullPage: true })
   await page.getByRole('button', { name: 'เพิ่มสินค้า', exact: true }).click()
@@ -324,9 +324,10 @@ test('mobile: catalog, sale PNG, reservation conversion, returns, exchange and b
 
 test('desktop: real empty state, correct tokens and no overflow', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 })
-  await page.goto('/')
-  await page.screenshot({ path: '.audit-qa/desktop-empty.png', fullPage: true })
+  await page.goto('/app')
   await expect(page.getByText('ยังไม่มีสินค้า', { exact: true })).toBeVisible()
+  await page.evaluate(() => document.fonts.ready)
+  await page.screenshot({ path: '.audit-qa/desktop-empty.png', fullPage: true })
   const style = await page.evaluate(() => ({ primary: getComputedStyle(document.documentElement).getPropertyValue('--ds-primary').trim(), font: getComputedStyle(document.body).fontFamily, overflow: document.documentElement.scrollWidth > innerWidth }))
   expect(style.primary).toBe('#193b5a')
   expect(style.font).toContain('Anuphan')
@@ -334,7 +335,7 @@ test('desktop: real empty state, correct tokens and no overflow', async ({ page 
 })
 
 test('Thai field validation and unsaved dialog preserve entered data', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'เพิ่มสินค้า', exact: true }).click()
   await page.getByRole('button', { name: 'บันทึกสินค้า', exact: true }).click()
   await expect(page.getByRole('alert')).toContainText('รหัสสินค้า')
@@ -351,7 +352,7 @@ test('Thai field validation and unsaved dialog preserve entered data', async ({ 
 })
 
 test('corrupt local data is preserved and can be downloaded for recovery', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/app')
   await page.evaluate(() => localStorage.setItem('micro-erp-v1', '{bad-data'))
   await page.reload()
   await expect(page.getByText('ข้อมูลเดิมอ่านไม่ได้และยังไม่ถูกลบ ใช้ไฟล์สำรองเพื่อกู้ข้อมูลร้าน')).toBeVisible()
@@ -371,12 +372,12 @@ test('two tabs cannot overwrite a newer bill correction; empty selection and add
   state.variants.push({ id: 'v', productId: 'p', size: 'M', color: 'ดำ', contents: '', price: 15000, stock: 10 })
   state = execute(state, { id: 'sale', type: 'sale', customer: '', lines: [{ variantId: 'v', quantity: 3 }] })
   await page.addInitScript(data => { if (!localStorage.getItem('micro-erp-v1')) localStorage.setItem('micro-erp-v1', JSON.stringify(data)) }, state)
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'บิล', exact: true }).click()
   await page.getByRole('tab', { name: /B00001/ }).click()
   await page.getByRole('button', { name: 'แก้บิล', exact: true }).click()
   const other = await context.newPage()
-  await other.goto('/')
+  await other.goto('/app')
   await other.getByRole('button', { name: 'บิล', exact: true }).click()
   await other.getByRole('tab', { name: /B00001/ }).click()
   await other.getByRole('button', { name: 'แก้บิล', exact: true }).click()
@@ -407,7 +408,7 @@ test('saving one stock draft does not discard another draft silently', async ({ 
   state.products.push({ id: 'p', code: 'TEST-DRAFT', unit: 'แพ็ก', photo: '' })
   state.variants.push({ id: 'v1', productId: 'p', size: 'M', color: 'ดำ', contents: '', price: 15000, stock: 10 }, { id: 'v2', productId: 'p', size: 'M', color: 'ขาว', contents: '', price: 15000, stock: 10 })
   await page.addInitScript(data => localStorage.setItem('micro-erp-v1', JSON.stringify(data)), state)
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByLabel('ดูไซซ์ / สีและจัดการ TEST-DRAFT').click()
   await page.getByRole('button', { name: 'M', exact: true }).click()
   await page.getByText('เพิ่มสต็อก / ปรับจำนวน', { exact: true }).nth(0).click()
@@ -423,7 +424,7 @@ test('saving one stock draft does not discard another draft silently', async ({ 
 })
 
 test('an accidentally added variant can be removed without losing the product draft', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'เพิ่มสินค้า', exact: true }).click()
   await page.getByLabel('รหัสสินค้า', { exact: true }).fill('TEST-REMOVE')
   await page.getByLabel('ไซซ์', { exact: true }).fill('M')
@@ -445,7 +446,7 @@ test('responsive catalog disclosure preserves sizes, colors and stock; navigatio
     { id: 'l', productId: 'p', size: 'L', color: 'คละสี', contents: 'ดำ 1 เนื้อ 1', price: 17000, stock: 8 },
   )
   await page.addInitScript(data => { if (!localStorage.getItem('micro-erp-v1')) localStorage.setItem('micro-erp-v1', JSON.stringify(data)) }, state)
-  await page.goto('/')
+  await page.goto('/app')
   await expect(page.getByText('ขายได้', { exact: false }).first()).not.toBeVisible()
   await expect(page.getByRole('button', { name: 'แก้สินค้า', exact: true })).not.toBeVisible()
   const disclosure = page.getByLabel('ดูไซซ์ / สีและจัดการ TEST-SIZES')
@@ -478,7 +479,7 @@ test('catalog detail preserves stock drafts when leaving or changing size is can
   state.products.push({ id: 'p', code: 'GRID-DRAFT', unit: 'แพ็ก', photo: '' })
   state.variants.push(...['M', 'L'].map(size => ({ id: size, productId: 'p', size, color: 'ดำ', contents: '', price: 10000, stock: 10 })))
   await page.addInitScript(data => localStorage.setItem('micro-erp-v1', JSON.stringify(data)), state)
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByLabel('ดูไซซ์ / สีและจัดการ GRID-DRAFT').click()
   await page.getByRole('button', { name: 'M', exact: true }).click()
   await page.getByText('เพิ่มสต็อก / ปรับจำนวน', { exact: true }).click()
@@ -503,7 +504,7 @@ test('paper receipt updates live without saving and supports long saved receipts
   state.variants.push({ id: 'v', productId: 'p', size: 'M', color: 'คละสี', contents: '', price: 15000, stock: 100 })
   state.shop = { name: 'ร้านทดสอบบิลเงินสด ชื่อร้านยาวเพื่อทดสอบการขึ้นบรรทัดโดยไม่ทับเลขที่เอกสาร', phone: '02-000-0000' }
   await page.addInitScript(data => { if (!localStorage.getItem('micro-erp-v1')) localStorage.setItem('micro-erp-v1', JSON.stringify(data)) }, state)
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'บิล', exact: true }).click()
   await page.getByRole('button', { name: 'สร้างบิล', exact: true }).click()
   await page.getByRole('button', { name: 'เพิ่มรายการสินค้า', exact: true }).click()
@@ -538,7 +539,7 @@ test('approved UX fixes keep selected context visible and save before the full p
   state.products.push({ id: 'p', code: 'TEST-CONTEXT', unit: 'แพ็กละ 3 ตัว', photo: '' })
   state.variants.push({ id: 'v', productId: 'p', size: 'XL', color: 'ดำและเนื้อคละสี', contents: '', price: 17000, stock: 12 })
   await page.addInitScript(data => localStorage.setItem('micro-erp-v1', JSON.stringify(data)), state)
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'บิล', exact: true }).click()
   await page.getByRole('button', { name: 'สร้างบิล', exact: true }).click()
   await page.getByRole('button', { name: 'เพิ่มรายการสินค้า', exact: true }).click()
@@ -568,7 +569,7 @@ test('receive and count previews explain different effects; exchange separates i
   state.variants.push({ id: 'v', productId: 'p', size: 'M', color: 'ดำ', contents: '', price: 15000, stock: 10 })
   state = execute(state, { id: 'reserve', type: 'reserve', customer: 'ลูกค้าทดสอบ', lines: [{ variantId: 'v', quantity: 3 }] })
   await page.addInitScript(data => { if (!localStorage.getItem('micro-erp-v1')) localStorage.setItem('micro-erp-v1', JSON.stringify(data)) }, state)
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByLabel('ดูไซซ์ / สีและจัดการ TEST-EFFECT').click()
   await page.getByRole('button', { name: 'M', exact: true }).click()
   await page.getByText('เพิ่มสต็อก / ปรับจำนวน', { exact: true }).click()
@@ -608,7 +609,7 @@ test('return stock preview exposes reservations and remaining shortage', async (
   state = execute(state, { id: 'hold', type: 'reserve', customer: 'ทดสอบ', lines: [{ variantId: 'v', quantity: 5 }] })
   state = execute(state, { id: 'count', type: 'adjust', variantId: 'v', quantity: 3 })
   await page.addInitScript(data => localStorage.setItem('micro-erp-v1', JSON.stringify(data)), state)
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'คืน/เปลี่ยน', exact: true }).click()
   await page.getByRole('button', { name: 'เพิ่มรายการสินค้า', exact: true }).click()
   await page.getByLabel('สินค้ารับคืน 1', { exact: true }).selectOption({ index: 1 })
@@ -618,7 +619,7 @@ test('return stock preview exposes reservations and remaining shortage', async (
 })
 
 test('operational theme uses readable controls and clear navigation without changing workflow', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/app')
   for (const width of [390, 1280]) {
     await page.setViewportSize({ width, height: 900 })
     expect(await page.locator('.catalog-search input').evaluate(element => getComputedStyle(element).paddingLeft)).toBe('52px')
@@ -656,7 +657,8 @@ test('Fastwork presentation stays readable across screens, zoom and reduced moti
     for (const color of ['ดำ', 'คละสี']) state.variants.push({ id: 'v' + i + color, productId: 'p' + i, size: 'M', color, contents: '', price: 12000, stock: 20 })
   }
   await page.addInitScript(data => localStorage.setItem('micro-erp-v1', JSON.stringify(data)), state)
-  await page.goto('/')
+  await page.goto('/app')
+  await expect(page.getByRole('heading', { name: 'สินค้า', exact: true })).toBeVisible()
   await page.evaluate(() => document.fonts.ready)
   expect(await page.evaluate(() => document.fonts.check('23px "Rammetto One"'))).toBe(true)
   expect(await page.evaluate(() => [400, 500, 600, 700].every(weight => document.fonts.check(`${weight} 18px "Anuphan"`, 'น้ำเงิน สินค้า คืน/เปลี่ยน กำลังบันทึก')))).toBe(true)
@@ -707,7 +709,7 @@ test('Fastwork presentation stays readable across screens, zoom and reduced moti
 })
 
 test('slow save blocks duplicates immediately while visual loading is delayed', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'เพิ่มสินค้า', exact: true }).click()
   await page.getByLabel('รหัสสินค้า', { exact: true }).fill('SLOW-SAVE')
   await page.getByLabel('ไซซ์', { exact: true }).fill('M')
@@ -734,7 +736,7 @@ test('English errors and discard confirmations keep the original recovery behavi
   state.products.push({ id: 'p', code: 'EN-ERROR', unit: 'แพ็ก', photo: '' })
   state.variants.push({ id: 'v', productId: 'p', size: 'M', color: 'ดำ', contents: '', price: 10000, stock: 1 })
   await page.addInitScript(data => { localStorage.setItem('micro-erp-v1', JSON.stringify(data)); localStorage.setItem('khonnai-language', 'en') }, state)
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'Bills', exact: true }).click()
   await page.getByRole('button', { name: 'Create bill', exact: true }).click()
   await page.getByRole('button', { name: 'Add item', exact: true }).click()
@@ -754,7 +756,7 @@ test('English errors and discard confirmations keep the original recovery behavi
 
 test('English recovery leaves corrupt shop data intact and language sync preserves a draft', async ({ page, context }) => {
   await page.addInitScript(() => { localStorage.setItem('micro-erp-v1', '{broken'); localStorage.setItem('khonnai-language', 'en') })
-  await page.goto('/')
+  await page.goto('/app')
   await expect(page.getByRole('heading', { name: 'Recover shop data', exact: true })).toBeVisible()
   await expect(page.getByRole('button', { name: 'Download original data for recovery', exact: true })).toBeVisible()
   expect(await page.evaluate(() => localStorage.getItem('micro-erp-v1'))).toBe('{broken')
@@ -763,7 +765,7 @@ test('English recovery leaves corrupt shop data intact and language sync preserv
   const clean = await context.browser()!.newContext()
   try {
     const first = await clean.newPage(), second = await clean.newPage()
-    const base = new URL(page.url()).origin
+    const base = new URL('/app', page.url()).href
     await first.goto(base)
     await first.getByRole('button', { name: 'ตั้งค่า', exact: true }).click()
     await first.getByRole('button', { name: 'ข้อมูลร้าน', exact: true }).click()
@@ -779,7 +781,7 @@ test('English recovery leaves corrupt shop data intact and language sync preserv
 })
 
 test('settings categories open separate pages and return to the originating menu', async ({ page }) => {
-  await page.goto('/')
+  await page.goto('/app')
   await page.getByRole('button', { name: 'ตั้งค่า', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'ตั้งค่า', exact: true })).toBeVisible()
   await expect(page.getByLabel('ชื่อร้านบนบิล', { exact: true })).toBeHidden()
@@ -815,3 +817,134 @@ test('settings categories open separate pages and return to the originating menu
   await expect(page.getByLabel('Shop name on bills', { exact: true })).toHaveValue('ร่างยังอยู่')
 })
 
+
+test('landing sale examples and controls never access shop storage', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('micro-erp-v1', '{original-shop-data')
+    const get = Storage.prototype.getItem, set = Storage.prototype.setItem
+    Object.defineProperty(window, '__shopAccess', { value: [] })
+    Storage.prototype.getItem = function(key) { if (key === 'micro-erp-v1') Reflect.get(window, '__shopAccess').push('read'); return get.call(this, key) }
+    Storage.prototype.setItem = function(key, value) { if (key === 'micro-erp-v1') Reflect.get(window, '__shopAccess').push('write'); return set.call(this, key, value) }
+  })
+  await page.goto('/landing')
+  await expect(page.locator('.teaser-card')).toHaveCount(4)
+  await expect(page.locator('.extra-demo,.interactive-example')).toHaveCount(0)
+  await page.locator('[data-billing=annual]').click()
+  await expect(page.locator('[data-price="1"] .price-current')).toHaveText('3,229.20')
+  expect(await page.evaluate(() => Reflect.get(window, '__shopAccess'))).toEqual([])
+  await expect(page.getByRole('button', { name: 'กู้ข้อมูลร้าน', exact: true })).toHaveCount(0)
+  await page.getByRole('combobox', { name: 'ภาษา / Language', exact: true }).selectOption('en')
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+  await expect(page.locator('.teaser-card').last()).toContainText('12 packs − 3 sold = 9 left.')
+  expect(await page.evaluate(() => Reflect.get(window, '__shopAccess'))).toEqual([])
+})
+
+test('landing is readable in both languages, reduced motion and keyboard navigation', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/landing/')
+  await expect(page.getByRole('link', { name: 'เริ่มใช้งานคนใน', exact: true }).first()).toHaveAttribute('href', '/app')
+  for (const language of ['th', 'en']) {
+    await page.getByRole('combobox', { name: 'ภาษา / Language', exact: true }).selectOption(language)
+    for (const width of [320, 390, 768, 1440]) {
+      await page.setViewportSize({ width, height: 960 })
+      await page.evaluate(() => document.fonts.ready)
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+      const headline = page.getByRole('heading', { level: 1 })
+      await expect(headline).toBeVisible()
+      if (width === 390 || width === 1440) {
+        await page.screenshot({ path: `outputs/landing-page/${language}-${width}.png`, fullPage: true, animations: 'disabled' })
+        await page.screenshot({ path: `outputs/landing-page/${language}-hero-${width}.png`, animations: 'disabled' })
+      }
+    }
+  }
+  await page.locator('#faq summary').first().press('Enter')
+  await expect(page.locator('#faq details').first()).toHaveAttribute('open', '')
+  await page.locator('#faq summary').first().press('Enter')
+  await expect(page.locator('#faq details').first()).not.toHaveAttribute('open', '')
+  await page.setViewportSize({ width: 390, height: 960 })
+  await page.evaluate(() => { document.documentElement.style.zoom = '2' })
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+  await page.screenshot({ path: 'outputs/landing-page/en-zoom-200.png', fullPage: true, animations: 'disabled' })
+})
+
+test('root redirects to landing before entering the application', async ({ page, request }) => {
+  const response = await request.get('/?source=shared', { maxRedirects: 0 })
+  expect(response.status()).toBe(307)
+  expect(response.headers().location).toBe('/landing/?source=shared')
+  await page.goto('/')
+  await expect(page).toHaveURL(/\/landing\/$/)
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('ระบบจัดการสต็อก')
+})
+
+test('landing CTA opens the unchanged application and browser back restores landing', async ({ page }) => {
+  await page.goto('/landing')
+  await page.getByRole('link', { name: 'เริ่มใช้งานคนใน', exact: true }).first().click()
+  await expect(page).toHaveURL(/\/app$/)
+  await expect(page.getByRole('navigation', { name: 'เมนูหลัก', exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'สินค้า', exact: true })).toBeVisible()
+  await page.goBack()
+  await expect(page.getByRole('heading', { name: 'ระบบจัดการสต็อก สำหรับร้านเสื้อผ้า', level: 1 })).toBeVisible()
+})
+
+test('landing ships localized HTML and truthful search metadata without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false })
+  const page = await context.newPage()
+  for (const [path, language, heading] of [['/landing/', 'th', 'ระบบจัดการสต็อก'], ['/en/landing/', 'en', 'Inventory made clear.']]) {
+    await page.goto(`http://127.0.0.1:5199${path}`)
+    await expect(page.locator('html')).toHaveAttribute('lang', language)
+    await expect(page.getByRole('heading', { level: 1 })).toContainText(heading)
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://khonnai.vercel.app${path}`)
+    await expect(page.locator('link[hreflang="th"]')).toHaveAttribute('href', 'https://khonnai.vercel.app/landing/')
+    await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://khonnai.vercel.app/en/landing/')
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /.+/)
+    await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(1)
+    await expect(page.locator('.start-card')).toHaveCount(3)
+    await expect(page.locator('#faq details')).toHaveCount(5)
+    expect(await page.locator('body').innerText()).not.toMatch(/JSON|localStorage|\bbrowser\b|PNG|เบราว์เซอร์/)
+  }
+  const sitemap = await context.request.get('http://127.0.0.1:5199/sitemap.xml')
+  expect(sitemap.ok()).toBe(true)
+  expect(await sitemap.text()).toContain('https://khonnai.vercel.app/en/landing/')
+  await context.close()
+})
+
+test('landing carousel, live prices and continuous keyword motion work in both languages', async ({ page }) => {
+  const errors: string[] = []
+  page.on('pageerror', error => errors.push(error.message))
+  for (const path of ['/landing/', '/en/landing/']) {
+    await page.goto(path)
+    await expect(page.locator('.extra-demo,.interactive-example,.start-carousel-footer,.start-position')).toHaveCount(0)
+    const visibleText = await page.locator('body').innerText()
+    expect(visibleText).not.toContain('ดูตัวอย่างการขาย 3 แพ็ก ทีละขั้น')
+    expect(visibleText).not.toContain('หน้าจอภาษาไทยและข้อมูลตัวอย่าง ไม่ใช่ข้อมูลร้านของคุณ')
+    expect(visibleText).not.toContain('เลื่อนดูทั้ง 3 ขั้นตอน')
+    expect(visibleText).not.toContain('ลองเลือกไซซ์และสีเอง')
+    for (const width of [320, 390, 768, 1440]) {
+      await page.setViewportSize({ width, height: 960 })
+      const billingHeight = await page.locator('.pricing-billing').evaluate(element => element.getBoundingClientRect().height)
+      expect(billingHeight).toBeLessThanOrEqual(54)
+      expect(await page.locator('.pricing-billing button').first().evaluate(element => element.getBoundingClientRect().height)).toBeGreaterThanOrEqual(44)
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+    }
+    await page.locator('#start-title').scrollIntoViewIfNeeded()
+    await expect(page.locator('.keyword-sweep')).toHaveCount(3)
+    const keyword = page.locator('#start-title .keyword-sweep')
+    await expect(keyword).toHaveAttribute('data-active', 'true')
+    expect(await keyword.evaluate(element => getComputedStyle(element).whiteSpace)).toBe('nowrap')
+    expect(await keyword.evaluate(element => getComputedStyle(element).animationTimingFunction)).toBe('linear')
+    expect(await keyword.evaluate(element => getComputedStyle(element).animationIterationCount)).toBe('infinite')
+    await page.locator('.start-next').click()
+    await expect.poll(() => page.locator('.start-viewport').evaluate(element => element.scrollLeft)).toBeGreaterThan(0)
+    await page.locator('.start-viewport').focus()
+    await page.keyboard.press('End')
+    await expect(page.locator('.start-next')).toBeDisabled()
+    await page.keyboard.press('Home')
+    await expect(page.locator('.start-prev')).toBeDisabled()
+    await page.locator('[data-billing=annual]').click()
+    await expect(page.locator('[data-price="1"] .price-current')).toHaveText('3,229.20')
+    await page.locator('[data-billing=monthly]').click()
+    await page.locator('[data-billing=annual]').click()
+    await expect(page.locator('[data-price="2"] .price-current')).toHaveText('7,549.20')
+  }
+  expect(errors).toEqual([])
+})

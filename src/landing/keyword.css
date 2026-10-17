@@ -1,0 +1,8 @@
+.keyword-sweep{color:#193b5a;white-space:nowrap}
+@supports ((background-clip:text) or (-webkit-background-clip:text)){
+  .keyword-sweep{background-image:linear-gradient(90deg,#193b5a 0%,#ed7c32 50%,#193b5a 100%);background-size:200% 100%;background-position:0% 50%;background-clip:text;-webkit-background-clip:text;color:transparent;animation:khonnai-keyword-sweep 3.6s linear infinite;animation-play-state:paused}
+  .keyword-sweep[data-active=true]{animation-play-state:running}
+}
+@keyframes khonnai-keyword-sweep{from{background-position:0% 50%}to{background-position:-200% 50%}}
+@media(prefers-reduced-motion:reduce){.keyword-sweep{animation:none;background:none;color:#193b5a}}
+@media(forced-colors:active){.keyword-sweep{animation:none;background:none;color:CanvasText}}

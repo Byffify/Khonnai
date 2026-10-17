@@ -1,0 +1,182 @@
+[
+  {
+    "language": "th",
+    "width": 320,
+    "font": {
+      "family": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "36.48px"
+    },
+    "motion": {
+      "timing": "linear",
+      "iteration": "infinite",
+      "nowrap": "nowrap",
+      "width": 206.734375,
+      "container": 288,
+      "keyframes": [
+        "0% 50%",
+        "-200% 50%"
+      ]
+    },
+    "noOverflow": true,
+    "zoom200": true,
+    "errors": []
+  },
+  {
+    "language": "th",
+    "width": 390,
+    "font": {
+      "family": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "44.46px"
+    },
+    "motion": {
+      "timing": "linear",
+      "iteration": "infinite",
+      "nowrap": "nowrap",
+      "width": 206.734375,
+      "container": 346,
+      "keyframes": [
+        "0% 50%",
+        "-200% 50%"
+      ]
+    },
+    "noOverflow": true,
+    "zoom200": true,
+    "errors": []
+  },
+  {
+    "language": "th",
+    "width": 768,
+    "font": {
+      "family": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "56px"
+    },
+    "motion": {
+      "timing": "linear",
+      "iteration": "infinite",
+      "nowrap": "nowrap",
+      "width": 206.734375,
+      "container": 704,
+      "keyframes": [
+        "0% 50%",
+        "-200% 50%"
+      ]
+    },
+    "noOverflow": true,
+    "zoom200": true,
+    "errors": []
+  },
+  {
+    "language": "th",
+    "width": 1440,
+    "font": {
+      "family": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "100px"
+    },
+    "motion": {
+      "timing": "linear",
+      "iteration": "infinite",
+      "nowrap": "nowrap",
+      "width": 297.171875,
+      "container": 1176,
+      "keyframes": [
+        "0% 50%",
+        "-200% 50%"
+      ]
+    },
+    "noOverflow": true,
+    "zoom200": true,
+    "errors": []
+  },
+  {
+    "language": "en",
+    "width": 320,
+    "font": {
+      "family": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "35px"
+    },
+    "motion": {
+      "timing": "linear",
+      "iteration": "infinite",
+      "nowrap": "nowrap",
+      "width": 164.71875,
+      "container": 288,
+      "keyframes": [
+        "0% 50%",
+        "-200% 50%"
+      ]
+    },
+    "noOverflow": true,
+    "zoom200": true,
+    "errors": []
+  },
+  {
+    "language": "en",
+    "width": 390,
+    "font": {
+      "family": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "39px"
+    },
+    "motion": {
+      "timing": "linear",
+      "iteration": "infinite",
+      "nowrap": "nowrap",
+      "width": 164.71875,
+      "container": 346,
+      "keyframes": [
+        "0% 50%",
+        "-200% 50%"
+      ]
+    },
+    "noOverflow": true,
+    "zoom200": true,
+    "errors": []
+  },
+  {
+    "language": "en",
+    "width": 768,
+    "font": {
+      "family": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "56px"
+    },
+    "motion": {
+      "timing": "linear",
+      "iteration": "infinite",
+      "nowrap": "nowrap",
+      "width": 164.71875,
+      "container": 704,
+      "keyframes": [
+        "0% 50%",
+        "-200% 50%"
+      ]
+    },
+    "noOverflow": true,
+    "zoom200": true,
+    "errors": []
+  },
+  {
+    "language": "en",
+    "width": 1440,
+    "font": {
+      "family": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "100px"
+    },
+    "motion": {
+      "timing": "linear",
+      "iteration": "infinite",
+      "nowrap": "nowrap",
+      "width": 236.765625,
+      "container": 1176,
+      "keyframes": [
+        "0% 50%",
+        "-200% 50%"
+      ]
+    },
+    "noOverflow": true,
+    "zoom200": true,
+    "errors": []
+  },
+  {
+    "reducedMotion": true,
+    "forcedColors": true
+  }
+]

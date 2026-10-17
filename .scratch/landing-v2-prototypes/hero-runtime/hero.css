@@ -1,0 +1,21 @@
+#khonnai-scroll-hero{display:block;background:#fff;color:#193b5a}
+#khonnai-scroll-hero .ref-hero{position:relative;width:100%;margin:0;padding:0;isolation:isolate;overflow:clip;background:#fff}
+#khonnai-scroll-hero .ref-hero-center{position:sticky;top:0;height:100vh;width:100%;background-position:center;background-repeat:no-repeat}
+#khonnai-scroll-hero .ref-parallax{position:relative;z-index:1;max-width:1024px;margin:0 auto;padding:200px 16px 0}
+#khonnai-scroll-hero .ref-parallax-image{display:block;width:33.333333%;height:var(--image-height);max-height:38vh;object-fit:cover;margin:0;border-radius:0;box-shadow:none;transform-origin:center}
+#khonnai-scroll-hero .ref-parallax-center{width:66.666667%;margin-inline:auto}
+#khonnai-scroll-hero .ref-parallax-right{margin-left:auto;object-position:top}
+#khonnai-scroll-hero .ref-parallax-offset{width:41.666667%;margin-left:96px;object-position:top}
+#khonnai-scroll-hero .ref-hero-fade{position:absolute;bottom:0;left:0;right:0;height:384px;background:linear-gradient(to bottom,rgb(255 255 255 / 0),#fff);pointer-events:none}
+#khonnai-scroll-hero .ref-image-disclosure{position:relative;margin:0 auto;max-width:900px;padding:36px 24px 0;text-align:center;font-size:14px;line-height:22px;color:#646464;background:#fff}
+#khonnai-scroll-hero .hero-message{position:relative;padding:52px 24px 104px;max-width:1024px;margin:0 auto;text-align:center;background:#fff}
+#khonnai-scroll-hero .hero-message h1{font-family:Anuphan,sans-serif;font-weight:600;font-size:clamp(56px,7vw,100px);line-height:1.2;letter-spacing:0;color:#193b5a;text-wrap:balance}
+#khonnai-scroll-hero .hero-message h1 span{color:#b6490a}
+#khonnai-scroll-hero .hero-message>p{font-size:18px;line-height:28px;max-width:640px;margin:24px auto 0;color:#646464}
+#khonnai-scroll-hero .hero-message .actions{margin-top:28px}
+#khonnai-scroll-hero .ref-hero-static{padding:140px 16px 0}
+#khonnai-scroll-hero .ref-static-shop{display:block;width:100%;height:48vh;max-height:520px;min-height:260px;object-fit:cover}
+#khonnai-scroll-hero .ref-static-gallery{display:grid;grid-template-columns:1fr 1fr;max-width:1024px;gap:24px;margin:32px auto 0}
+#khonnai-scroll-hero .ref-static-gallery img{display:block;width:100%;height:240px;object-fit:cover;object-position:top}
+@media(max-width:700px){#khonnai-scroll-hero .ref-parallax-offset{margin-left:24px}#khonnai-scroll-hero .hero-message{padding-top:40px;padding-bottom:72px}#khonnai-scroll-hero .hero-message h1{font-size:clamp(36px,11.4vw,58px)}#khonnai-scroll-hero .hero-message .btn{font-size:16px}#khonnai-scroll-hero .ref-static-gallery{gap:16px}#khonnai-scroll-hero .ref-static-gallery img{height:180px}}
+

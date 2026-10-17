@@ -1,0 +1,71 @@
+import { chromium } from '@playwright/test'
+import { mkdir, copyFile, writeFile } from 'node:fs/promises'
+import assert from 'node:assert/strict'
+const output = 'outputs/landing-v2-prototypes'
+await mkdir(output, { recursive: true })
+const browser = await chromium.launch({ headless: true })
+const report = []
+for (const variant of ['a', 'b']) {
+  for (const width of [1440, 390]) {
+    const context = await browser.newContext({ viewport: { width, height: width === 390 ? 844 : 1000 }, deviceScaleFactor: 1 })
+    const page = await context.newPage()
+    const errors = []
+    page.on('pageerror', e => errors.push(e.message))
+    await page.goto(`http://127.0.0.1:5288/${variant}.html`)
+    await page.evaluate(() => document.fonts.ready)
+    await page.waitForTimeout(2200)
+    assert(await page.locator('h1').isVisible(), 'real hero rendered')
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `${variant} overflow at ${width}`)
+    await page.screenshot({ path: `${output}/${variant}-${width}.png` })
+    await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 650) { scrollTo(0, y); await new Promise(r => setTimeout(r, 65)) } scrollTo(0, 0) })
+    await page.waitForTimeout(900)
+    await page.screenshot({ path: `${output}/${variant}-${width}-full.png`, fullPage: true })
+    if (width === 1440) await copyFile(`${output}/${variant}-${width}.png`, `.scratch/landing-v2-prototypes/${variant}-desktop.png`)
+    await page.locator('[data-size="L"]').click()
+    await page.locator('[data-color="white"]').click()
+    assert.equal((await page.locator('[data-result]').textContent()).trim(), '10', 'L/white sale2 yields10')
+    await page.screenshot({ path: `${output}/${variant}-${width}-demo.png` })
+    await page.locator('[data-size="M"]').click()
+    await page.locator('[data-color="black"]').click()
+    assert.equal((await page.locator('[data-result]').textContent()).trim(), '22', 'M/black sale2 yields22')
+    const storage = await page.evaluate(() => ({ local: Object.keys(localStorage), session: Object.keys(sessionStorage) }))
+    assert.deepEqual(storage, { local: [], session: [] }, 'demo does not write browser storage')
+    const tabs = page.getByRole('tab')
+    for (let i = 0; i < await tabs.count(); i++) {
+      await tabs.nth(i).click()
+      assert.equal(await tabs.nth(i).getAttribute('aria-selected'), 'true', 'selected task exposed')
+    }
+    await tabs.first().focus()
+    await page.keyboard.press('ArrowRight')
+    assert.equal(await tabs.nth(1).getAttribute('aria-selected'), 'true', 'keyboard selects next task')
+    await page.keyboard.press('Home')
+    assert.equal(await tabs.first().getAttribute('aria-selected'), 'true', 'Home restores first task')
+    assert.deepEqual(errors, [], 'no runtime errors')
+    report.push({ variant, width, overflow: false, sizeColorResult: '22 and10', storage, runtimeErrors: errors })
+    await context.close()
+  }
+  const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, recordVideo: { dir: `${output}/motion`, size: { width: 1440, height: 900 } } })
+  const page = await context.newPage()
+  await page.goto(`http://127.0.0.1:5288/${variant}.html`)
+  await page.waitForTimeout(2400)
+  await page.mouse.wheel(0, 650)
+  await page.waitForTimeout(1500)
+  await page.locator('[data-size="L"]').click()
+  await page.locator('[data-color="white"]').click()
+  await page.waitForTimeout(800)
+  for (const tab of await page.getByRole('tab').all()) { await tab.click(); await page.waitForTimeout(650) }
+  const video = page.video()
+  await context.close()
+  await video.saveAs(`${output}/${variant}-motion.webm`)
+  const reduced = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' })
+  const reducedPage = await reduced.newPage()
+  await reducedPage.goto(`http://127.0.0.1:5288/${variant}.html`)
+  await reducedPage.locator('[data-size="L"]').click()
+  await reducedPage.locator('[data-color="white"]').click()
+  assert.equal((await reducedPage.locator('[data-result]').textContent()).trim(), '10')
+  report.push({ variant, reducedMotion: 'demo selection works', activeAnimations: await reducedPage.evaluate(() => document.getAnimations().filter(a => a.playState === 'running').length) })
+  await reduced.close()
+}
+await browser.close()
+await writeFile(`${output}/verification.json`, JSON.stringify(report, null, 2))
+console.log(JSON.stringify(report, null, 2))

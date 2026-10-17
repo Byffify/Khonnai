@@ -1,0 +1,858 @@
+[
+  {
+    "name": "prototype",
+    "width": 1440,
+    "nav": {
+      "width": 984,
+      "height": 68,
+      "padding": "9px 14px 9px 22px",
+      "gap": "28px",
+      "font": "Jakarta, Anuphan, sans-serif",
+      "size": "18px",
+      "weight": "400",
+      "background": "rgba(255, 255, 255, 0.21)",
+      "blur": "blur(32px) saturate(1.6)"
+    },
+    "headline": {
+      "width": 976,
+      "height": 240,
+      "padding": "0px",
+      "gap": "normal",
+      "font": "Anuphan, sans-serif",
+      "size": "100px",
+      "weight": "600",
+      "background": "rgba(0, 0, 0, 0)",
+      "blur": "none"
+    },
+    "toggle": {
+      "width": 310,
+      "height": 54,
+      "padding": "5px",
+      "gap": "0px",
+      "font": "Jakarta, Anuphan, sans-serif",
+      "size": "18px",
+      "weight": "400",
+      "background": "rgb(230, 233, 236)",
+      "blur": "none"
+    },
+    "toggleButton": {
+      "width": 150,
+      "height": 44,
+      "padding": "9px 10px",
+      "gap": "normal",
+      "font": "Jakarta, Anuphan, sans-serif",
+      "size": "15px",
+      "weight": "400",
+      "background": "rgba(25, 59, 90, 0.463)",
+      "blur": "none"
+    },
+    "cards": {
+      "width": 460,
+      "height": 420,
+      "padding": "0px",
+      "gap": "normal",
+      "font": "Jakarta, Anuphan, sans-serif",
+      "size": "18px",
+      "weight": "400",
+      "background": "rgb(25, 59, 90)",
+      "blur": "none"
+    },
+    "sections": [
+      {
+        "selector": ".hero-message",
+        "width": 1024,
+        "height": 556,
+        "padding": "52px 24px 104px",
+        "gap": "normal",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgb(255, 255, 255)",
+        "blur": "none"
+      },
+      {
+        "selector": ".capabilities",
+        "width": 1440,
+        "height": 257.578125,
+        "padding": "10px 0px 32px",
+        "gap": "normal",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".fit-section",
+        "width": 1240,
+        "height": 442.0625,
+        "padding": "70px 32px 40px",
+        "gap": "100px",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".scroll-demo",
+        "width": 1240,
+        "height": 2633.625,
+        "padding": "70px 32px 100px",
+        "gap": "92px",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".start-carousel-section",
+        "width": 1440,
+        "height": 805.1875,
+        "padding": "96px 0px",
+        "gap": "normal",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgb(255, 255, 255)",
+        "blur": "none"
+      },
+      {
+        "selector": ".pricing-section",
+        "width": 1440,
+        "height": 1205.71875,
+        "padding": "120px 0px",
+        "gap": "normal",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgb(245, 245, 245)",
+        "blur": "none"
+      },
+      {
+        "selector": "#faq",
+        "width": 1440,
+        "height": 581.375,
+        "padding": "130px 0px",
+        "gap": "normal",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      }
+    ],
+    "sectionOrder": [
+      {
+        "tag": "DIV",
+        "id": "khonnai-scroll-hero",
+        "class": "",
+        "title": "ระบบจัดการสต็อกสำหรับร้านเสื้อผ้า"
+      },
+      {
+        "tag": "SECTION",
+        "id": "",
+        "class": "capabilities",
+        "title": "งานที่รองรับ"
+      },
+      {
+        "tag": "SECTION",
+        "id": "fit",
+        "class": "fit-section wrap",
+        "title": "เหมาะกับร้านที่คุณดูแลด้วยตัวเอง"
+      },
+      {
+        "tag": "SECTION",
+        "id": "preview",
+        "class": "scroll-demo wrap",
+        "title": "ดูแค่พอเข้าใจแล้วลองกับร้านคุณ"
+      },
+      {
+        "tag": "DETAILS",
+        "id": "",
+        "class": "extra-demo",
+        "title": "ทุกอย่างเข้าที่งานหน้าร้านก็ไปต่อได้"
+      },
+      {
+        "tag": "SECTION",
+        "id": "data",
+        "class": "getting-started start-carousel-section",
+        "title": "ก่อนเริ่มใช้เตรียมแค่งานของร้านคุณ"
+      },
+      {
+        "tag": "STYLE",
+        "id": "",
+        "class": ""
+      },
+      {
+        "tag": "SECTION",
+        "id": "pricing",
+        "class": "pricing-section",
+        "title": "เริ่มจากร้านของคุณค่อยขยับไปด้วยกัน"
+      },
+      {
+        "tag": "SCRIPT",
+        "id": "",
+        "class": ""
+      },
+      {
+        "tag": "SECTION",
+        "id": "faq",
+        "class": "faq",
+        "title": "ก่อนเริ่มใช้งานมีอะไรควรรู้บ้าง"
+      },
+      {
+        "tag": "SECTION",
+        "id": "",
+        "class": "closing",
+        "title": "เริ่มจากสินค้าชิ้นแรกของร้านคุณ"
+      }
+    ],
+    "capabilityIcons": 0
+  },
+  {
+    "name": "production",
+    "width": 1440,
+    "nav": {
+      "width": 1120,
+      "height": 68,
+      "padding": "10px 14px 10px 22px",
+      "gap": "24px",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "18px",
+      "weight": "400",
+      "background": "rgba(0, 0, 0, 0)",
+      "blur": "blur(32px) saturate(1.6)"
+    },
+    "headline": {
+      "width": 1152,
+      "height": 240,
+      "padding": "0px",
+      "gap": "normal",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "100px",
+      "weight": "600",
+      "background": "rgba(0, 0, 0, 0)",
+      "blur": "none"
+    },
+    "toggle": {
+      "width": 350,
+      "height": 72.1875,
+      "padding": "5px",
+      "gap": "4px",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "18px",
+      "weight": "400",
+      "background": "rgb(230, 233, 236)",
+      "blur": "none"
+    },
+    "toggleButton": {
+      "width": 168,
+      "height": 62.1875,
+      "padding": "8px 10px",
+      "gap": "normal",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "16px",
+      "weight": "400",
+      "background": "rgba(0, 0, 0, 0)",
+      "blur": "none"
+    },
+    "cards": {
+      "width": 460,
+      "height": 440,
+      "padding": "0px",
+      "gap": "normal",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "18px",
+      "weight": "400",
+      "background": "rgb(25, 59, 90)",
+      "blur": "none"
+    },
+    "sections": [
+      {
+        "selector": ".hero-message",
+        "width": 1200,
+        "height": 546,
+        "padding": "52px 24px 112px",
+        "gap": "normal",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".capabilities",
+        "width": 1440,
+        "height": 198.984375,
+        "padding": "28px 0px 64px",
+        "gap": "normal",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".fit-section",
+        "width": 1240,
+        "height": 456.0625,
+        "padding": "52px 32px 72px",
+        "gap": "90px",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".scroll-demo",
+        "width": 1240,
+        "height": 2529.9375,
+        "padding": "48px 32px 64px",
+        "gap": "72px",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".start-carousel-section",
+        "width": 1440,
+        "height": 824.6875,
+        "padding": "90px 0px",
+        "gap": "normal",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".pricing-section",
+        "width": 1440,
+        "height": 1085,
+        "padding": "96px 0px",
+        "gap": "normal",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgb(245, 245, 245)",
+        "blur": "none"
+      },
+      {
+        "selector": "#faq",
+        "width": 1240,
+        "height": 585.4375,
+        "padding": "96px 32px",
+        "gap": "80px",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      }
+    ],
+    "sectionOrder": [
+      {
+        "tag": "DIV",
+        "id": "top",
+        "class": ""
+      },
+      {
+        "tag": "DIV",
+        "id": "khonnai-scroll-hero",
+        "class": ""
+      },
+      {
+        "tag": "P",
+        "id": "",
+        "class": "photo-note"
+      },
+      {
+        "tag": "SECTION",
+        "id": "",
+        "class": "hero-message",
+        "title": "ระบบจัดการสต็อกสำหรับร้านเสื้อผ้า"
+      },
+      {
+        "tag": "SECTION",
+        "id": "",
+        "class": "capabilities",
+        "title": "งานที่คนในช่วยได้"
+      },
+      {
+        "tag": "SECTION",
+        "id": "",
+        "class": "fit-section wrap",
+        "title": "เหมาะกับร้านที่คุณดูแลด้วยตัวเอง"
+      },
+      {
+        "tag": "SECTION",
+        "id": "preview",
+        "class": "scroll-demo wrap",
+        "title": "ดูแค่พอเข้าใจแล้วลองกับร้านคุณ"
+      },
+      {
+        "tag": "DETAILS",
+        "id": "",
+        "class": "extra-demo wrap"
+      },
+      {
+        "tag": "SECTION",
+        "id": "data",
+        "class": "start-carousel-section",
+        "title": "ก่อนเริ่มใช้เตรียมแค่งานของร้านคุณ"
+      },
+      {
+        "tag": "SECTION",
+        "id": "pricing",
+        "class": "pricing-section",
+        "title": "เริ่มจากร้านของคุณเลือกแบบที่พอดี"
+      },
+      {
+        "tag": "SECTION",
+        "id": "faq",
+        "class": "faq wrap",
+        "title": "รู้ก่อนเริ่มใช้"
+      },
+      {
+        "tag": "SECTION",
+        "id": "",
+        "class": "closing wrap",
+        "title": "เริ่มจัดสต็อกจากสินค้าชิ้นแรก"
+      }
+    ],
+    "capabilityIcons": 0
+  },
+  {
+    "name": "prototype",
+    "width": 390,
+    "nav": {
+      "width": 358,
+      "height": 64,
+      "padding": "9px 10px 9px 16px",
+      "gap": "12px",
+      "font": "Jakarta, Anuphan, sans-serif",
+      "size": "17px",
+      "weight": "400",
+      "background": "rgba(255, 255, 255, 0.482)",
+      "blur": "blur(32px) saturate(1.6)"
+    },
+    "headline": {
+      "width": 342,
+      "height": 106.6875,
+      "padding": "0px",
+      "gap": "normal",
+      "font": "Anuphan, sans-serif",
+      "size": "44.46px",
+      "weight": "600",
+      "background": "rgba(0, 0, 0, 0)",
+      "blur": "none"
+    },
+    "toggle": {
+      "width": 310,
+      "height": 54,
+      "padding": "5px",
+      "gap": "0px",
+      "font": "Jakarta, Anuphan, sans-serif",
+      "size": "17px",
+      "weight": "400",
+      "background": "rgb(230, 233, 236)",
+      "blur": "none"
+    },
+    "toggleButton": {
+      "width": 150,
+      "height": 44,
+      "padding": "9px 10px",
+      "gap": "normal",
+      "font": "Jakarta, Anuphan, sans-serif",
+      "size": "15px",
+      "weight": "400",
+      "background": "rgba(25, 59, 90, 0.686)",
+      "blur": "none"
+    },
+    "cards": {
+      "width": 297.546875,
+      "height": 380,
+      "padding": "0px",
+      "gap": "normal",
+      "font": "Jakarta, Anuphan, sans-serif",
+      "size": "17px",
+      "weight": "400",
+      "background": "rgb(25, 59, 90)",
+      "blur": "none"
+    },
+    "sections": [
+      {
+        "selector": ".hero-message",
+        "width": 390,
+        "height": 406.6875,
+        "padding": "40px 24px 72px",
+        "gap": "normal",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "17px",
+        "weight": "400",
+        "background": "rgb(255, 255, 255)",
+        "blur": "none"
+      },
+      {
+        "selector": ".capabilities",
+        "width": 390,
+        "height": 222.75,
+        "padding": "5px 0px 32px",
+        "gap": "normal",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "17px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".fit-section",
+        "width": 390,
+        "height": 576.484375,
+        "padding": "45px 22px 25px",
+        "gap": "26px",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "17px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".scroll-demo",
+        "width": 390,
+        "height": 2406.625,
+        "padding": "70px 22px 25px",
+        "gap": "40px",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "17px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".start-carousel-section",
+        "width": 390,
+        "height": 736.5625,
+        "padding": "60px 0px",
+        "gap": "normal",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "17px",
+        "weight": "400",
+        "background": "rgb(255, 255, 255)",
+        "blur": "none"
+      },
+      {
+        "selector": ".pricing-section",
+        "width": 390,
+        "height": 2083.640625,
+        "padding": "76px 0px",
+        "gap": "normal",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "17px",
+        "weight": "400",
+        "background": "rgb(245, 245, 245)",
+        "blur": "none"
+      },
+      {
+        "selector": "#faq",
+        "width": 390,
+        "height": 573.78125,
+        "padding": "80px 0px",
+        "gap": "normal",
+        "font": "Jakarta, Anuphan, sans-serif",
+        "size": "17px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      }
+    ],
+    "sectionOrder": [
+      {
+        "tag": "DIV",
+        "id": "khonnai-scroll-hero",
+        "class": "",
+        "title": "ระบบจัดการสต็อกสำหรับร้านเสื้อผ้า"
+      },
+      {
+        "tag": "SECTION",
+        "id": "",
+        "class": "capabilities",
+        "title": "งานที่รองรับ"
+      },
+      {
+        "tag": "SECTION",
+        "id": "fit",
+        "class": "fit-section wrap",
+        "title": "เหมาะกับร้านที่คุณดูแลด้วยตัวเอง"
+      },
+      {
+        "tag": "SECTION",
+        "id": "preview",
+        "class": "scroll-demo wrap",
+        "title": "ดูแค่พอเข้าใจแล้วลองกับร้านคุณ"
+      },
+      {
+        "tag": "DETAILS",
+        "id": "",
+        "class": "extra-demo",
+        "title": "ทุกอย่างเข้าที่งานหน้าร้านก็ไปต่อได้"
+      },
+      {
+        "tag": "SECTION",
+        "id": "data",
+        "class": "getting-started start-carousel-section",
+        "title": "ก่อนเริ่มใช้เตรียมแค่งานของร้านคุณ"
+      },
+      {
+        "tag": "STYLE",
+        "id": "",
+        "class": ""
+      },
+      {
+        "tag": "SECTION",
+        "id": "pricing",
+        "class": "pricing-section",
+        "title": "เริ่มจากร้านของคุณค่อยขยับไปด้วยกัน"
+      },
+      {
+        "tag": "SCRIPT",
+        "id": "",
+        "class": ""
+      },
+      {
+        "tag": "SECTION",
+        "id": "faq",
+        "class": "faq",
+        "title": "ก่อนเริ่มใช้งานมีอะไรควรรู้บ้าง"
+      },
+      {
+        "tag": "SECTION",
+        "id": "",
+        "class": "closing",
+        "title": "เริ่มจากสินค้าชิ้นแรกของร้านคุณ"
+      }
+    ],
+    "capabilityIcons": 0
+  },
+  {
+    "name": "production",
+    "width": 390,
+    "nav": {
+      "width": 366,
+      "height": 68,
+      "padding": "9px 10px 9px 14px",
+      "gap": "8px",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "18px",
+      "weight": "400",
+      "background": "rgba(0, 0, 0, 0)",
+      "blur": "blur(32px) saturate(1.6)"
+    },
+    "headline": {
+      "width": 346,
+      "height": 106.6875,
+      "padding": "0px",
+      "gap": "normal",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "44.46px",
+      "weight": "600",
+      "background": "rgba(0, 0, 0, 0)",
+      "blur": "none"
+    },
+    "toggle": {
+      "width": 346,
+      "height": 72.1875,
+      "padding": "5px",
+      "gap": "4px",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "18px",
+      "weight": "400",
+      "background": "rgb(230, 233, 236)",
+      "blur": "none"
+    },
+    "toggleButton": {
+      "width": 166,
+      "height": 62.1875,
+      "padding": "8px 10px",
+      "gap": "normal",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "16px",
+      "weight": "400",
+      "background": "rgba(0, 0, 0, 0)",
+      "blur": "none"
+    },
+    "cards": {
+      "width": 297.546875,
+      "height": 430,
+      "padding": "0px",
+      "gap": "normal",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+      "size": "18px",
+      "weight": "400",
+      "background": "rgb(25, 59, 90)",
+      "blur": "none"
+    },
+    "sections": [
+      {
+        "selector": ".hero-message",
+        "width": 390,
+        "height": 392.6875,
+        "padding": "40px 22px 76px",
+        "gap": "normal",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".capabilities",
+        "width": 390,
+        "height": 197.34375,
+        "padding": "28px 0px 64px",
+        "gap": "normal",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".fit-section",
+        "width": 390,
+        "height": 597.703125,
+        "padding": "40px 22px",
+        "gap": "24px",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".scroll-demo",
+        "width": 390,
+        "height": 2331.5625,
+        "padding": "32px 22px",
+        "gap": "42px",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".start-carousel-section",
+        "width": 390,
+        "height": 777.65625,
+        "padding": "56px 0px",
+        "gap": "normal",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      },
+      {
+        "selector": ".pricing-section",
+        "width": 390,
+        "height": 2029.46875,
+        "padding": "64px 0px",
+        "gap": "normal",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgb(245, 245, 245)",
+        "blur": "none"
+      },
+      {
+        "selector": "#faq",
+        "width": 390,
+        "height": 591.03125,
+        "padding": "64px 22px",
+        "gap": "28px",
+        "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif",
+        "size": "18px",
+        "weight": "400",
+        "background": "rgba(0, 0, 0, 0)",
+        "blur": "none"
+      }
+    ],
+    "sectionOrder": [
+      {
+        "tag": "DIV",
+        "id": "top",
+        "class": ""
+      },
+      {
+        "tag": "DIV",
+        "id": "khonnai-scroll-hero",
+        "class": ""
+      },
+      {
+        "tag": "P",
+        "id": "",
+        "class": "photo-note"
+      },
+      {
+        "tag": "SECTION",
+        "id": "",
+        "class": "hero-message",
+        "title": "ระบบจัดการสต็อกสำหรับร้านเสื้อผ้า"
+      },
+      {
+        "tag": "SECTION",
+        "id": "",
+        "class": "capabilities",
+        "title": "งานที่คนในช่วยได้"
+      },
+      {
+        "tag": "SECTION",
+        "id": "",
+        "class": "fit-section wrap",
+        "title": "เหมาะกับร้านที่คุณดูแลด้วยตัวเอง"
+      },
+      {
+        "tag": "SECTION",
+        "id": "preview",
+        "class": "scroll-demo wrap",
+        "title": "ดูแค่พอเข้าใจแล้วลองกับร้านคุณ"
+      },
+      {
+        "tag": "DETAILS",
+        "id": "",
+        "class": "extra-demo wrap"
+      },
+      {
+        "tag": "SECTION",
+        "id": "data",
+        "class": "start-carousel-section",
+        "title": "ก่อนเริ่มใช้เตรียมแค่งานของร้านคุณ"
+      },
+      {
+        "tag": "SECTION",
+        "id": "pricing",
+        "class": "pricing-section",
+        "title": "เริ่มจากร้านของคุณเลือกแบบที่พอดี"
+      },
+      {
+        "tag": "SECTION",
+        "id": "faq",
+        "class": "faq wrap",
+        "title": "รู้ก่อนเริ่มใช้"
+      },
+      {
+        "tag": "SECTION",
+        "id": "",
+        "class": "closing wrap",
+        "title": "เริ่มจัดสต็อกจากสินค้าชิ้นแรก"
+      }
+    ],
+    "capabilityIcons": 0
+  }
+]

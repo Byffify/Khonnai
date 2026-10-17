@@ -1,0 +1,32 @@
+[
+  {
+    "name": "prototype",
+    "width": 1440,
+    "color": "rgb(255, 240, 228)"
+  },
+  {
+    "name": "production",
+    "width": 1440,
+    "color": "rgb(255, 240, 228)"
+  },
+  {
+    "name": "english",
+    "width": 1440,
+    "color": "rgb(255, 240, 228)"
+  },
+  {
+    "name": "prototype",
+    "width": 390,
+    "color": "rgb(255, 240, 228)"
+  },
+  {
+    "name": "production",
+    "width": 390,
+    "color": "rgb(255, 240, 228)"
+  },
+  {
+    "name": "english",
+    "width": 390,
+    "color": "rgb(255, 240, 228)"
+  }
+]

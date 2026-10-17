@@ -1,0 +1,389 @@
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#2.1".
+0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#2.1
+	1 container root
+		2 container สไลด์นำเสนอ Khonnai
+			3 container
+				4 text Khonnai .
+				26 container สไลด์ 2: ทำไมเราเลือกงานหลังร้าน
+					27 container
+						28 heading ธุรกิจเล็ก พลังใหญ่ของไทย, Value: 1
+							29 text ธุรกิจเล็ก  พลังใหญ่ของไทย
+						30 text 35 %
+						31 heading ของ GDP ไทย มาจาก MSME, Value: 2
+							32 text ของ GDP ไทย มาจาก MSME
+						33 text ประมาณ 35% · สสว. ปี 2566
+						34 container
+							35 text 8 %
+						36 heading ใช้ดิจิทัลเพื่อปรับปรุงการผลิต, Value: 2
+							37 text ใช้ดิจิทัลเพื่อปรับปรุงการผลิต
+						38 container
+							39 text เช่น เครื่องจักรอัตโนมัติ / ERP
+							40 text ผลสำรวจ SME ปี 2568 · 2,704 ราย
+						41 text สัดส่วน GDP กับผลสำรวจเป็นคนละฐานข้อมูล · ไม่ใช่ขนาดตลาดลูกค้า Khonnai
+		16 container สถานะการนำเสนอ
+			17 checkbox Description: เริ่มจับเวลา, Help: เริ่ม / หยุดจับเวลา (T), Value: 0
+				18 text 00
+				19 text :
+				20 text 00
+			21 button Description: รีเซ็ตเวลา, Help: รีเซ็ตและหยุดเวลา
+			22 button Description: เต็มจอ, Help: เต็มจอ (F)
+			23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+		24 container
+			25 text สไลด์  2  จาก  8 :  ทำไมเราเลือกงานหลังร้าน  จังหวะ  2
+
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#2.2".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#2.2
++						42 container
++							43 text เราเริ่มที่ งานหลังร้าน
++							44 text ที่เจ้าของทำทุกวัน
+~			25 text สไลด์  2  จาก  8 :  ทำไมเราเลือกงานหลังร้าน  จังหวะ  3
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#3.0".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#3.0
+~			25 text สไลด์  3  จาก  8 :  Problem / Pain points  จังหวะ  1
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#3.1".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#3.1
+~			25 text สไลด์  3  จาก  8 :  Problem / Pain points  จังหวะ  2
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#3.2".
+0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#3.2
+	1 container root
+		2 container สไลด์นำเสนอ Khonnai
+			3 container
+				4 text Khonnai .
+				26 container สไลด์ 3: Problem / Pain points
+					27 container
+						28 text Problem  / Pain points
+						29 heading ขายหนึ่งครั้ง เช็กซ้ำหลายรอบ, Value: 1
+							30 text ขายหนึ่งครั้ง  เช็กซ้ำหลายรอบ
+						31 container
+							32 text ชั้น 3 ชั้น 2 ชั้น 1
+							33 image ตัวอย่างแบบฟอร์มบิลเงินสด จากสำนักงานบัญชีพีทูพี
+						34 container
+							35 heading บิลยังเขียนมือ, Value: 2
+								36 text บิลยังเขียนมือ
+							37 text จดรายการ แล้วถ่ายรูปส่งให้ลูกค้า เจ้าของดูแลเอกสารทุกขั้นตอน
+						38 text สัมภาษณ์ร้านกรณีศึกษา 1 ร้าน · ธุรกิจครอบครัวของสมาชิกในทีม
+		16 container สถานะการนำเสนอ
+			17 checkbox Description: เริ่มจับเวลา, Help: เริ่ม / หยุดจับเวลา (T), Value: 0
+				18 text 00
+				19 text :
+				20 text 00
+			21 button Description: รีเซ็ตเวลา, Help: รีเซ็ตและหยุดเวลา
+			22 button Description: เต็มจอ, Help: เต็มจอ (F)
+			23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+		24 container
+			25 text สไลด์  3  จาก  8 :  Problem / Pain points  จังหวะ  3
+
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#4.0".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#4.0
+~			25 text สไลด์  4  จาก  8 :  Solution — ดูสต็อกและทำบิลในงานเดียว  จังหวะ  1
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#4.1".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#4.1
+~			25 text สไลด์  4  จาก  8 :  Solution — ดูสต็อกและทำบิลในงานเดียว  จังหวะ  2
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#4.2".
+0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#4.2
+	1 container root
+		2 container สไลด์นำเสนอ Khonnai
+			3 container
+				4 text Khonnai .
+				26 container สไลด์ 4: Solution — ดูสต็อกและทำบิลในงานเดียว
+					27 container
+						28 text Solution
+						29 heading ดูสต็อก ทำบิล ในงานเดียว, Value: 1
+							30 text ดูสต็อก ทำบิล
+							31 text ในงานเดียว
+						32 text บันทึกขายแล้ว ตัดสต็อกทันที
+						33 text 0 2  / 04
+						34 heading ดูไซซ์ สี และจำนวน, Value: 2
+							35 text ดูไซซ์ สี และจำนวน
+						36 container
+							37 image หน้าจอ Khonnai: ดูไซซ์ สี และจำนวน — ข้อมูลตัวอย่าง
+							38 image หน้าจอ Khonnai: ตรวจยอด แล้วบันทึกขาย — ข้อมูลตัวอย่าง
+						39 container
+							40 text ขาย 3 แพ็ก 3 × 150 = 450 บาท
+						41 container
+							42 text คงเหลือ · แพ็ก 12 ก่อนขาย
+						43 text หน้าจอแอพจริง · ข้อมูลตัวอย่าง · รายการ LINE กรอกเอง · ยังไม่ได้ทดลองกับร้านจริง
+		16 container สถานะการนำเสนอ
+			17 checkbox Description: เริ่มจับเวลา, Help: เริ่ม / หยุดจับเวลา (T), Value: 0
+				18 text 00
+				19 text :
+				20 text 00
+			21 button Description: รีเซ็ตเวลา, Help: รีเซ็ตและหยุดเวลา
+			22 button Description: เต็มจอ, Help: เต็มจอ (F)
+			23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+		24 container
+			25 text สไลด์  4  จาก  8 :  Solution — ดูสต็อกและทำบิลในงานเดียว  จังหวะ  3
+
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#4.3".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#4.3
++							44 image หน้าจอ Khonnai: ได้บิล พร้อมยอดสต็อกใหม่ — ข้อมูลตัวอย่าง
+~							42 text คงเหลือ · แพ็ก
++							45 text 12
++							46 text 09
++							47 text ขาย 3 แพ็ก
+~			25 text สไลด์  4  จาก  8 :  Solution — ดูสต็อกและทำบิลในงานเดียว  จังหวะ  4
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#5.0".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 33-35, 45-47
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#5.0
++						45 text 0 4  / 04
++						46 heading ได้บิล พร้อมยอดสต็อกใหม่, Value: 2
++							47 text ได้บิล พร้อมยอดสต็อกใหม่
+~							42 text คงเหลือ · แพ็ก 12 09 ขาย 3 แพ็ก
+~			25 text สไลด์  5  จาก  8 :  Early adopter — ใครจะเริ่มใช้ก่อน  จังหวะ  1
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#5.1".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 39-40
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#5.1
++						48 container
++							49 text บิลกับสต็อกเชื่อมกัน บิล 450 บาท · เหลือ 9 แพ็ก
+~			25 text สไลด์  5  จาก  8 :  Early adopter — ใครจะเริ่มใช้ก่อน  จังหวะ  2
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#5.2".
+0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#5.2
+	1 container root
+		2 container สไลด์นำเสนอ Khonnai
+			3 container
+				4 text Khonnai .
+				26 container สไลด์ 5: Early adopter — ใครจะเริ่มใช้ก่อน
+					27 container
+						28 text Early adopter
+						29 heading ใครจะเริ่มใช้ก่อน?, Value: 1
+							30 text ใครจะ เริ่มใช้ ก่อน?
+						31 heading เจ้าของตัดสินใจเอง, Value: 2
+							32 text เจ้าของตัดสินใจเอง
+						33 text ดูแลร้านและบันทึกข้อมูลหลักคนเดียว
+						34 heading สินค้าหลายตัวเลือก, Value: 2
+							35 text สินค้าหลายตัวเลือก
+						36 text แยกไซซ์ สี และหน่วยขาย
+						37 heading ยินดีร่วมทดลอง, Value: 2
+							38 text ยินดีร่วมทดลอง
+						39 text ให้ทีมสังเกตและเก็บข้อเสนอแนะ
+						40 text ร้านกรณีศึกษา
+						41 heading ร้านขายส่งชุดชั้นใน, Value: 2
+							42 text ร้านขายส่งชุดชั้นใน
+						43 text ธุรกิจครอบครัวของเพื่อนในทีม
+						44 text สัมภาษณ์แล้ว 1 ร้าน ยังไม่ได้ทดลอง
+						45 container
+							46 text เริ่มจากร้านที่เข้าถึงได้
+							47 text แล้วขอแนะนำร้านใกล้เคียง
+						48 text เกณฑ์คัดเลือกร้านสำหรับทดลอง · ยังไม่ได้ยืนยันการเข้าร่วมหรือความเต็มใจจ่าย
+		16 container สถานะการนำเสนอ
+			17 checkbox Description: เริ่มจับเวลา, Help: เริ่ม / หยุดจับเวลา (T), Value: 0
+				18 text 00
+				19 text :
+				20 text 00
+			21 button Description: รีเซ็ตเวลา, Help: รีเซ็ตและหยุดเวลา
+			22 button Description: เต็มจอ, Help: เต็มจอ (F)
+			23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+		24 container
+			25 text สไลด์  5  จาก  8 :  Early adopter — ใครจะเริ่มใช้ก่อน  จังหวะ  3
+
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#6.0".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#6.0
+~			25 text สไลด์  6  จาก  8 :  Market sizing — ฐานอ้างอิงและเป้าตั้งต้น  จังหวะ  1
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#6.1".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#6.1
+~			25 text สไลด์  6  จาก  8 :  Market sizing — ฐานอ้างอิงและเป้าตั้งต้น  จังหวะ  2
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#6.2".
+0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#6.2
+	1 container root
+		2 container สไลด์นำเสนอ Khonnai
+			3 container
+				4 text Khonnai .
+				26 container สไลด์ 6: Market sizing — ฐานอ้างอิงและเป้าตั้งต้น
+					27 container
+						28 heading Market sizing, Value: 1
+							29 text Market sizing
+						30 text SOM
+						31 text 12
+						32 text ร้าน
+						33 heading เป้าลูกค้าชุดแรก, Value: 2
+							34 text เป้าลูกค้าชุดแรก
+						35 text เป้าจำลอง
+						36 container ไอคอนเป้าหมาย 12 ร้าน ไม่ใช่ตำแหน่งร้านจริง
+						37 text ยังไม่มีลูกค้าจ่ายเงินจริง
+						38 text สสว. ปี 2567 · TSIC 46414 · SOM เป็นเป้าจำลอง
+						39 text แผนที่ © OpenStreetMap contributors / geoBoundaries · ODbL
+		16 container สถานะการนำเสนอ
+			17 checkbox Description: เริ่มจับเวลา, Help: เริ่ม / หยุดจับเวลา (T), Value: 0
+				18 text 00
+				19 text :
+				20 text 00
+			21 button Description: รีเซ็ตเวลา, Help: รีเซ็ตและหยุดเวลา
+			22 button Description: เต็มจอ, Help: เต็มจอ (F)
+			23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+		24 container
+			25 text สไลด์  6  จาก  8 :  Market sizing — ฐานอ้างอิงและเป้าตั้งต้น  จังหวะ  3
+
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#7.0".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#7.0
+~			25 text สไลด์  7  จาก  8 :  Business model — Free / 299 / 699  จังหวะ  1
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#7.1".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#7.1
+~			25 text สไลด์  7  จาก  8 :  Business model — Free / 299 / 699  จังหวะ  2
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#8.0".
+0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#8.0
+	1 container root
+		2 container สไลด์นำเสนอ Khonnai
+			3 container
+				4 text Khonnai .
+				26 container สไลด์ 7: Business model — Free / 299 / 699
+					27 container
+						28 heading เริ่มฟรี ไปต่อเมื่อพร้อม, Value: 1
+							29 text เริ่มฟรี  ไปต่อเมื่อพร้อม
+						30 text รายปี ลด 10%
+						31 heading Free, Value: 2
+							32 text Free
+						33 text ทดลองกับร้าน
+						34 text 0
+						35 text บาท / เดือน
+						36 text ฟรี
+						37 text 20 รหัส 50 บิล / เดือน แนะนำ
+						38 heading Basic, Value: 2
+							39 text Basic
+						40 text ใช้งานประจำ
+						41 text 299
+						42 text บาท / เดือน
+						43 text 3,229.20 บาท / ปี
+						44 text 200 รหัส 500 บิล / เดือน
+						45 heading Pro, Value: 2
+							46 text Pro
+						47 text รายการขายมากขึ้น
+						48 text 699
+						49 text บาท / เดือน
+						50 text 7,549.20 บาท / ปี
+						51 text 1,000 รหัส 2,000 บิล / เดือน
+						52 text สต็อกและบิล ครบทุกแพ็กเกจ
+						53 text ข้อเสนอราคาและโควตา · ยังไม่ได้ทดสอบความเต็มใจจ่าย
+		16 container สถานะการนำเสนอ
+			17 checkbox Description: เริ่มจับเวลา, Help: เริ่ม / หยุดจับเวลา (T), Value: 0
+				18 text 00
+				19 text :
+				20 text 00
+			21 button Description: รีเซ็ตเวลา, Help: รีเซ็ตและหยุดเวลา
+			22 button Description: เต็มจอ, Help: เต็มจอ (F)
+			23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+		24 container
+			25 text สไลด์  8  จาก  8 :  Next step — พิสูจน์กับร้านจริง  จังหวะ  1
+
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#8.1".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#8.1
+~			25 text สไลด์  8  จาก  8 :  Next step — พิสูจน์กับร้านจริง  จังหวะ  2
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#8.2".
+0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#8.2
+	1 container root
+		2 container สไลด์นำเสนอ Khonnai
+			3 container
+				4 text Khonnai .
+				26 container สไลด์ 8: Next step — พิสูจน์กับร้านจริง
+					27 container
+						28 heading พิสูจน์กับร้านจริง, Value: 1
+							29 text พิสูจน์ กับร้านจริง
+						30 heading ใช้เองได้, Value: 2
+							31 text ใช้เองได้
+						32 heading ยอดตรง, Value: 2
+							33 text ยอดตรง
+						34 heading ยอมจ่าย, Value: 2
+							35 text ยอมจ่าย
+						36 text ขอคำแนะนำการทดลองกับร้านจริง
+						37 text Less Checking, More Selling. สัมภาษณ์ 1 ร้าน · มีต้นแบบ · ยังไม่ได้ทดลองใช้งาน
+		16 container สถานะการนำเสนอ
+			17 checkbox Description: เริ่มจับเวลา, Help: เริ่ม / หยุดจับเวลา (T), Value: 0
+				18 text 00
+				19 text :
+				20 text 00
+			21 button Description: รีเซ็ตเวลา, Help: รีเซ็ตและหยุดเวลา
+			22 button Description: เต็มจอ, Help: เต็มจอ (F)
+			23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+		24 container
+			25 text สไลด์  8  จาก  8 :  Next step — พิสูจน์กับร้านจริง  จังหวะ  3
+
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#8.2".
+There has been no change in the accessibility tree.
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#8.2".
+There has been no change in the accessibility tree.
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+
+Browser tab: 5, Title: "Khonnai — คนในร้านคุณ", URL: "https://startup-pitch-deck.vercel.app/#3.1".
+0 AXWebArea Khonnai — คนในร้านคุณ, URL: startup-pitch-deck.vercel.app/#3.1
+	1 container root
+		2 container สไลด์นำเสนอ Khonnai
+			3 container
+				4 text Khonnai .
+				26 container สไลด์ 3: Problem / Pain points
+					27 container
+						28 text Problem  / Pain points
+						29 heading ขายหนึ่งครั้ง เช็กซ้ำหลายรอบ, Value: 1
+							30 text ขายหนึ่งครั้ง  เช็กซ้ำหลายรอบ
+						31 container
+							32 text ชั้น 3 ชั้น 2 ชั้น 1
+						33 container
+							38 heading ข้อมูลแยกกัน, Value: 2
+								39 text ข้อมูลแยกกัน
+							40 text หน้าร้านกับ LINE ไม่มียอดร่วมกัน ขายแต่ละครั้งต้องกลับมาเช็กของ
+						37 text สัมภาษณ์ร้านกรณีศึกษา 1 ร้าน · ธุรกิจครอบครัวของสมาชิกในทีม
+		16 container สถานะการนำเสนอ
+			17 checkbox Description: เริ่มจับเวลา, Help: เริ่ม / หยุดจับเวลา (T), Value: 0
+				18 text 00
+				19 text :
+				20 text 00
+			21 button Description: รีเซ็ตเวลา, Help: รีเซ็ตและหยุดเวลา
+			22 button Description: เต็มจอ, Help: เต็มจอ (F)
+			23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)
+		24 container
+			25 text สไลด์  3  จาก  8 :  Problem / Pain points  จังหวะ  2
+
+The focused UI element is 23 button Description: เลือกสไลด์, Help: เลือกสไลด์ (M)

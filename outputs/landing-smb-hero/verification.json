@@ -1,0 +1,55 @@
+[
+  {
+    "width": 1440,
+    "sources": [
+      "sme-products.png",
+      "sme-hands.png",
+      "sme-underwear-shop.png",
+      "sme-underwear-packs.png"
+    ],
+    "titleFits": true,
+    "noHorizontalOverflow": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "sources": [
+      "sme-products.png",
+      "sme-hands.png",
+      "sme-underwear-shop.png",
+      "sme-underwear-packs.png"
+    ],
+    "titleFits": true,
+    "noHorizontalOverflow": true,
+    "errors": []
+  },
+  {
+    "width": 320,
+    "sources": [
+      "sme-products.png",
+      "sme-hands.png",
+      "sme-underwear-shop.png",
+      "sme-underwear-packs.png"
+    ],
+    "titleFits": true,
+    "noHorizontalOverflow": true,
+    "errors": []
+  },
+  {
+    "width": 768,
+    "sources": [
+      "sme-products.png",
+      "sme-hands.png",
+      "sme-underwear-shop.png",
+      "sme-underwear-packs.png"
+    ],
+    "titleFits": true,
+    "noHorizontalOverflow": true,
+    "errors": []
+  },
+  {
+    "reducedMotion": true,
+    "staticGallery": 4,
+    "titleVisible": true
+  }
+]

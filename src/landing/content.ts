@@ -1,0 +1,46 @@
+const th = {
+  title: 'คนใน · ระบบจัดการสต็อกเสื้อผ้า แยกไซซ์ สี และออกบิล | Khonnai',
+  description: 'ดูจำนวนเสื้อผ้าและชุดชั้นในแยกไซซ์และสี บันทึกขาย ออกบิล จองสินค้า และเก็บไฟล์สำรอง เริ่มจัดสต็อกร้านของคุณกับ Khonnai คนใน',
+  skip: 'ข้ามไปเนื้อหา', demoLink: 'ดูตัวอย่าง', pricingLink: 'ราคา', faqLink: 'คำถาม', open: 'เริ่มใช้งานคนใน',
+  headline: ['ระบบจัดการสต็อก', 'สำหรับร้านเสื้อผ้า'], intro: 'ดูของแยกไซซ์และสี บันทึกขาย ออกบิล แล้วรู้ว่าเหลือเท่าไร',
+  heroAlt: 'ภาพจำลองร้านขายส่งเสื้อผ้าที่จัดสินค้าบนชั้นและเคาน์เตอร์', photoNote: 'ภาพร้านสร้างด้วย AI เพื่อประกอบตัวอย่าง',
+  photoAlts: ['แพ็กเสื้อผ้าแยกสีบนเคาน์เตอร์', 'เจ้าของร้านกำลังจัดแพ็กเสื้อผ้า', 'ร้านเล็กขายเสื้อผ้าและชุดชั้นใน', 'จัดแพ็กชุดชั้นในแยกไซซ์และสี'],
+  capabilitiesTitle: 'งานที่คนในช่วยได้', capabilities: ['สินค้า', 'ไซซ์และสี', 'สต็อก', 'บิล', 'จอง', 'คืนและเปลี่ยน', 'สำรองข้อมูล'],
+  fitTitle: ['เหมาะกับร้าน', 'ที่คุณดูแลด้วยตัวเอง'], fitIntro: 'สำหรับร้านเสื้อผ้าและชุดชั้นใน ที่มีหลายไซซ์ หลายสี',
+  fit: [{ title: 'หาแต่ละแบบให้เจอ', body: 'เลือกจากรูปและรหัส แล้วดูไซซ์ สี และจำนวน' }, { title: 'ขายแล้วรู้ว่าเหลือเท่าไร', body: 'บันทึกขายพร้อมออกบิล จำนวนสินค้าลดให้ทันที' }, { title: 'เริ่มทีละนิดได้', body: 'ลองใส่สินค้าไม่กี่แบบ ก่อนใช้กับทั้งร้าน' }],
+  previewTitle: ['จากเลือกสินค้า', 'ถึงบิลและยอดคงเหลือ'], sampleNote: 'หน้าจอภาษาไทยและข้อมูลตัวอย่าง ไม่ใช่ข้อมูลร้านของคุณ',
+  preview: [{ title: 'เลือกสินค้า', body: 'ดูรูปและรหัส หาของที่ลูกค้าต้องการ', note: 'เริ่มจากสินค้าที่ต้องการขาย' }, { title: 'เลือกไซซ์และสี', body: 'ดูจำนวนที่ยังขายได้', note: 'ตัวอย่าง: ไซซ์ M คละสี มี 12 แพ็ก' }, { title: 'ตรวจยอดก่อนขาย', body: 'ใส่จำนวน แล้วตรวจยอดรวม', note: '3 แพ็ก × 150 บาท = 450 บาท' }, { title: 'ได้บิลและยอดใหม่', body: 'บันทึกขายแล้วดูบิลได้ทันที', note: 'จาก 12 แพ็ก ขาย 3 เหลือ 9 แพ็ก' }],
+  startTitle: ['ก่อนเริ่มใช้', 'เตรียมแค่งานของร้านคุณ'], startIntro: 'ใช้มือถือหรือคอมที่มีอยู่ แล้วเริ่มจากสินค้าไม่กี่แบบ',
+  start: [{ title: 'เลือกเครื่องหลักของร้าน', body: 'ข้อมูลเก็บในเครื่องที่ใช้เปิดคนใน ยังไม่ส่งต่อไปเครื่องอื่นให้อัตโนมัติ' }, { title: 'ใส่สินค้าชุดเล็กก่อน', body: 'เตรียมรหัส ไซซ์ สี ราคา และจำนวนที่นับได้จริง' }, { title: 'เก็บไฟล์สำรองไว้ด้วย', body: 'กดบันทึกไฟล์สำรองในหน้าตั้งค่า แล้วเก็บไว้อีกที่ เช่น ในมือถือหรือคอมอีกเครื่อง' }],
+  step: 'ขั้น', carouselLabel: 'เตรียมร้านก่อนเริ่มใช้', previous: 'ขั้นตอนก่อนหน้า', next: 'ขั้นตอนถัดไป',
+  pricingTitle: ['เริ่มจากร้านของคุณ', 'เลือกแบบที่พอดี'], pricingIntro: 'ราคาและจำนวนที่รองรับด้านล่างเป็นแผนสำหรับอนาคต', pricingStatus: 'ตอนนี้ยังไม่เก็บเงิน และยังไม่จำกัดจำนวนตามแพ็กเกจ', monthly: 'รายเดือน', yearly: 'รายปี', discount: 'ลด 10%', baht: 'บาท', perMonth: 'ต่อเดือน', perYear: 'ต่อปี', proposed: 'ราคาที่วางแผนไว้',
+  plans: [{ name: 'Free', body: 'สำหรับเริ่มลอง', products: 'สินค้า 20 รหัส', bills: 'บิล 50 ใบต่อเดือน' }, { name: 'Basic', body: 'สำหรับใช้ประจำ', products: 'สินค้า 200 รหัส', bills: 'บิล 500 ใบต่อเดือน' }, { name: 'Pro', body: 'สำหรับร้านที่มีของมากขึ้น', products: 'สินค้า 1,000 รหัส', bills: 'บิล 2,000 ใบต่อเดือน' }],
+  stockBills: 'จัดการสต็อกและบิล', priceDetails: 'รายละเอียด', priceDetail: 'ยังไม่เปิดสมัครแพ็กเกจหรือรับชำระเงิน ใช้คนในรุ่นปัจจุบันได้โดยไม่มีข้อจำกัดตามแผนนี้', priceNote: 'รายปีคิดจากราคารายเดือน × 12 แล้วลด 10% ราคาจริงอาจเปลี่ยนก่อนเปิดขาย',
+  faqTitle: 'รู้ก่อนเริ่มใช้', questions: [{ q: 'ต้องสมัครก่อนหรือไม่?', a: 'ตอนนี้เปิดคนในแล้วเริ่มใส่สินค้าได้เลย ยังไม่ต้องสมัครบัญชี' }, { q: 'เปิดอีกเครื่องจะเห็นข้อมูลเดิมไหม?', a: 'ยังไม่เห็นอัตโนมัติ ให้บันทึกไฟล์สำรองจากเครื่องเดิม แล้วนำไฟล์ไปเปิดในหน้าตั้งค่าของอีกเครื่อง' }, { q: 'ข้อมูลเก็บอยู่ที่ไหน?', a: 'ข้อมูลเก็บในเครื่องที่ใช้เปิดคนใน ควรเก็บไฟล์สำรองแยกไว้เป็นประจำ โดยเฉพาะก่อนล้างข้อมูลเครื่องหรือเปลี่ยนเครื่อง' }, { q: 'ต้องซื้อเครื่องคิดเงินไหม?', a: 'ไม่ต้อง ใช้มือถือหรือคอมที่เปิดเว็บไซต์นี้ได้' }, { q: 'เริ่มจากอะไรดี?', a: 'ใส่สินค้าไม่กี่รหัส ตรวจไซซ์ สี ราคา และจำนวนให้ตรงกับของจริง แล้วลองขายรายการเล็ก ๆ ก่อน' }],
+  closing: ['เริ่มจัดสต็อก', 'จากสินค้าชิ้นแรก'], closingBody: 'เปิดคนใน แล้วลองใส่สินค้าของร้านคุณ', footer: 'คนใน · ดูของ ขายของ และออกบิล', top: 'กลับด้านบน', languageWarning: 'เปลี่ยนภาษาแล้ว แต่เครื่องนี้ยังจำภาษาที่เลือกไว้ไม่ได้',
+}
+
+const en: typeof th = {
+  title: 'Khonnai · Clothing Inventory, Sizes, Colors & Sales Bills',
+  description: 'Manage clothing and underwear stock by size and color. Record sales, create bills, reserve items and save backup files. Start with a few products in Khonnai.',
+  skip: 'Skip to content', demoLink: 'See how it works', pricingLink: 'Pricing', faqLink: 'Questions', open: 'Open Khonnai',
+  headline: ['Inventory made clear.', 'For clothing shops.'], intro: 'Check sizes and colors, record sales, create bills, and see what is left.',
+  heroAlt: 'Illustration of a small clothing wholesale shop with garments on shelves and counters', photoNote: 'Shop photos are AI-generated illustrations.',
+  photoAlts: ['Clothing packs sorted by color', 'A shop owner packing clothes', 'A small clothing and underwear shop', 'Underwear packs sorted by size and color'],
+  capabilitiesTitle: 'What you can do', capabilities: ['Products', 'Sizes & colors', 'Stock', 'Bills', 'Reservations', 'Returns & exchanges', 'Backups'],
+  fitTitle: ['For the shop', 'you run yourself.'], fitIntro: 'For clothing and underwear shops with many sizes and colors.',
+  fit: [{ title: 'Find the right item', body: 'Start with a photo or code, then check size, color and quantity.' }, { title: 'Know what is left after a sale', body: 'Save the sale and create a bill. Stock updates right away.' }, { title: 'Start small', body: 'Try a few products before adding your whole shop.' }],
+  previewTitle: ['From choosing an item', 'to a bill and new stock.'], sampleNote: 'Thai app screens with example data. Your shop data stays separate.',
+  preview: [{ title: 'Choose a product', body: 'Find what the customer wants by photo and code.', note: 'Start with the item you want to sell.' }, { title: 'Pick size and color', body: 'Check how many you can sell.', note: 'Example: size M, mixed colors, 12 packs.' }, { title: 'Check the total', body: 'Enter the quantity and review the amount.', note: '3 packs × ฿150 = ฿450.' }, { title: 'Get a bill and new stock', body: 'Save the sale and view the bill.', note: '12 packs − 3 sold = 9 left.' }],
+  startTitle: ['Before you start,', 'prepare your shop.'], startIntro: 'Use the phone or computer you have. Start with a few products.',
+  start: [{ title: 'Choose your main device', body: 'Data stays on the device you use to open Khonnai. It does not move to other devices automatically.' }, { title: 'Add a few products', body: 'Prepare product codes, sizes, colors, prices and quantities you have counted.' }, { title: 'Keep a backup file', body: 'Save a backup file from Settings. Keep a copy elsewhere, such as another phone or computer.' }],
+  step: 'Step', carouselLabel: 'Prepare your shop', previous: 'Previous step', next: 'Next step',
+  pricingTitle: ['Start with your shop.', 'Choose what fits.'], pricingIntro: 'The prices and limits below are plans for the future.', pricingStatus: 'There are no charges or plan limits in the current version.', monthly: 'Monthly', yearly: 'Yearly', discount: 'Save 10%', baht: 'THB', perMonth: 'per month', perYear: 'per year', proposed: 'Planned price',
+  plans: [{ name: 'Free', body: 'For getting started', products: '20 product codes', bills: '50 bills per month' }, { name: 'Basic', body: 'For everyday use', products: '200 product codes', bills: '500 bills per month' }, { name: 'Pro', body: 'For shops with more stock', products: '1,000 product codes', bills: '2,000 bills per month' }],
+  stockBills: 'Stock and sales bills', priceDetails: 'Details', priceDetail: 'Plan sign-up and payments are not open. The current version has none of these plan limits.', priceNote: 'Yearly prices are the monthly price × 12, less 10%. Final prices may change before launch.',
+  faqTitle: 'Before you get started', questions: [{ q: 'Do I need an account?', a: 'Not right now. Open Khonnai and start adding products.' }, { q: 'Will my data appear on another device?', a: 'Not automatically. Save a backup file on the original device, then open that file in Settings on your other device.' }, { q: 'Where is my shop data kept?', a: 'It stays on the device you use to open Khonnai. Save a separate backup regularly, especially before clearing device data or switching devices.' }, { q: 'Do I need a checkout machine?', a: 'No. Use a phone or computer that can open this website.' }, { q: 'What should I do first?', a: 'Add a few products. Check sizes, colors, prices and quantities against your actual stock, then try a small sale.' }],
+  closing: ['Start organizing stock.', 'One product at a time.'], closingBody: 'Open Khonnai and add your first product.', footer: 'Khonnai · Stock, sales and bills', top: 'Back to top', languageWarning: 'Language changed, but this device could not remember your choice.',
+}
+
+export const landingCopy = { th, en }
+export type LandingCopy = typeof th

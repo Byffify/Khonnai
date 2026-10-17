@@ -1,0 +1,13 @@
+{
+  "tool": "built-in image_gen",
+  "assets": [
+    {
+      "file": "sme-underwear-shop.png",
+      "prompt": "Photorealistic natural editorial photograph for Khonnai Thai small business inventory software landing page. Landscape 3:2 image, one single scene, no collage. Inside a real modest Thai small wholesale underwear shop, eye-level view toward neatly packed bras, cotton briefs and boxer multipacks arranged by color and size on light wooden shelves, a few clothing racks with simple everyday tops, packages with no readable labels. Daylight, white walls, navy and warm terracotta garments, naturally lived-in but tidy, premium documentary photography with fine fabric texture. Products displayed as retail merchandise only, no people wearing underwear, no mannequins, no nudity. No computers, app screens, typography, logos or watermarks. Compose meaningful shop context across full image, usable as a floating photo on white webpage. Save the generated image as a local file and return its path."
+    },
+    {
+      "file": "sme-underwear-packs.png",
+      "prompt": "Photorealistic natural editorial product photograph for Khonnai Thai SME clothing inventory software landing page. Landscape 3:2 image, one single scene, no collage. Close-up of a small Thai shop owner's hands sorting folded cotton underwear multipacks on a light wooden counter, sealed transparent packs of men's boxer shorts and women's plain cotton briefs neatly grouped by size and color, navy blue, white, soft beige and muted rust orange. Only hands and sleeves visible, absolutely no person wearing underwear, no nudity or sensual styling. Background gently out of focus shows modest garment wholesale shop shelving. Soft natural daylight, realistic fabric and plastic texture, calm premium retail documentary photography. No app UI, computers, typography, readable labels, logos or watermark. Different composition from wide shop shot. Save the generated image as a local file and return its path."
+    }
+  ]
+}
