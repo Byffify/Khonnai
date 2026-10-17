@@ -10,11 +10,15 @@
     "preview": "vite preview",
     "typecheck": "tsc -b --pretty false",
     "test": "node --test tests/*.test.mjs",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "ux:skills": "ux-ui-agent-skills list",
+    "theme:build": "node scripts/build-theme.mjs",
+    "theme:check": "node scripts/build-theme.mjs --check"
   },
   "dependencies": {
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "ux-ui-agent-skills": "^2.9.8"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

@@ -1,34 +1,44 @@
+import { useI18n } from './languageContext'
+import { canonicalMessage } from './i18n'
 import { useContext, useEffect, useId, useRef, useState } from 'react'
 import { FormFailureContext, formFailureEvent } from './formFeedback'
 import { Icon } from './Icon'
 import type { ButtonHTMLAttributes, FormHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react'
 export function Button({ variant = 'primary', children, ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'danger' }) {
-  return <>{props.type === 'submit' && <FormFailure />}<button {...props} type={props.type ?? 'button'} onClick={props.onClick} className={`button ${variant} ${props.className ?? ''}`}>{children}</button></>
+  const { t } = useI18n()
+  return <>{props.type === 'submit' && <FormFailure />}<button {...props} type={props.type ?? 'button'} onClick={props.onClick} className={`button ${variant} ${props.className ?? ''}`}>{typeof children === 'string' ? t(children) : children}</button></>
 }
 export function BackButton(props: Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'type' | 'className'>) {
-  return <button {...props} type="button" className="back-button"><Icon name="back" /><span>กลับ</span></button>
+  const { t } = useI18n()
+
+  return <button {...props} onClick={props.onClick} type="button" className="back-button"><Icon name="back" /><span>{t("กลับ")}</span></button>
 }
 function FormFailure() {
+  const { t } = useI18n()
   const { message, sequence } = useContext(FormFailureContext)
   const ref = useRef<HTMLParagraphElement>(null)
   useEffect(() => { if (message) { ref.current?.focus({ preventScroll: true }); ref.current?.scrollIntoView({ block: 'center' }) } }, [message, sequence])
-  return message ? <p ref={ref} role="alert" tabIndex={-1} className="notice error form-failure">{message}</p> : null
+  return message ? <p ref={ref} role="alert" tabIndex={-1} className="notice error form-failure">{t(message)}</p> : null
 }
 export function Field({ label, hint, suffix, ...props }: InputHTMLAttributes<HTMLInputElement> & { label: string; hint?: string; suffix?: string }) {
+  const { t } = useI18n()
   const id = useId()
   const description = [hint ? `${id}-hint` : '', suffix ? `${id}-suffix` : ''].filter(Boolean).join(' ') || undefined
   const input = <input {...props} id={id} aria-describedby={description} />
-  return <div className="field"><label htmlFor={id}>{label}</label>{suffix ? <div className="input-with-suffix">{input}<span id={`${id}-suffix`} className="input-suffix">{suffix}</span></div> : input}{hint && <p id={`${id}-hint`} className="muted">{hint}</p>}</div>
+  return <div className="field"><label htmlFor={id}>{t(label)}</label>{suffix ? <div className="input-with-suffix">{input}<span id={`${id}-suffix`} className="input-suffix">{t(suffix)}</span></div> : input}{hint && <p id={`${id}-hint`} className="muted">{t(hint)}</p>}</div>
 }
 export function EmptyState({ title, children }: { title: string; children?: ReactNode }) {
-  return <div className="empty"><h2>{title}</h2>{children}</div>
+  const { t } = useI18n()
+  return <div className="empty"><h2>{t(title)}</h2>{children}</div>
 }
 export function Notice({ children, error = false, focusError = false }: { children: ReactNode; error?: boolean; focusError?: boolean }) {
+  const { t } = useI18n()
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => { if (error && focusError) { ref.current?.focus({ preventScroll: true }); ref.current?.scrollIntoView({ block: 'center' }) } }, [children, error, focusError])
-  return <div ref={ref} tabIndex={error && focusError ? -1 : undefined} className={`notice ${error ? 'error' : ''}`} role={error ? 'alert' : 'status'}>{children}</div>
+  return <div ref={ref} tabIndex={error && focusError ? -1 : undefined} className={`notice ${error ? 'error' : ''}`} role={error ? 'alert' : 'status'}>{typeof children === 'string' ? t(children) : children}</div>
 }
 export function Form({ children, onSubmit, ...props }: FormHTMLAttributes<HTMLFormElement>) {
+  const { t } = useI18n()
   const id = useId()
   const [error, setError] = useState('')
   const [failure, setFailure] = useState({ message: '', sequence: 0 })
@@ -55,8 +65,8 @@ export function Form({ children, onSubmit, ...props }: FormHTMLAttributes<HTMLFo
     const field = [...event.currentTarget.elements].find(element => (element instanceof HTMLInputElement || element instanceof HTMLSelectElement || element instanceof HTMLTextAreaElement) && !element.disabled && (!element.validity.valid || (element.required && !element.value.trim())))
     if (field instanceof HTMLInputElement || field instanceof HTMLSelectElement || field instanceof HTMLTextAreaElement) {
       event.preventDefault(); invalid.current = field; previousDescription.current = field.getAttribute('aria-describedby'); field.setAttribute('aria-invalid', 'true'); field.setAttribute('aria-describedby', id)
-      setError('กรุณาตรวจช่อง ' + (field.labels?.[0]?.textContent?.trim() || 'ข้อมูลที่กรอก') + ' ให้ครบและตรงรูปแบบ'); field.focus(); return
+      setError(canonicalMessage(field.labels?.[0]?.textContent?.trim() || 'ข้อมูลที่กรอก')); field.focus(); return
     }
     onSubmit?.(event)
-  }}>{error && <p id={id} role="alert" className="notice error">{error}</p>}{children}</form></FormFailureContext.Provider>
+  }}>{error && <p id={id} role="alert" className="notice error">{t('กรุณาตรวจช่อง {0} ให้ครบและตรงรูปแบบ', t(error))}</p>}{children}</form></FormFailureContext.Provider>
 }

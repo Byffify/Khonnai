@@ -1,0 +1,1 @@
+import fs from 'node:fs';const p='src/App.tsx';let s=fs.readFileSync(p,'utf8');s=s.replace("id === 'returns' && language === 'en' ? 'Returns' : t(label)","language === 'en' && id === 'reservations' ? 'Reserve' : id === 'returns' && language === 'en' ? 'Returns' : t(label)");fs.writeFileSync(p,s);

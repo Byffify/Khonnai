@@ -1,3 +1,4 @@
+import { useI18n } from '../languageContext'
 import { Icon } from "../Icon";
 import { StockStatus } from "../StockStatus";
 import { useEffect, useRef, useState } from "react";
@@ -18,6 +19,8 @@ const freshVariant = (productId: string): Variant => ({
   stock: 0,
 });
 export function Catalog(props: FeatureProps) {
+  const { t } = useI18n()
+
   const [search, setSearch] = useState("");
   const [editor, setEditor] = useState<Product | null>(null);
   const [creating, setCreating] = useState(false);
@@ -44,11 +47,10 @@ export function Catalog(props: FeatureProps) {
     <div className="stack catalog-page">
       {!selectedProduct && <div>
         <div className="catalog-heading">
-          <h1>สินค้า</h1>
+          <h1>{t("สินค้า")}</h1>
           <Button className="add-product" onClick={() => void props.leave(() => setCreating(true))}>
             <Icon name="plus" />
-            เพิ่มสินค้า
-          </Button>
+            {t("เพิ่มสินค้า")}</Button>
         </div>
       </div>}
       {selectedProduct ? <ProductView key={selectedProduct.id} {...props} product={selectedProduct}
@@ -57,7 +59,7 @@ export function Catalog(props: FeatureProps) {
       <div className="catalog-search">
         <Icon name="search" />
         <Field
-          label="ค้นหารหัสสินค้า"
+          label={t("ค้นหารหัสสินค้า")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           type="search"
@@ -66,7 +68,7 @@ export function Catalog(props: FeatureProps) {
       {search && (
         <Button
           variant="secondary"
-          aria-label="ล้างการค้นหา"
+          aria-label={t("ล้างการค้นหา")}
           onClick={() => {
             setSearch("");
             document
@@ -74,25 +76,24 @@ export function Catalog(props: FeatureProps) {
               ?.focus();
           }}
         >
-          ล้างการค้นหา
-        </Button>
+          {t("ล้างการค้นหา")}</Button>
       )}
       {!props.state.products.length ? (
-        <EmptyState title="ยังไม่มีสินค้า">
-          <p className="muted">เพิ่มสินค้าจากบันทึกเดิม แล้วตรวจนับยอดจริง</p>
+        <EmptyState title={t("ยังไม่มีสินค้า")}>
+          <p className="muted">{t("เพิ่มสินค้าจากบันทึกเดิม แล้วตรวจนับยอดจริง")}</p>
         </EmptyState>
       ) : !products.length ? (
-        <EmptyState title="ไม่พบรหัสที่ค้นหา">
-          <p>ลองเปลี่ยนคำค้นหา</p>
+        <EmptyState title={t("ไม่พบรหัสที่ค้นหา")}>
+          <p>{t("ลองเปลี่ยนคำค้นหา")}</p>
         </EmptyState>
       ) : (
         <div className="product-list">
           {products.map((p) => (
             <button type="button" className="product-card catalog-tile" key={p.id}
-              aria-label={`ดูไซซ์ / สีและจัดการ ${p.code}`}
+              aria-label={t("ดูไซซ์ / สีและจัดการ {0}", p.code)}
               ref={element => { if (p.id === returnProductId.current) selectedTrigger.current = element; }}
               onClick={() => { returnProductId.current = p.id; setSelectedId(p.id); }}>
-              {p.photo ? <img className="photo" src={p.photo} alt={`สินค้า ${p.code}`} /> : <div className="photo photo-empty"><Icon name="photo" /><span>ไม่มีรูป</span></div>}
+              {p.photo ? <img className="photo" src={p.photo} alt={t("สินค้า {0}", p.code)} /> : <div className="photo photo-empty"><Icon name="photo" /><span>{t("ไม่มีรูป")}</span></div>}
               <h2>{p.code}</h2>
             </button>
           ))}
@@ -103,6 +104,8 @@ export function Catalog(props: FeatureProps) {
   );
 }
 function ProductView({ state, act, ask, leave, product, edit, back }: FeatureProps & { product: Product; edit: () => void; back: () => void }) {
+  const { t } = useI18n()
+
   const variants = state.variants.filter(v => v.productId === product.id);
   const sizes = [...new Set(variants.map(v => v.size))];
   const [size, setSize] = useState("");
@@ -110,17 +113,20 @@ function ProductView({ state, act, ask, leave, product, edit, back }: FeaturePro
   useEffect(() => { title.current?.focus({ preventScroll: true }); window.scrollTo({ top: 0 }); }, []);
   return <section className="product-detail-page stack">
     <div className="page-header">
-      <BackButton aria-label="กลับไปดูสินค้า" onClick={() => void leave(back)} />
-      <h1 ref={title} tabIndex={-1}>{product.code}</h1>
+      <BackButton aria-label={t("กลับไปดูสินค้า")} onClick={() => void leave(back)} />
+      <div className="detail-identity">
+        {product.photo ? <img className="photo" src={product.photo} alt={t("สินค้า {0}", product.code)} /> : <div className="photo photo-empty"><Icon name="photo" /><span>{t("ไม่มีรูป")}</span></div>}
+        <h1 ref={title} tabIndex={-1}>{product.code}</h1>
+      </div>
     </div>
     <div className="row justify-between">
-      <p>เลือกไซซ์เพื่อดูสีและจำนวน</p>
-      <Button variant="secondary" onClick={edit}>แก้สินค้า</Button>
+      <p>{t("เลือกไซซ์เพื่อดูสีและจำนวน")}</p>
+      <Button variant="secondary" onClick={edit}>{t("แก้สินค้า")}</Button>
     </div>
-    <div className="row" aria-label={`เลือกไซซ์ ${product.code}`}>
+    <div className="row" aria-label={t("เลือกไซซ์ {0}", product.code)}>
       {sizes.map(s => <button type="button" className="chip" key={s} aria-pressed={s === size} onClick={() => { if (s !== size) void leave(() => setSize(s)); }}>{s}</button>)}
     </div>
-    {variants.filter(v => v.size === size).map(v => <VariantView key={v.id} variant={v} product={product} state={state} act={act} ask={ask} />)}
+    <div className="variant-grid">{variants.filter(v => v.size === size).map(v => <VariantView key={v.id} variant={v} product={product} state={state} act={act} ask={ask} />)}</div>
   </section>;
 }
 function VariantView({
@@ -136,6 +142,8 @@ function VariantView({
   act: FeatureProps["act"];
   ask: FeatureProps["ask"];
 }) {
+  const { t } = useI18n()
+
   const available = availability(state, v.id);
   const [amount, setAmount] = useState("");
   const [operation, setOperation] = useState<"receive" | "adjust">("receive");
@@ -151,13 +159,13 @@ function VariantView({
       <div className="row justify-between">
         <h3>{v.color}</h3>
         <span>
-          ฿{money(v.price)} / {product.unit}
+          {t("฿")}{money(v.price)} / {product.unit}
         </span>
       </div>
-      {v.contents && <p className="muted">ในแพ็ก: {v.contents}</p>}
+      {v.contents && <p className="muted">{t("ในแพ็ก: ")}{v.contents}</p>}
       <div className="variant-stock-summary">
         <p>
-          ขายได้{" "}
+          {t("ขายได้")}{" "}
           <span
             className={`variant-quantity ${available < 0 ? "danger-text" : available > 0 ? "stock-ready-quantity" : ""}`}
           >
@@ -168,17 +176,17 @@ function VariantView({
         <StockStatus available={available} />
       </div>
       <p className="muted">
-        คงเหลือ {v.stock} {product.unit} · จอง {v.stock - available} {product.unit}
+        {t("คงเหลือ ")}{v.stock} {product.unit} {t(" · จอง ")}{v.stock - available} {product.unit}
       </p>
       {available < 0 && (
         <p role="status" className="danger-text">
-          ของไม่พอ ขาด {-available} {product.unit}
+          {t("ของไม่พอ ขาด ")}{-available} {product.unit}
         </p>
       )}
       <details>
         <summary className="stock-toggle">
           <Icon name="plus" />
-          <span>เพิ่มสต็อก / ปรับจำนวน</span>
+          <span>{t("เพิ่มสต็อก / ปรับจำนวน")}</span>
         </summary>
         <Form noValidate className="stack" onSubmit={async event => {
               event.preventDefault();
@@ -201,21 +209,21 @@ function VariantView({
                 setAmount("");
             }}>
           <label className="field">
-            การปรับสต็อก {product.code} {v.size} {v.color}
+            {t("การปรับสต็อก ")}{product.code} {v.size} {v.color}
             <select
               value={operation}
               onChange={(e) =>
                 setOperation(e.target.value === "adjust" ? "adjust" : "receive")
               }
             >
-              <option value="receive">รับเข้า — เพิ่มจากยอดเดิม</option>
-              <option value="adjust">ตรวจนับ — ตั้งยอดคงเหลือใหม่</option>
+              <option value="receive">{t("รับเข้า — เพิ่มจากยอดเดิม")}</option>
+              <option value="adjust">{t("ตรวจนับ — ตั้งยอดคงเหลือใหม่")}</option>
             </select>
           </label>
           <Field
             data-stock-draft
-            label={`${operation === "receive" ? "จำนวนที่รับเพิ่ม" : "ยอดคงเหลือหลังตรวจนับ"} ${product.code} ${v.size} ${v.color}`}
-            hint={`หน่วย: ${product.unit}`}
+            label={`${operation === "receive" ? t("จำนวนที่รับเพิ่ม") : t("ยอดคงเหลือหลังตรวจนับ")} ${product.code} ${v.size} ${v.color}`}
+            hint={t("หน่วย: {0}", product.unit)}
             type="number"
             min={operation === "receive" ? "1" : "0"}
             step="1"
@@ -226,18 +234,18 @@ function VariantView({
           {validAmount && (
             <div
               className="stock-effects"
-              aria-label={`ตัวอย่างยอด ${product.code} ${v.size} ${v.color}`}
+              aria-label={t("ตัวอย่างยอด {0} {1} {2}", product.code, v.size, v.color)}
             >
               <p>
-                คงเหลือ {v.stock} → {nextStock} {product.unit}
+                {t("คงเหลือ ")}{v.stock} → {nextStock} {product.unit}
               </p>
               <p>
-                ขายได้หลังบันทึก {Math.max(0, nextStock - reserved)}{" "}
+                {t("ขายได้หลังบันทึก ")}{Math.max(0, nextStock - reserved)}{" "}
                 {product.unit}
               </p>
               {nextStock < reserved && (
                 <p className="danger-text">
-                  ของไม่พอ ขาด {reserved - nextStock} {product.unit}
+                  {t("ของไม่พอ ขาด ")}{reserved - nextStock} {product.unit}
                 </p>
               )}
             </div>
@@ -247,7 +255,7 @@ function VariantView({
             disabled={!validAmount}
 
           >
-            {operation === "receive" ? "รับเข้า" : "ตั้งยอดจริง"}
+            {operation === "receive" ? t("รับเข้า") : t("ตั้งยอดจริง")}
           </Button>
         </Form>
       </details>
@@ -262,6 +270,8 @@ function ProductForm({
   existing,
   close,
 }: FeatureProps & { existing: Product | null; close: () => void }) {
+  const { t } = useI18n()
+
   const [product, setProduct] = useState<Product>(
     existing ?? { id: crypto.randomUUID(), code: "", unit: "แพ็ก", photo: "" },
   );
@@ -325,7 +335,7 @@ function ProductForm({
     <Form noValidate className="stack catalog-form" onSubmit={submit}>
       <div className="page-header">
         <BackButton onClick={() => void leave(close)} />
-        <h1>{existing ? "แก้สินค้า" : "เพิ่มสินค้า"}</h1>
+        <h1>{existing ? t("แก้สินค้า") : t("เพิ่มสินค้า")}</h1>
       </div>
       <div className="product-form-layout">
         <section className="panel stack product-identity">
@@ -333,7 +343,7 @@ function ProductForm({
             {product.photo && (
               <img
                 src={product.photo}
-                alt="รูปที่เลือก"
+                alt={t("รูปที่เลือก")}
                 className="photo"
                 style={{ maxWidth: 180 }}
               />
@@ -346,12 +356,11 @@ function ProductForm({
                 onChange={upload}
               />
               <Icon name="photo" />
-              เพิ่มรูปสินค้า
-            </label>
-            {photoBusy && <p role="status">กำลังย่อรูป…</p>}
+              {t("เพิ่มรูปสินค้า")}</label>
+            {photoBusy && <p role="status">{t("กำลังย่อรูป…")}</p>}
           </div>
           <Field
-            label="รหัสสินค้า"
+            label={t("รหัสสินค้า")}
             required
             value={product.code}
             onChange={(e) =>
@@ -359,7 +368,7 @@ function ProductForm({
             }
           />
           <Field
-            label="หน่วยนับ"
+            label={t("หน่วยนับ")}
             required
             value={product.unit}
             onChange={(e) =>
@@ -371,26 +380,25 @@ function ProductForm({
           {variants.map((v, i) => (
             <section className="panel stack" key={v.id}>
               <div className="row justify-between">
-                <h2>ตัวเลือกสินค้า {i + 1}</h2>
+                <h2>{t("ตัวเลือกสินค้า ")}{i + 1}</h2>
                 {variants.length > 1 &&
                   !state.variants.some((x) => x.id === v.id) && (
                     <Button
                       data-draft
                       variant="danger"
-                      aria-label={`ลบตัวเลือกสินค้า ${i + 1}`}
+                      aria-label={t("ลบตัวเลือกสินค้า {0}", i + 1)}
                       onClick={() =>
                         setVariants((rows) =>
                           rows.filter((row) => row.id !== v.id),
                         )
                       }
                     >
-                      ลบตัวเลือกนี้
-                    </Button>
+                      {t("ลบตัวเลือกนี้")}</Button>
                   )}
               </div>
               <div className="form-grid">
                 <Field
-                  label="ไซซ์"
+                  label={t("ไซซ์")}
                   required
                   value={v.size}
                   onChange={(e) =>
@@ -398,7 +406,7 @@ function ProductForm({
                   }
                 />
                 <Field
-                  label="สี / คละสี"
+                  label={t("สี / คละสี")}
                   required
                   value={v.color}
                   onChange={(e) =>
@@ -406,8 +414,8 @@ function ProductForm({
                   }
                 />
                 <Field
-                  label="ราคาต่อหน่วย (บาท)"
-                  suffix={product.unit ? `บาท / ${product.unit}` : 'บาท'}
+                  label={t("ราคาต่อหน่วย (บาท)")}
+                  suffix={product.unit ? t("บาท / {0}", product.unit) : t("บาท")}
                   type="number"
                   min="0"
                   step="0.01"
@@ -422,11 +430,11 @@ function ProductForm({
                 <Field
                   label={
                     state.variants.some((x) => x.id === v.id)
-                      ? "ยอดคงเหลือ (ปรับที่หน้าสินค้า)"
-                      : "ยอดเริ่มต้น"
+                      ? t("ยอดคงเหลือ (ปรับที่หน้าสินค้า)")
+                      : t("ยอดเริ่มต้น")
                   }
                   disabled={state.variants.some((x) => x.id === v.id)}
-                  suffix={product.unit ? `หน่วย: ${product.unit}` : undefined}
+                  suffix={product.unit ? t("หน่วย: {0}", product.unit) : undefined}
                   type="number"
                   min="0"
                   step="1"
@@ -438,13 +446,13 @@ function ProductForm({
                 />
               </div>
               <Field
-                label="รายละเอียดสีภายในแพ็ก (ถ้ามี)"
+                label={t("รายละเอียดสีภายในแพ็ก (ถ้ามี)")}
                 value={v.contents}
                 onChange={(e) =>
                   updateVariant(v.id, { contents: e.target.value })
                 }
               />
-              <p className="muted">แพ็กคละมีไซซ์เดียว ขายทั้งแพ็ก</p>
+              <p className="muted">{t("แพ็กคละมีไซซ์เดียว ขายทั้งแพ็ก")}</p>
             </section>
           ))}
           <Button
@@ -455,14 +463,12 @@ function ProductForm({
             }
           >
             <Icon name="plus" />
-            เพิ่มไซซ์ / สี
-          </Button>
+            {t("เพิ่มไซซ์ / สี")}</Button>
         </div>
       </div>
       <div className="form-actions">
         <Button type="submit" disabled={photoBusy}>
-          บันทึกสินค้า
-        </Button>
+          {t("บันทึกสินค้า")}</Button>
       </div>
     </Form>
   );

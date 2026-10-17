@@ -21,11 +21,11 @@ export type Receipt = Pick<Bill, 'number' | 'date' | 'customer' | 'lines' | 'sta
 export async function billImage(bill: Receipt, shop: State['shop']): Promise<Blob> {
   const theme = getComputedStyle(document.documentElement)
   const token = (name: string, fallback: string) => theme.getPropertyValue(name).trim() || fallback
-  const ink = token('--ds-ink', '#222222')
-  const paper = token('--ds-paper', '#ffffff')
-  const accent = token('--ds-selected', '#f0e0f0')
-  const danger = token('--ds-danger', '#b42318')
-  const family = token('--ds-font', '"IBM Plex Sans Thai Looped", sans-serif')
+  const ink = token('--receipt-ink', '#193b5a')
+  const paper = token('--receipt-paper', '#ffffff')
+  const accent = token('--receipt-selected', '#eaf0f5')
+  const danger = token('--receipt-danger', '#b42318')
+  const family = token('--receipt-font', '"Plus Jakarta Sans", "IBM Plex Sans Thai Looped", "Leelawadee UI", Tahoma, sans-serif')
   await Promise.all([document.fonts.load(`28px ${family}`, 'บิลเงินสด CASH SALE'), document.fonts.load(`700 32px ${family}`, 'บิลเงินสด CASH SALE')])
   const canvas = document.createElement('canvas'); canvas.width = 900
   const context = canvas.getContext('2d')!

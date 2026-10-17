@@ -1,0 +1,18 @@
+{
+  "profile": "product-admin",
+  "canonicalMap": "UX-CONTRACT.md",
+  "sourceRoots": ["src"],
+  "ownership": { "Select/Listbox": "native" },
+  "commands": {
+    "typecheck": "npm.cmd run typecheck",
+    "lint": "npm.cmd run lint",
+    "test": "npm.cmd test",
+    "build": "npm.cmd run build",
+    "browser": "npm.cmd run test:browser",
+    "tokens": "npm.cmd run theme:check"
+  },
+  "evidence": {
+    "crudFullFlow": "tests/browser.spec.ts",
+    "failurePaths": "tests/browser.spec.ts"
+  }
+}

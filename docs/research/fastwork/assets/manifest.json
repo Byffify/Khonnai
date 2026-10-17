@@ -1,0 +1,33 @@
+{
+  "requested_url": "https://fastwork.com/",
+  "research_date": "2026-10-17",
+  "timezone": "Asia/Bangkok",
+  "resolved_url": "https://fastwork.com/selling",
+  "files": [
+    {
+      "source_url": "https://fastwork.com/selling",
+      "sha256": "98c19b42f8adcd669b6e4987d076faa764f565410a80a26741338c62b167d058",
+      "file": "selling.html",
+      "bytes": 101359
+    },
+    {
+      "source_url": "https://fastwork.com/_app/immutable/assets/50.DuRXMnFW.css",
+      "sha256": "048b51bfb4c94b5097769ebcf957363e8f49dfe500518198c131a52d3e88f2c7",
+      "file": "selling.css",
+      "bytes": 221576
+    },
+    {
+      "source_url": "https://fastwork.com/_app/immutable/assets/0.0gKxBXBV.css",
+      "sha256": "0e8e4f9f77c8a5e806f1246c74149338bfbf32761b650e3f6975dc9223f43188",
+      "file": "global.css",
+      "bytes": 46936
+    },
+    {
+      "source_url": "https://fastwork.com/_app/immutable/assets/IconButton.C70IQO1T.css",
+      "sha256": "dc4d6866588b5bd9e33db6280eba0e5b2885bd162c599358168901c4e1ba14f5",
+      "file": "controls.css",
+      "bytes": 13391
+    }
+  ],
+  "provenance": "Public first-party HTTP HTML/CSS plus browser observation; no REA analysis Evidence generated"
+}

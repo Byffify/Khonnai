@@ -1,0 +1,4 @@
+import fs from 'node:fs';
+const path = 'src/messages.ts';
+const more = {'ตั้งค่า':'Settings','กลับไปตั้งค่า':'Back to settings','จัดการร้าน ภาษา และข้อมูลของคุณ':'Manage your shop, language and data.','ร้านของคุณ':'Your shop','การใช้งาน':'Preferences','ข้อมูลและประวัติ':'Data and history','ข้อมูลร้าน':'Shop details','ชื่อร้านและเบอร์ติดต่อที่แสดงบนบิล':'Shop name and contact number shown on bills.','เลือกภาษาไทยหรือภาษาอังกฤษสำหรับแอป':'Use the app in Thai or English.','สำรองและกู้ข้อมูล':'Backup and recovery','ดาวน์โหลดไฟล์สำรอง หรือนำข้อมูลกลับจากไฟล์':'Download a backup or restore data from a file.','ดูรายการเปลี่ยนแปลงสินค้า สต็อก และบิล':'Review changes to products, stock and bills.'};
+let s=fs.readFileSync(path,'utf8'); s=s.replace(/\n}\s*$/, ',\n'+Object.entries(more).map(([k,v])=>'  '+JSON.stringify(k)+': '+JSON.stringify(v)).join(',\n')+'\n}\n');fs.writeFileSync(path,s);

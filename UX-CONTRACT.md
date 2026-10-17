@@ -36,7 +36,9 @@
 - Bill archive groups saved bills by Asia/Bangkok calendar day, newest day first. Horizontal tabs carry receipt icon/number/customer; selecting mounts only that receipt and its existing edit/cancel/export controls. No receipt is shown before selection. Arrow keys/Home/End navigate tabs; unselected receipts do not generate PNG previews.
 - Daily archive total sums current active bill line amounts only; cancelled bills remain findable and are excluded. It is not a net-refund or profit report, and does not write stock.
 
-- Khonnai branding changes presentation only: navy save/navigation, orange additions, mint readiness, cream canvas and readable8px controls. Business states, route labels, field order and localStorage remain unchanged; the full paper receipt and PNG share current palette/fonts and preserve shop identity.
+- Khonnai branding changes presentation only: white workspace/navigation, navy saves and selected states, orange additions, neutral grouping and 12px controls. Rammetto One appears only in the English wordmark with a left-to-right navy-to-orange gradient. Business states, route labels, field order and localStorage remain unchanged; dedicated receipt tokens preserve the approved paper/PNG palette, fonts and shop identity.
+
+- Premium refinement preserves the same owners and workflows: constrained reading/form widths, monetary emphasis in the bill summary, baseline-aligned mobile navigation and visible content throughout entry motion. Hover styling must never replace an invalid field's error border; native inputs and keyboard focus remain canonical. Landing presentation is a separate future surface.
 
 - Responsive navigation has one shared owner in App: mobile bottom navigation and desktop sidebar at 1024px, with the same Thai labels, active state, busy state and unsaved-change guard.
 - Catalog uses native button tiles showing only photo and code: 2 columns on mobile, 3 at 601–1150px, 4 above1150px. Selecting opens a detail view without preselected size; explicit size selection reveals colors, quantities, units, reservations, shortages and existing stock actions. Back restores search and focus to the selected tile. Leaving details, editing or changing size uses the existing unsaved-change guard. Navigation and size selection do not write data. Products retain their existing code-only identity; no name field or storage migration is added.
@@ -60,3 +62,9 @@
 ## Verification
 
 Public-service tests in tests/*.test.mjs; browser workflow/mobile/desktop, PNG export and backup tests in tests/browser.spec.ts. Real device touch/OS file-picker behavior is not proven by desktop browser emulation.
+
+## Language and settings navigation
+
+- Locale provider owns Thai/English UI and document lang; khonnai-language is a separate device preference. Preference failure changes the session language with visible feedback. Stored shop/product/customer text and frozen receipt/PNG remain unchanged.
+- Settings starts with categorized icon rows. Shop details, language, backup/recovery and movement history open task-specific internal pages. Back restores focus to the originating row. Internal navigation retains the mounted shop draft; leaving Settings still uses the app discard guard. Corrupt data opens recovery directly.
+
