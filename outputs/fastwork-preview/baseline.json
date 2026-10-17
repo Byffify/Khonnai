@@ -1,0 +1,38 @@
+{
+  "fixture": {
+    "number": "B00001",
+    "date": "2026-10-17T05:00:00.000Z",
+    "customer": "ลูกค้าตัวอย่าง",
+    "status": "active",
+    "lines": [
+      {
+        "variantId": "v",
+        "code": "KH-001",
+        "size": "M",
+        "color": "ดำ",
+        "unit": "แพ็ก",
+        "price": 12000,
+        "quantity": 2
+      }
+    ]
+  },
+  "shop": {
+    "name": "ร้านตัวอย่าง",
+    "phone": "02-000-0000"
+  },
+  "pngSha256": "778b4ea046c3b4155c801e49287d1a66079e417c42f15a3cc8a8fcd0bde45015",
+  "sources": [
+    {
+      "path": "src/features/BillImage.ts",
+      "sha256": "2ab176e264013d9068de3ed14708c0d4b664aa08c77bf1d98fe1ece7883104d3"
+    },
+    {
+      "path": "src/styles/tokens.css",
+      "sha256": "05fa4143d39a0c74a013aeff92e31f1e51809b5f71db03a8667d11bcebc6e91b"
+    },
+    {
+      "path": "src/index.css",
+      "sha256": "901240bf194beee0dcb9b927b0ffbdf0650d874a547561acc153689e19ab5969"
+    }
+  ]
+}

@@ -1,0 +1,257 @@
+0|Products
+1|Bills
+2|Reservations
+3|Returns / exchange
+4|Shop / backup
+5|Backup / shop details
+6|Could not read data
+7|Saved data could not be opened. Restore a backup. Your original data has not been deleted or overwritten.
+8|You have unsaved changes. Leave this page and discard them?
+9|Discard unsaved changes
+10|Loaded the latest data from another tab
+11|Original data could not be read. Import a backup first. Your original data will not be overwritten.
+12|Saved
+13|Could not save
+14|The backup file is too large
+15|Import and replace the current data? Make sure you have backed up the current data first.
+16|Import data
+17|Data imported
+18|Could not import
+19|Stored on this device
+20|Original data could not be read and has not been deleted. Use a backup to recover your shop.
+21|Saving…
+22|Main navigation
+23|Back
+24|Please check
+25|the entered information
+26|and complete it in the required format
+27|Ready to sell
+28|Not enough stock
+29|Out of stock
+30|Add product
+31|Search product code
+32|Clear search
+33|No products yet
+34|Add products from your records, then check the actual stock count.
+35|No matching product code
+36|Try another search
+37|View sizes / colors and manage {0}
+38|Product {0}
+39|No photo
+40|Back to products
+41|Select a size to see colors and quantities
+42|Edit product
+43|Select size for {0}
+44|฿
+45|Pack contents:
+46|Available
+47|On hand
+48|· Reserved
+49|Not enough stock. Short by
+50|Receive / adjust stock
+51|Set on-hand stock for {0} / {1} / {2} from {3} to {4} {5}? The new count replaces the previous count.
+52|Set actual stock
+53|Stock operation
+54|Receive — add to current stock
+55|Count — replace on-hand stock
+56|Quantity received
+57|On hand after counting
+58|Unit: {0}
+59|Preview: {0} {1} {2}
+60|Available after saving
+61|Receive stock
+62|pack
+63|Use a JPG, PNG or WebP image up to 10MB
+64|The image is still too large. Try a less detailed image.
+65|Could not read the image
+66|Selected photo
+67|Add product photo
+68|Resizing image…
+69|Product code
+70|Unit
+71|Product option
+72|Remove product option {0}
+73|Remove this option
+74|Size
+75|Color / mixed colors
+76|Price per unit (THB)
+77|THB / {0}
+78|THB
+79|On-hand stock (adjust on the product page)
+80|Opening stock
+81|Pack color details (optional)
+82|Mixed-color packs have one size and are sold as whole packs.
+83|Add size / color
+84|Save product
+85|Returned product
+86|Replacement product
+87|Quantity returned
+88|Quantity sent
+89|Quantity
+90|Search {0} code
+91|Clear {0} search
+92|Clear search
+93|Found
+94|size / color options
+95|Select a product
+96|· Available
+97|Remove {0} {1}
+98|Remove
+99|Selected {0} details {1}
+100|· Size
+101|Unit:
+102|· Price ฿
+103|Price {0} (THB)
+104|Add item
+105|Draft
+106|Bill image created. Check your downloads.
+107|Could not export
+108|Edit bill {0}
+109|Create bill
+110|Customer (optional)
+111|No items yet
+112|Review and save bill
+113|Total
+114|Adjusts stock by the difference and keeps revision history.
+115|Saving this bill deducts stock immediately.
+116|Save changes
+117|Save sale
+118|Bill preview
+119|Cash bills
+120|No bills yet
+121|Create a bill for each sale. Every bill deducts stock immediately.
+122|Add products before creating a bill.
+123|Cancelled
+124|Sold
+125|Creating image…
+126|Export bill image
+127|Edit bill
+128|Cancel this incorrect bill and restore stock? For items returned by a customer, use Returns / exchange.
+129|Cancel bill
+130|Revision history
+131|Reserve products
+132|Customer name
+133|Reservations reduce availability. The customer must purchase all reserved items; you can cancel the reservation.
+134|Save reservation
+135|Reservations
+136|No reservations yet
+137|Enter the items manually when a customer contacts you on LINE.
+138|Awaiting purchase
+139|Purchased in full
+140|Create a bill for all items in this reservation?
+141|Create bill from reservation
+142|Cancel this reservation and release the stock?
+143|Cancel reservation
+144|Replace the entered return items and quantities with those from this bill? Check the returned quantities again.
+145|Clear the entered return items and continue without an original bill?
+146|Use items from bill
+147|Clear return items
+148|Returns / exchange
+149|No products available for returns / exchange
+150|Add products on the Products page first.
+151|Operation
+152|Return
+153|Exchange for new products
+154|Original bill
+155|No original bill
+156|Check the items yourself. The app does not know how many were originally purchased.
+157|Incoming items
+158|Return items to shop
+159|Returned condition — applies to all incoming items
+160|Return to sellable stock
+161|Receive but do not restock
+162|Outgoing items
+163|Send replacement products
+164|Creates a new bill and deducts stock immediately. Handle the payment difference separately.
+165|Stock impact summary
+166|Check stock before saving
+167|Sellable returns +
+168|· Replacements sent −
+169|Reserved
+170|· Available after saving
+171|This previews the result of a successful save. Quantities are checked again when you save.
+172|Save exchange
+173|Save return
+174|Return / exchange history
+175|Not sellable
+176|Replacement bill
+177|Original data downloaded. Keep this file for recovery.
+178|Backup downloaded. Keep it somewhere you can find.
+179|Recover shop data
+180|Shop details and backup
+181|Your original data is still here. Download it first, then select a saved backup. The app will not create a new shop over this data.
+182|Shop data is stored on this device. Clearing browser data or changing devices may lose it. Download backups regularly.
+183|Shop name on bills
+184|Phone number on bills
+185|Save shop details
+186|Keep original data and restore a backup
+187|Back up and move data manually
+188|Download original data for recovery
+189|Download backup
+190|This original-data file may help diagnose the problem. It may not be importable immediately; keep it first.
+191|One JSON backup contains products, stock, bills, reservations and returns.
+192|Import backup
+193|Choose backup file
+194|Choose a backup downloaded from this app. Importing replaces the data on this device after confirmation.
+195|Download a backup of the current data before importing.
+196|Stock movement history
+197|Adjust stock
+198|Sale
+199|Sale from reservation
+200|Exchange
+201|Update shop details
+202|No movements yet
+203|Bills for {0}
+204|bills · Active bill total ฿
+205|Select a bill for {0}
+206|Unnamed customer
+207|Could not display the bill
+208|View bill {0} at full size
+209|Cash bill {0}
+210|Loading bill…
+211|Select the image to view the full-size bill
+212|Shop name not specified
+213|Customer:
+214|Date
+215|This bill has been cancelled
+216|Bill items
+217|Item
+218|Unit price
+219|Amount
+220|Total
+221|Read bill items in larger text
+222|× ฿
+223|= ฿
+224|Total ฿
+225|Product not found
+226|Transaction identifier not found
+227|This data has changed. Reopen the form before editing.
+228|Enter a product code, unit and at least one product option.
+229|This product code already exists
+230|Enter a size and color
+231|This product code has duplicate size / color options
+232|Invalid price or opening stock
+233|The product option does not match this product code
+234|The quantity is too large
+235|The actual stock count must be a whole number of 0 or more
+236|Enter the reservation customer's name
+237|This reservation is no longer awaiting purchase
+238|This bill was cancelled or could not be found
+239|This bill has changed. Reopen the latest bill before editing.
+240|This bill has returns / exchanges. You can change prices, but not quantities.
+241|Not enough stock: the increase exceeds the available quantity
+242|{0}: Edited {1}
+243|This bill has returns / exchanges and cannot be cancelled, to avoid restoring stock twice.
+244|{0}: Bill cancelled
+245|Quantity must be a whole number greater than 0
+246|Select at least one product
+247|Product code not found
+248|Invalid price
+249|Not enough stock: the quantity exceeds availability
+250|Select the returned products
+251|No eligible original bill was found
+252|The returned quantity exceeds the purchased quantity or was already returned
+253|This backup is invalid or from a different version. Your original data has not been replaced.
+254|The data is too large. Reduce product image sizes and try again.
+255|Data changed in another tab. Load the latest data before saving.
+256|Could not save. This device may be full. Back up your data or reduce image sizes.

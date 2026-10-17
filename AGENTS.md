@@ -8,3 +8,6 @@ Before assigning a task status, read `docs/agents/triage-labels.md`.
 
 ### Domain docs
 This project uses one domain context. Before exploring domain code or defining terms and decisions, read `docs/agents/domain.md`.
+
+### UX/UI
+Before designing, implementing, or reviewing UI, read `docs/agents/ux-ui.md` for UX/UI Agent Skills usage, Khonnai overrides, and verification targets.

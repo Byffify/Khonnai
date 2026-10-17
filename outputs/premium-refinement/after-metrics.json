@@ -1,0 +1,76 @@
+[
+  [
+    {
+      "text": "สินค้า",
+      "width": 69.390625,
+      "height": 80,
+      "labelWidth": 32.5625,
+      "labelHeight": 20
+    },
+    {
+      "text": "บิล",
+      "width": 69.40625,
+      "height": 80,
+      "labelWidth": 16.609375,
+      "labelHeight": 20
+    },
+    {
+      "text": "จอง",
+      "width": 69.390625,
+      "height": 80,
+      "labelWidth": 23.546875,
+      "labelHeight": 20
+    },
+    {
+      "text": "คืน/เปลี่ยน",
+      "width": 69.40625,
+      "height": 80,
+      "labelWidth": 61.578125,
+      "labelHeight": 20
+    },
+    {
+      "text": "ร้าน/สำรอง",
+      "width": 69.40625,
+      "height": 80,
+      "labelWidth": 67.40625,
+      "labelHeight": 40
+    }
+  ],
+  [
+    {
+      "text": "สินค้า",
+      "width": 207,
+      "height": 52,
+      "labelWidth": 37.203125,
+      "labelHeight": 24
+    },
+    {
+      "text": "บิล",
+      "width": 207,
+      "height": 52,
+      "labelWidth": 18.984375,
+      "labelHeight": 24
+    },
+    {
+      "text": "จอง",
+      "width": 207,
+      "height": 52,
+      "labelWidth": 26.90625,
+      "labelHeight": 24
+    },
+    {
+      "text": "คืน/เปลี่ยน",
+      "width": 207,
+      "height": 52,
+      "labelWidth": 70.375,
+      "labelHeight": 24
+    },
+    {
+      "text": "ร้าน/สำรอง",
+      "width": 207,
+      "height": 52,
+      "labelWidth": 79.125,
+      "labelHeight": 24
+    }
+  ]
+]

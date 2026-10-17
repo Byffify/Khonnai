@@ -1,194 +1,118 @@
 ---
 name: Khonnai · คนใน
-description: A friendly shop helper with navy anchors, orange additions and readable Thai operational UI.
+description: White operational workspace with Fastwork foundations and Khonnai navy/orange branding.
 colors:
   primary: "#193b5a"
-  ink: "#193b5a"
+  primary-dark: "#193b5a"
   action: "#193b5a"
   action-hover: "#102d47"
+  action-surface: "#eaf0f5"
   add: "#ed7c32"
   add-hover: "#f58a43"
   add-ink: "#102d47"
   add-surface: "#fff0e3"
-  mint: "#bfdcbc"
-  stock-surface: "#e9f4eb"
-  stock-action: "#bfdcbc"
-  stock-hover: "#afd0ac"
-  success: "#166534"
-  canvas: "#faf8ee"
+  nav-surface: "#ffffff"
+  ink: "#171717"
+  muted: "#646464"
+  canvas: "#ffffff"
+  surface: "#f5f5f5"
+  paper: "#ffffff"
+  border: "#ebebeb"
+  control-border: "#797979"
+  secondary-border: "#8b949c"
+  selected: "#eaf0f5"
+  disabled: "#e7e7e7"
+  danger: "#a50c25"
+  danger-surface: "#fff1f2"
+  warning: "#745b00"
+  warning-surface: "#fff7df"
+  success: "#007004"
+  stock-surface: "#edf7ed"
+  stock-action: "#ffffff"
+  stock-hover: "#eaf0f5"
+  scrim: "rgb(0 0 0 / 24%)"
+rounded:
+  control-radius: "12px"
+  card-radius: "16px"
+  photo-radius: "16px"
+  pill-radius: "9999px"
+runtime:
+  font: '"Plus Jakarta Sans", "Anuphan", "IBM Plex Sans Thai Looped", "Leelawadee UI", Tahoma, sans-serif'
+  label-font: 'var(--ds-font)'
+  brand-font: '"Rammetto One", sans-serif'
+  body-size: "18px"
+  body-line: "28px"
+  label-size: "16px"
+  label-line: "24px"
+  caption-size: "14px"
+  caption-line: "22px"
+  control-height: "52px"
+  chip-height: "48px"
+  space-xs: "4px"
+  space-sm: "8px"
+  space-md: "12px"
+  space-base: "16px"
+  space-lg: "24px"
+  space-xl: "32px"
+  shadow-hover: "0 4px 12px rgb(0 0 0 / 8%)"
+  content-width: "1120px"
+  reading-width: "760px"
+  work-width: "960px"
+  panel-space: "32px"
+  amount-size: "32px"
+  amount-line: "40px"
+motion:
+  feedback: "125ms"
+  selection: "160ms"
+  content: "220ms"
+  disclosure: "240ms"
+  dialog: "280ms"
+  loading-delay: "225ms"
+  ease: "cubic-bezier(.24, 1, .4, 1)"
+receipt:
+  ink: "#193b5a"
   paper: "#ffffff"
   selected: "#eaf0f5"
-  muted: "#555555"
-  border: "#d4cec7"
-  control-border: "#79736d"
-  disabled: "#e7e5e2"
   danger: "#b42318"
-  danger-surface: "#fff1f0"
-  warning: "#92400e"
-  warning-surface: "#fff7ed"
-  scrim: "rgb(0 0 0 / 35%)"
-typography:
-  title:
-    fontFamily: '"Plus Jakarta Sans", "IBM Plex Sans Thai Looped", "Leelawadee UI", Tahoma, sans-serif'
-    fontSize: "28px"
-    fontWeight: 500
-    lineHeight: "36px"
-  heading:
-    fontFamily: '"Plus Jakarta Sans", "IBM Plex Sans Thai Looped", "Leelawadee UI", Tahoma, sans-serif'
-    fontSize: "24px"
-    fontWeight: 500
-    lineHeight: "32px"
-  subheading:
-    fontFamily: '"Plus Jakarta Sans", "IBM Plex Sans Thai Looped", "Leelawadee UI", Tahoma, sans-serif'
-    fontSize: "20px"
-    fontWeight: 500
-    lineHeight: "28px"
-  body:
-    fontFamily: '"Plus Jakarta Sans", "IBM Plex Sans Thai Looped", "Leelawadee UI", Tahoma, sans-serif'
-    fontSize: "18px"
-    fontWeight: 400
-    lineHeight: "28px"
-  label:
-    fontFamily: '"Plus Jakarta Sans", "IBM Plex Sans Thai Looped", "Leelawadee UI", Tahoma, sans-serif'
-    fontSize: "16px"
-    fontWeight: 600
-    lineHeight: "24px"
-  caption:
-    fontFamily: '"Plus Jakarta Sans", "IBM Plex Sans Thai Looped", "Leelawadee UI", Tahoma, sans-serif'
-    fontSize: "14px"
-    fontWeight: 400
-    lineHeight: "22px"
-  metadata:
-    fontFamily: '"IBM Plex Mono", "IBM Plex Sans Thai Looped", "Leelawadee UI", Tahoma, monospace'
-    fontSize: "14px"
-    fontWeight: 400
-    lineHeight: "22px"
-rounded:
-  chip: "6px"
-  control: "8px"
-  card: "12px"
-  photo: "16px"
-  pill: "9999px"
-spacing:
-  xs: "4px"
-  sm: "8px"
-  md: "12px"
-  base: "16px"
-  lg: "24px"
-  xl: "32px"
-components:
-  button-primary:
-    backgroundColor: "{colors.action}"
-    textColor: "{colors.paper}"
-    typography: "{typography.label}"
-    rounded: "{rounded.control}"
-    height: "52px"
-    padding: "10px 24px"
-  button-add:
-    backgroundColor: "{colors.add}"
-    textColor: "{colors.add-ink}"
-    typography: "{typography.label}"
-    rounded: "{rounded.control}"
-    height: "52px"
-  button-stock:
-    backgroundColor: "{colors.stock-action}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.control}"
-    height: "52px"
-  button-secondary:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.control}"
-    height: "52px"
-  button-danger:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.danger}"
-    rounded: "{rounded.control}"
-    height: "52px"
-  text-input:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.control}"
-    height: "52px"
-  navigation-selected:
-    backgroundColor: "{colors.add}"
-    textColor: "{colors.add-ink}"
-    rounded: "{rounded.control}"
-  card:
-    backgroundColor: "{colors.paper}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.card}"
+  font: '"Plus Jakarta Sans", "IBM Plex Sans Thai Looped", "Leelawadee UI", Tahoma, sans-serif'
 ---
 
 # Design System: Khonnai · คนใน
 
-## Overview
+## Direction and authority
 
-**Creative North Star: "คนในร้านที่ช่วยงานได้"**
+Approved whole-app Fastwork redesign,17 October2026: white workspace, navy/orange brand, neutral grouping, soft geometry and purposeful task feedback. PRODUCT.md and UX-CONTRACT.md retain product truth and behavior. The representative preview in outputs/fastwork-preview was approved in chat. Landing stays deferred; preserve docs/research/fastwork/landing-reference.md.
 
-แบรนด์ Khonnai · คนใน ตามภาพที่ผู้ใช้ยืนยัน: คน กล่องสินค้า เอกสารและเครื่องหมายถูก สื่อผู้ช่วยงานร้าน ภาพเป็น visual reference ไม่ใช่คำสั่งให้เพิ่มฟีเจอร์ ใช้ตราแบรนด์ในหัวแอป/sidebarและfavicon ไม่วางมาสคอตซ้ำในฟอร์ม ตราที่ใช้งานเป็นภาพ raster ดัดแปลงด้วยการสร้างภาพ ไม่ใช่ไฟล์ vector ต้นฉบับของแบรนด์
+Follow-up user decisions: Iconly SVG icons; Rammetto One for the English wordmark; **navy→orange gradient from left to right**. Scope the gradient to the wordmark, never amounts/headings/body. Keep the existing mascot and Thai คนใน in readable UI type. Receipt shop identity stays unchanged.
 
-**Key Characteristics:**
-- อ่านง่ายสำหรับเจ้าของร้าน40+ และใช้งานด้วยมือถือ
-- สีแบ่งหน้าที่ รูปทรงเรียบ ลดกรอบซ้อน
-- ไม่เปลี่ยนข้อมูลหรือขั้นตอนเดิมเพื่อให้เข้ากับภาพการตลาด
+Premium refinement,17 October2026: user requested qualities associated with Apple/Mercedes. Preserve this Fastwork visual world and brand; refine precision, hierarchy, considered content widths and tactile feedback. This is an operational app: an immediately readable total, aligned controls and calm surfaces carry premium quality. Rammetto remains the friendly brand signature; no new display font in operational UI. Research and landing implications: docs/research/premium-direction.md.
 
-## Colors
+## Canonical token path
 
-กรมท่าเป็นหลักสำหรับข้อความและบันทึก ส้มสำหรับเพิ่มสินค้า เขียวอ่อนตามภาพที่ผู้ใช้ส่งสำหรับปุ่มเพิ่มสต็อกและข้อมูลพร้อมขาย พื้นครีมและช่องกรอกขาว รหัสสีประมาณจากภาพอ้างอิงซึ่งไม่มีHEXกำกับ ไม่อ้างว่าเป็นbrand master values
+The scalar frontmatter blocks colors/rounded/runtime/motion/receipt above are canonical. `npm run theme:build` generates src/styles/tokens.css; `npm run theme:check` detects drift. Never hand-edit generated CSS. Stable --ds-* variables feed shared components. No DTCG migration or second app theme. The receipt block emits independent --receipt-* variables so app color/font changes cannot alter the approved paper/PNG. Baseline fixture and PNG are in outputs/fastwork-preview/.
 
-**The Action Role Rule.** สีต้องคู่กับชื่อปุ่มหรือสถานะ: กรมท่าบันทึก ส้มเพิ่ม เขียวพร้อมขาย แดงลบ/ยกเลิก เทากดไม่ได้ ห้ามใช้สีอย่างเดียวบอกความหมาย
+## Typography and layout
 
-กริดสินค้าแสดงเฉพาะรูปกับรหัสสินค้า ไม่แสดงไซซ์ สี จำนวน หน่วยหรือป้ายสถานะในหน้ารวม กดสินค้าเพื่อเปิดรายละเอียด เลือกไซซ์อย่างชัดเจนก่อนแสดงสีและจำนวน ป้ายพร้อมขายใช้ stock-action พร้อมเครื่องหมายถูกและยอด success เดิม หมดใช้ warning ของไม่พอใช้ danger พร้อมไอคอน/ข้อความ คงจำนวนที่ยังขายได้หลังหักจองตามเดิม ไม่ย้อมกระดาษบิล PNG
+Self-host Anuphan variable100–700 for Thai application text, Plus Jakarta Sans400/500/700 for Latin, and Rammetto One regular only for the wordmark, with OFL notices retained. User requested a premium Thai-font recommendation and continuation on17 October2026; Anuphan is the recommended first implementation, with IBM Plex Sans Thai and Noto Sans Thai recorded as alternatives. Body18/28, label16/24, caption14/22; headings28/36 mobile and32/40 desktop weight500; no Thai tracking; tabular figures for quantities. IBM Plex Sans Thai Looped400/500/600/700 stays available as fallback and is retained in the frozen receipt family; **do not replace receipt.font with the app font**.
 
-## Typography
+Mobile base with16–20px content padding and safe-area bottom navigation. White240px desktop sidebar at1024px, same five labels/destinations/guards. Catalog2 columns mobile,3 at601px,4 at1151px, photo/code only. Detail shows photo/code, explicit size selection, separate white color/mixed-pack cards. Secondary screens keep BackButton, original focus/search restoration and unsaved guards.
 
-Modern sans-serif: IBM Plex Sans Thai Looped สำหรับไทย และ Plus Jakarta Sans สำหรับอังกฤษ ฟอนต์self-hostพร้อมใบอนุญาต ใช้body18, label16, caption14 หัวข้อ28/24/20 ไม่เพิ่มtrackingไทย โลโก้ชื่อแบรนด์24px/700บนมือถือ,22px/700บนsidebar Metadataเดิมบางแห่งใช้IBM Plex Monoคู่กับฟอนต์ไทย ขนาดh3สืบทอดline-height28pxจากbody
+## Components and surfaces
 
-## Layout
+White base/cards, #f5f5f5 grouping/image placeholders, subtle dividers, stronger input borders. Control radius12, card/photo16, capsule CTA and size chips. Controls52px, size chips48px. Navy save, orange add/dark ink, white secondary. Green is semantic availability; stock actions navy/neutral. Danger actions retain confirmations and labels.
 
-คงเมนูล่างมือถือ/sidebarที่1024px การ์ดสินค้าเรียงสินค้า → ไซซ์ → สี/คละสี พร้อมจำนวนและหน่วย รองรับ320px ฟอร์มสองคอลัมน์เดิมยุบเหลือหนึ่งบนมือถือ ปุ่มเพิ่มรายการ/ดาวน์โหลดพอดีข้อความ ปุ่มบันทึกบนมือถือกว้าง ลำดับDOM/focusเดิม
+Premium refinement uses500-weight headings and field labels, body18/28 unchanged. White secondary buttons keep the semantic navy label with a quieter border; hover/press/focus provide coherent feedback. Base panels use a single fine boundary, never a border plus decorative elevation. The bill summary is a solid neutral inset without a border; total is32/40, before its full-width save action. Receipt pixels remain independent. Content maximum1120; settings prose760; return/reservation forms960. Panel padding32 desktop/20 mobile. Mobile navigation icons share a baseline even when Thai labels wrap; no shortened menu labels or smaller-than14px type. Entry content stays visible throughout its short transition.
 
-Transaction rows align control tops rather than hint bottoms: quantity column132px desktop/112px mobile, labels16px/24px and entry text18px/28px. Remove aligns with controls on desktop and occupies its own row on mobile. Back/title rows share an optical baseline.
+Forms preserve field/DOM order and native OS select/file controls. Hints/suffixes carry units. Failed validation/commands focus the existing local error, retain inputs and permit retry. Bill total and submit remain before full paper preview. The paper pixels keep their dedicated frozen theme; surrounding controls/captions use the new UI.
 
-## Elevation & Depth
+## Motion and resilience
 
-พื้นขาว เส้นneutral1px การ์ดสินค้าhoverเงานุ่ม0 4px 12px rgb(34 34 34 /12%) ไม่เปลี่ยนพื้นเป็นสีขาวเฉพาะhover ไม่ใช้เงากับทุกช่อง/ปุ่ม
+Feedback125ms, selection160ms, content220ms at most6px travel, disclosure240ms, dialog280ms. View/tab changes carry motion, not every nested card. Loading indicator waits225ms only while pending; duplicate-submit protection starts immediately. Never count-up stock/money or commit at animationend. Reduced motion keeps final content immediately visible, no movement/loops. Preserve forced-colors, keyboard focus and scrollbar visibility.
 
-## Shapes
+## Verification
 
-ปุ่มและช่องกรอก8px การ์ด/dialog12px ไซซ์6px รูปสินค้า16px Badgeสถานะpillเท่านั้น ไม่ใช้pillทั้งหน้าจอ ปุ่มสูงอย่างน้อย52pxและตัวเลือกไซซ์อย่างน้อย48px
+Check token drift, typecheck/lint/unit/build/browser,320/390/768/1440, zoom200%, keyboard/focus, native dropdowns, long Thai text, empty/error/disabled/saving and reduced motion. Compare fixed receipt PNG bytes against pre-redesign baseline. SKIPPED/missing browser is unverified. Keep schema, localStorage, domain commands and all business transitions unchanged.
 
-## Components
+### Settings and language
 
-ทุกหน้ารองใช้ BackButton เดียวกัน: ลูกศรย้อนกลับและคำว่า “กลับ” ชิดซ้ายเหนือชื่อหน้า ไม่มีกรอบปุ่มใหญ่ พื้นที่กดอย่างน้อย48px Hoverใช้ action-surface และ keyboard focus ใช้ action เดิม หน้าหลักไม่มีปุ่มกลับ ยังคง leave guard และปลายทางเดิม
-
-Navigation keyboard focus uses the existing cream outline on navy. Disabled controls retain neutral disabled fill even on hover/press; invalid field borders use existing danger red. Bill-tab strips reserve6px around focus rings. Backup selection uses the same native file input/OS picker behind a Thai “เลือกไฟล์สำรอง” affordance with visible keyboard focus; import validation/confirmation is unchanged.
-
-Feedback failures remain in the current task: a focused red message beside shared submit, without clearing entered values; page-only failures use the existing Notice. Product code search uses native input/select with a clear button and never preselects the first product. Return-reference changes confirm draft replacement. The visible navigation label “ร้าน/สำรอง” exposes backup. Quantity hints/remaining/reserved labels carry units using existing caption/body roles; no new decorative system.
-
-Product entry price and opening-stock units sit inside the field on the right (บาท / หน่วย and หน่วย: ชื่อหน่วย); no duplicate hint underneath. Shared Field suffix is noneditable, described to assistive technology and laid out separately from the number so they cannot overlap.
-
-ใช้shared Brand/Button/Field/Form, ItemsEditor, ConfirmDialog และApp navigation เมนูพื้นกรมท่า ข้อความครีม เมนูที่เลือกส้ม/กรมท่า Hoverเส้นครีม เมนูที่เลือกhoverส้มสว่างขึ้น กดไม่ได้ยังมีชื่อและopacity เมนูล่างสูงอย่างน้อย64pxและเมนูsidebarอย่างน้อย52px
-
-ปุ่มเพิ่มสินค้าและstock disclosureมีเครื่องหมายบวก ปุ่มstockคงชื่อ “เพิ่มสต็อก / ปรับจำนวน” ไม่เพิ่มคำอธิบาย สีแยกการเพิ่มจากปุ่มบันทึก ลบ/ยกเลิกแดงพร้อมconfirmationเดิม
-
-หน้าบิลจัดกลุ่มวันที่ตามAsia/Bangkok ใหม่ก่อนเก่า แต่ละวันมีจำนวนบิลและยอดรวมบิลไม่ยกเลิก แท็บแนวนอนเลื่อนได้แสดงไอคอนบิล เลขบิลและชื่อลูกค้า เลือกแล้วแสดงกระดาษเต็มครั้งละหนึ่งฉบับ ปุ่มแก้/ยกเลิก/Exportอยู่กับบิลที่เลือก รองรับArrow/Home/Endและfocus ไม่เปลี่ยนกติกาสต็อกหรือข้อมูลบิล
-
-สีและฟอนต์ของกระดาษบิล/PNGมาจากtokensเดียวกัน ไม่ใส่ชื่อKhonnaiแทนชื่อร้านลูกค้า ไม่เปลี่ยนรูปแบบกระดาษเต็มหรือยอดรวม/ปุ่มบันทึกก่อนpreview
-
-## Do's and Don'ts
-
-- Do ใช้สีตามหน้าที่และข้อความไทยชัดเจน จำนวนทุกแห่งมีหน่วย
-- Do คงbefore/afterของสต็อก รายละเอียดvariantเต็ม และแยกรับคืน/ส่งออก
-- Do คงvalidation/focus/unsaved guard/recovery/backupและreduced-motion
-- Don't เพิ่มDashboard/กราฟ/Chat/แจ้งเตือนจากภาพreference
-- Don't เปลี่ยนlocalStorage key/schema กติกาสต็อกหรือflowบิล/จอง/คืนสินค้า
-- Don't ใช้โลโก้แอปแทนชื่อร้านในบิลหรือเพิ่มมาสคอตตกแต่งทุกหน้า
-
-
-## Catalog grid — approved 2026-10-14
-
-In product details, each color/mixed-color variant is a separate white card with a neutral1px border, existing12px card radius and20px padding on the cream canvas. Quantity, price, availability and stock actions stay inside that color's card; no extra shadows or inner colored panels.
-
-Single white product tiles with square contain-fit photos and readable product codes. Two columns on mobile, three from601px and four above1150px;12px mobile gaps and20px larger gaps. No quantities or size/color metadata in the grid. Detail view keeps shared Button, size chips and existing VariantView/stock Form, with no size preselected. Back restores keyboard focus and search; leaving or changing size protects unsaved stock drafts. Product schema and brand tokens remain unchanged.
+Settings uses quiet white icon rows grouped into Your shop, Preferences, and Data/history. Rows open separate task pages with a labeled back arrow; no decorative search or unsupported account settings. Reuse original Iconly Light SVGs and runtime tokens. Thai uses Anuphan, Latin remains Plus Jakarta Sans. UI language is Thai/English; source shop text and receipt typography are preserved.

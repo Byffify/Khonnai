@@ -1,19 +1,19 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-14T17:57:57.9650841+07:00",
+  "generatedAt": "2026-10-17T17:00:00+07:00",
   "title": "Design System: Khonnai · คนใน",
   "extensions": {
     "shadows": [
       {
         "name": "product-hover",
-        "value": "0 4px 12px rgb(34 34 34 / 12%)",
+        "value": "var(--ds-shadow-hover)",
         "purpose": "Product disclosure hover only"
       }
     ],
     "motion": [
       {
         "name": "control-feedback",
-        "value": "150ms",
+        "value": "var(--ds-motion-feedback)",
         "purpose": "State feedback; disabled with reduced motion"
       }
     ],
@@ -35,15 +35,15 @@
       "refersTo": "button-primary",
       "description": "Primary save action",
       "html": "<button class=\"ds-save\">บันทึก</button>",
-      "css": ".ds-save{background:var(--ds-action);color:var(--ds-paper);border:1px solid var(--ds-action);border-radius:8px;min-height:52px;padding:10px 24px;font:600 16px var(--ds-font)}.ds-save:hover{background:var(--ds-action-hover)}.ds-save:focus-visible{outline:2px solid var(--ds-ink);outline-offset:3px}.ds-save:disabled{background:var(--ds-disabled);color:var(--ds-muted)}"
+      "css": ".ds-save{background:var(--ds-action);color:var(--ds-paper);border:1px solid var(--ds-action);border-radius:var(--ds-pill-radius);min-height:var(--ds-control-height);padding:10px 24px;font:600 16px var(--ds-font)}.ds-save:hover{background:var(--ds-action-hover)}.ds-save:focus-visible{outline:2px solid var(--ds-ink);outline-offset:3px}.ds-save:disabled{background:var(--ds-disabled);color:var(--ds-muted)}"
     },
     {
       "name": "Stock addition",
       "kind": "button",
       "refersTo": "button-stock",
-      "description": "Pale-green stock disclosure with navy label and plus icon",
+      "description": "Navy stock disclosure on white; original native details behavior",
       "html": "<details><summary class=\"ds-add\">เพิ่มสต็อก / ปรับจำนวน</summary></details>",
-      "css": ".ds-add{background:var(--ds-stock-action);color:var(--ds-ink);border:1px solid var(--ds-stock-action);border-radius:8px;min-height:52px;padding:12px 16px;list-style:none;cursor:pointer;font:600 18px/28px var(--ds-font)}.ds-add:hover{background:var(--ds-stock-hover)}.ds-add:focus-visible{outline:2px solid var(--ds-ink);outline-offset:3px}"
+      "css": ".ds-add{color:var(--ds-primary);background:var(--ds-paper);border:0;border-radius:var(--ds-control-radius);min-height:var(--ds-control-height);padding:12px 0;font:600 16px/24px var(--ds-font)}.ds-add:hover{background:var(--ds-selected)}"
     },
     {
       "name": "Secondary",
@@ -51,7 +51,7 @@
       "refersTo": "button-secondary",
       "description": "Edit, add line or export",
       "html": "<button class=\"ds-secondary\">ดาวน์โหลดไฟล์สำรอง</button>",
-      "css": ".ds-secondary{background:var(--ds-paper);color:var(--ds-ink);border:1px solid var(--ds-control-border);border-radius:8px;min-height:52px;padding:10px 24px;font:600 16px var(--ds-font)}.ds-secondary:hover{background:var(--ds-action-surface);border-color:var(--ds-action)}.ds-secondary:focus-visible{outline:2px solid var(--ds-ink);outline-offset:3px}"
+      "css": ".ds-secondary{background:var(--ds-paper);color:var(--ds-ink);border:1px solid var(--ds-secondary-border);border-radius:var(--ds-pill-radius);min-height:var(--ds-control-height);padding:10px 24px;font:600 16px var(--ds-font)}.ds-secondary:hover{background:var(--ds-action-surface);border-color:var(--ds-action)}.ds-secondary:focus-visible{outline:2px solid var(--ds-ink);outline-offset:3px}"
     },
     {
       "name": "Input",
@@ -59,23 +59,23 @@
       "refersTo": "text-input",
       "description": "Labeled data entry",
       "html": "<label class=\"ds-field\">ชื่อร้าน<input></label>",
-      "css": ".ds-field{display:grid;gap:6px;color:var(--ds-ink);font:600 16px var(--ds-font)}.ds-field input{background:var(--ds-paper);color:var(--ds-ink);border:1px solid var(--ds-control-border);border-radius:8px;min-height:52px;padding:10px 20px;font:400 18px var(--ds-font)}.ds-field input:focus-visible{outline:2px solid var(--ds-ink);outline-offset:3px}"
+      "css": ".ds-field{display:grid;gap:6px;color:var(--ds-ink);font:500 16px var(--ds-font)}.ds-field input{background:var(--ds-paper);color:var(--ds-ink);border:1px solid var(--ds-control-border);border-radius:var(--ds-control-radius);min-height:var(--ds-control-height);padding:10px 20px;font:400 18px var(--ds-font)}.ds-field input:focus-visible{outline:2px solid var(--ds-ink);outline-offset:3px}"
     },
     {
       "name": "Current menu",
       "kind": "nav",
       "refersTo": "navigation-selected",
-      "description": "Selected route on navy navigation",
+      "description": "Navy selected route on white navigation",
       "html": "<nav class=\"ds-nav\"><button aria-current=\"page\">สินค้า</button></nav>",
-      "css": ".ds-nav{background:var(--ds-nav-surface);padding:8px}.ds-nav button{background:var(--ds-add);color:var(--ds-add-ink);border:1px solid var(--ds-add);border-radius:8px;min-height:52px;padding:12px 16px;font:600 16px var(--ds-font)}.ds-nav button:hover{background:var(--ds-add-hover)}.ds-nav button:focus-visible{outline:2px solid var(--ds-ink);outline-offset:3px}"
+      "css": ".ds-nav{background:var(--ds-nav-surface);padding:8px}.ds-nav button{background:var(--ds-selected);color:var(--ds-primary);border:1px solid transparent;border-radius:var(--ds-control-radius);min-height:var(--ds-control-height);padding:12px 16px;font:600 16px/24px var(--ds-font)}"
     },
     {
       "name": "Product card",
       "kind": "card",
       "refersTo": "card",
-      "description": "Stock listing with disclosure",
-      "html": "<article class=\"ds-card\"><details><summary>สินค้า · ขายได้ 12 แพ็ก</summary></details></article>",
-      "css": ".ds-card{background:var(--ds-paper);color:var(--ds-ink);border:1px solid var(--ds-border);border-radius:12px;padding:20px;font:400 18px var(--ds-font)}.ds-card summary{cursor:pointer;list-style:none}.ds-card:has(summary:hover){box-shadow:0 4px 12px rgb(34 34 34 /12%)}"
+      "description": "Photo/code-only catalog tile; explicit size disclosure in detail",
+      "html": "<button class=\"ds-card\"><img src=\"/brand/khonnai-mark.png\" alt=\"\"><span>KH-001</span></button>",
+      "css": ".ds-card{display:grid;gap:12px;background:var(--ds-paper);color:var(--ds-ink);border:0;border-radius:var(--ds-photo-radius);padding:0;font:500 18px/28px var(--ds-font)}.ds-card img{aspect-ratio:1;width:100%;object-fit:contain;border-radius:var(--ds-photo-radius);background:var(--ds-surface)}"
     },
     {
       "name": "Danger",
@@ -83,19 +83,19 @@
       "refersTo": "button-danger",
       "description": "Deletion or cancellation before confirmation",
       "html": "<button class=\"ds-danger\">ลบ</button>",
-      "css": ".ds-danger{background:var(--ds-canvas);color:var(--ds-danger);border:1px solid var(--ds-danger);border-radius:8px;min-height:52px;padding:10px 24px;font:600 16px var(--ds-font)}.ds-danger:hover{background:var(--ds-danger-surface)}.ds-danger:focus-visible{outline:2px solid var(--ds-ink);outline-offset:3px}.ds-danger:disabled{background:var(--ds-disabled);color:var(--ds-muted);border-color:var(--ds-disabled)}"
+      "css": ".ds-danger{background:var(--ds-canvas);color:var(--ds-danger);border:1px solid var(--ds-danger);border-radius:var(--ds-pill-radius);min-height:var(--ds-control-height);padding:10px 24px;font:600 16px var(--ds-font)}.ds-danger:hover{background:var(--ds-danger-surface)}.ds-danger:focus-visible{outline:2px solid var(--ds-ink);outline-offset:3px}.ds-danger:disabled{background:var(--ds-disabled);color:var(--ds-muted);border-color:var(--ds-disabled)}"
     },
     {
       "name": "Size choice",
       "kind": "chip",
       "description": "Named size with explicit selected state",
       "html": "<button class=\"ds-chip\" aria-pressed=\"true\">M</button>",
-      "css": ".ds-chip{background:transparent;color:var(--ds-ink);border:1px solid var(--ds-ink);border-radius:6px;min-height:48px;padding:8px 18px;font:400 16px var(--ds-font)}.ds-chip[aria-pressed=true]{background:var(--ds-action);color:var(--ds-paper);border-color:var(--ds-action)}.ds-chip:focus-visible{outline:2px solid var(--ds-ink);outline-offset:3px}"
+      "css": ".ds-chip{background:transparent;color:var(--ds-ink);border:1px solid var(--ds-ink);border-radius:var(--ds-pill-radius);min-height:48px;padding:8px 18px;font:400 16px var(--ds-font)}.ds-chip[aria-pressed=true]{background:var(--ds-action);color:var(--ds-paper);border-color:var(--ds-action)}.ds-chip:focus-visible{outline:2px solid var(--ds-ink);outline-offset:3px}"
     }
   ],
   "narrative": {
     "northStar": "คนในร้านที่ช่วยงานได้",
-    "overview": "แบรนด์ Khonnai · คนใน ตามภาพที่ผู้ใช้ยืนยัน: คน กล่องสินค้า เอกสารและเครื่องหมายถูก สื่อผู้ช่วยงานร้าน ภาพเป็น visual reference ไม่ใช่คำสั่งให้เพิ่มฟีเจอร์ ใช้ตราแบรนด์ในหัวแอป/sidebarและfavicon ไม่วางมาสคอตซ้ำในฟอร์ม ตราที่ใช้งานเป็นภาพ raster ดัดแปลงด้วยการสร้างภาพ ไม่ใช่ไฟล์ vector ต้นฉบับของแบรนด์",
+    "overview": "Approved Fastwork foundations on white with Khonnai navy/orange. Existing mascot; Rammetto One wordmark with navy-to-orange gradient. Landing deferred, all business flows retained, receipt presentation isolated. Premium refinement: precise hierarchy, considered content widths, dominant bill total and aligned navigation. Operational content remains immediately visible.",
     "keyCharacteristics": [
       "อ่านง่ายสำหรับเจ้าของร้าน40+ และใช้งานด้วยมือถือ",
       "สีแบ่งหน้าที่ รูปทรงเรียบ ลดกรอบซ้อน",
