@@ -1,0 +1,42 @@
+[
+  {
+    "width": 1440,
+    "threeSteps": true,
+    "imagesLoaded": true,
+    "arrowNavigation": true,
+    "keyboard": true,
+    "noOverflow": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "threeSteps": true,
+    "imagesLoaded": true,
+    "arrowNavigation": true,
+    "keyboard": true,
+    "noOverflow": true,
+    "errors": []
+  },
+  {
+    "width": 320,
+    "threeSteps": true,
+    "imagesLoaded": true,
+    "arrowNavigation": true,
+    "keyboard": true,
+    "noOverflow": true,
+    "errors": []
+  },
+  {
+    "width": 768,
+    "threeSteps": true,
+    "imagesLoaded": true,
+    "arrowNavigation": true,
+    "keyboard": true,
+    "noOverflow": true,
+    "errors": []
+  },
+  {
+    "reducedMotion": true,
+    "immediateNavigation": true
+  }
+]

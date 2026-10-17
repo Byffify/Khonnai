@@ -1,0 +1,134 @@
+[
+  {
+    "Path": "D:\\Khonnai\\src\\App.css",
+    "Hash": "C2571CE7245629994B8ADC84F6C48E1920F047A4E7E29C89A4AEB51EEB1B5433"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\App.tsx",
+    "Hash": "6CC82E7C6743EB5C1F4E15B2A595CA3E8EE9E6D3185A360F6F61FDCA3F86F004"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\Brand.tsx",
+    "Hash": "4648A6351FEFC07500C0752BF5116C5DAA0AB1A517D8E15D3C6B7C91C3602385"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\ConfirmDialog.tsx",
+    "Hash": "3477B63E238ED31E303F46B0D6A42E185CF58CF25B34287DCD4CC3861CD9934D"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\formFeedback.ts",
+    "Hash": "7218FBBC68C520832CB167865EB9822915BF486C094AFBB38FB6EBA44F3575C6"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\i18n.ts",
+    "Hash": "7D3BE25DC5C119768AF0E8B26F6375205B936A2918C49BB666AFCEBC7B913F83"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\Icon.tsx",
+    "Hash": "01CBE985F9566D5DE61EC765DA31E24E953A1CAC12B01B55A5159DCDC237FB9A"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\index.css",
+    "Hash": "8C2A5C874401EEC7E7AF3D4262F5B53A9E3123A758CFBC867935691F82087D13"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\landing.css",
+    "Hash": "5BC22589D4ED953BF7D71EB9FB08F3020FF18611C3CA7FB38E29F0914C672102"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\Landing.tsx",
+    "Hash": "CB73DA5828D1EE7DD74B93765AFC405127659F46A07AC1E8DBF0C79E01DC700D"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\landingCopy.ts",
+    "Hash": "1A4E104824518472C11764E6BF551DD74627FB592A4B7599B45A63241BF0D2B9"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\languageContext.ts",
+    "Hash": "D2C3792369FD435DB735D8A5CBD71A673064057570542AE60ECCD2E1432AE63C"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\LanguageProvider.tsx",
+    "Hash": "30C571FF5849D41C991D2AF67C015C3591B55B37A1DEFE657A003C74BFE91E36"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\LanguageSettings.tsx",
+    "Hash": "460F6BE8C623189B88C11788A45D25DE9ED13EBC532E57E0B1FFA90FA60608C6"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\main.tsx",
+    "Hash": "BD0257282A531BA1DD5DBCB4D13F2922129DFEF1EB64061B24D8BF2B0822D041"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\messages.ts",
+    "Hash": "63E24E62931EEC9E474713020FF126F2AA93783F489BD709C50AD4066E1B426F"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\SiteEntry.tsx",
+    "Hash": "863B4CAFEF09AFB7FB61D44690D257F1D284E4F71742AF9FF932F20A5656410B"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\StockStatus.tsx",
+    "Hash": "F429ED31FB12CF5D0B265A8B6DED449F7A572431225B339936851312C660697C"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\ui.tsx",
+    "Hash": "D1362EBE5DC519C8DF46F7B39148383040672ECFF22E8952F5895C2006FA926D"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\assets\\hero.png",
+    "Hash": "881FFBCAAFC212E49ADDAD08846A5B82761355FA20624253AF3477BA33262C5C"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\assets\\react.svg",
+    "Hash": "35EF61ED53B323AE94A16A8EC659B3D0AF3880698791133F23B084085AB1C2E5"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\assets\\vite.svg",
+    "Hash": "2F1F6C6F90A0EF7422CBB4CFAFCD8AD329C507A18AFDC34CC21FA72179B9C54A"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\data\\storage.ts",
+    "Hash": "37096B9C2133319A6C012692493F2ECAB15698DC23DD4DEBE86DDF6D07DDA816"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\domain\\format.ts",
+    "Hash": "0B7829FCA51F7E7154C2E7C9BC71F3C633F2A4E880451F96B1E0E6E87B7DE7E5"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\domain\\inventory.ts",
+    "Hash": "46B7267148B9091F17321F255B29F5AE7A4EE0A499C388583120A96A9D1B73A3"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\features\\BillArchive.tsx",
+    "Hash": "CA068C2DB8F369C09CB7441BBB74BFBE14EBEB6864A91ACDCA06946216009BEC"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\features\\BillImage.ts",
+    "Hash": "6959BCA458BD4B40D6DA0527D68C1FA1DABD1E993C949268F1635C47A9DBE634"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\features\\CashReceipt.tsx",
+    "Hash": "6A5FB7F416F44E04F9D9EF306FA1DD0D1B24A41E992DE0A6BE93F4AE00E8124B"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\features\\Catalog.tsx",
+    "Hash": "9176983A97D6B869640E91FDCC05763EC60E7167F63AE0F0506A847297ED5755"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\features\\Settings.tsx",
+    "Hash": "87764170524D9A73ADF4C3E6C1494A17D6B44B76CF0501A5E72B4AA4D92F32C2"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\features\\Transactions.tsx",
+    "Hash": "FF83723E2AFD08313A4704732F9B11B53BD791A60F9657336076BE23295951F6"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\features\\types.ts",
+    "Hash": "369F7873E894AFB627A337960E066A0E5C668E1C67660690DBF1F9FED4C56EDD"
+  },
+  {
+    "Path": "D:\\Khonnai\\src\\styles\\tokens.css",
+    "Hash": "AEACB80BE05CA926943E63468AE2048BDF576ABD96F449D4CEB01D33B8A75192"
+  }
+]

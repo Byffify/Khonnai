@@ -1,0 +1,61 @@
+<style>
+.pricing-section{padding:120px 0;background:#f5f7f9;color:#193b5a}.pricing-wrap{max-width:1240px;margin:auto;padding:0 32px}.pricing-heading{max-width:720px;margin:0 auto 32px;text-align:center}.pricing-heading h2{font-size:clamp(32px,4.5vw,52px);line-height:1.25;font-weight:500;text-wrap:balance}.pricing-heading p{margin-top:18px;color:#526778;font-size:18px}.pricing-status{max-width:680px;margin:0 auto 28px;text-align:center;color:#8d3c0c;font-size:16px}.pricing-billing{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:0 auto 40px}.pricing-billing button{font:inherit;font-size:16px;min-height:52px;border:0;background:#e6edf2;color:#193b5a;padding:12px 22px;border-radius:99px;cursor:pointer;transition:background 160ms,color 160ms}.pricing-billing button[aria-pressed=true]{background:#193b5a;color:#fff}.pricing-billing small{font-size:14px;margin-left:6px}.pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:stretch}.pricing-card{position:relative;display:flex;flex-direction:column;padding:34px 28px;background:#fff;border-radius:16px;box-shadow:0 8px 24px rgb(25 59 90 / 6%);transition:transform 220ms cubic-bezier(.24,1,.4,1),box-shadow 220ms}.pricing-card:hover,.pricing-card:focus-within{transform:translateY(-5px);box-shadow:0 16px 36px rgb(25 59 90 / 12%)}.pricing-card.pricing-basic{background:#193b5a;color:#fff}.pricing-card h3{font-family:Jakarta,Anuphan,sans-serif;font-size:27px;font-weight:500;line-height:1.4}.pricing-card>p{font-size:16px;color:#536778;margin-top:8px;min-height:52px}.pricing-card.pricing-basic>p{color:#d4e0e9}.pricing-amount{margin:25px 0 0;line-height:1.25;font-family:Jakarta,Anuphan,sans-serif;font-size:clamp(32px,3.2vw,42px);font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums;min-height:54px;display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}.pricing-amount .pricing-currency{font-size:18px;letter-spacing:0}.pricing-period{font-size:14px;color:#536778;min-height:26px;margin:5px 0 26px}.pricing-basic .pricing-period{color:#d4e0e9}.pricing-list{list-style:none;padding:0;margin:0 0 30px}.pricing-list li{font-size:16px;display:flex;gap:11px;align-items:flex-start;margin-top:13px;line-height:1.65}.pricing-list svg{flex:0 0 18px;width:18px;height:18px;margin-top:4px;stroke:#a4460d}.pricing-basic .pricing-list svg{stroke:#ffb37f}.pricing-action{font:inherit;display:flex;justify-content:center;align-items:center;text-align:center;min-height:52px;padding:12px 16px;margin-top:auto;border-radius:99px;border:0;background:#edf3f7;color:#193b5a;font-size:16px;text-decoration:none;cursor:pointer;transition:background 160ms,transform 160ms}.pricing-action:hover{background:#dce7ee}.pricing-action:active{transform:scale(.98)}.pricing-basic .pricing-action{background:#ed7c32;color:#102d47}.pricing-basic .pricing-action:hover{background:#ffa163}.pricing-detail{font-size:14px;line-height:1.7;margin:18px 0 0;padding-top:16px;border-top:1px solid #dce4ea;color:#526778}.pricing-basic .pricing-detail{border-top-color:#46637c;color:#d4e0e9}.pricing-note{font-size:14px;color:#536778;text-align:center;margin:28px auto 0;max-width:780px}.pricing-billing button:focus-visible,.pricing-action:focus-visible{outline:3px solid #ed7c32;outline-offset:5px}.pricing-basic .pricing-action:focus-visible{outline-color:#fff}.pricing-section [hidden]{display:none!important}@media(max-width:800px){.pricing-section{padding:76px 0}.pricing-wrap{padding:0 22px}.pricing-grid{grid-template-columns:1fr;gap:20px;max-width:520px;margin:auto}.pricing-card{padding:28px 24px}.pricing-card>p{min-height:0}.pricing-amount{margin-top:22px;font-size:40px}.pricing-heading p{font-size:17px}.pricing-billing{margin-bottom:30px}.pricing-status{font-size:15px}.pricing-note{text-align:left}}@media(prefers-reduced-motion:reduce){.pricing-card,.pricing-action,.pricing-billing button{transition:none}.pricing-card:hover,.pricing-card:focus-within,.pricing-action:active{transform:none}}
+</style>
+<section class="pricing-section" id="pricing" aria-labelledby="pricing-title">
+  <div class="pricing-wrap">
+    <div class="pricing-heading"><h2 id="pricing-title">เริ่มจากร้านของคุณ<br>ค่อยขยับไปด้วยกัน</h2><p>แนวทางแพ็กเกจสำหรับร้านที่มีจำนวนสินค้าและบิลต่างกัน<br>ทุกแพ็กเกจมีระบบสต็อกและบิลเป็นพื้นฐาน</p></div>
+    <p class="pricing-status">แนวทางราคาในอนาคต · ยังไม่เปิดรับชำระเงิน</p>
+    <div class="pricing-billing" role="group" aria-label="ดูแนวทางราคารายเดือนหรือรายปี">
+      <button type="button" data-billing="monthly" aria-pressed="true">รายเดือน</button>
+      <button type="button" data-billing="annual" aria-pressed="false">รายปี <small>ลด 10%</small></button>
+    </div>
+    <div class="pricing-grid">
+      <article class="pricing-card"><h3>Free</h3><p>เริ่มทำความรู้จักการจัดร้านด้วยคนใน</p><div class="pricing-amount"><span>0</span><span class="pricing-currency">บาท</span></div><div class="pricing-period" data-free-period>ต่อเดือน · แผนที่เสนอ</div><ul class="pricing-list">
+        <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>สินค้า 20 รหัส</li>
+        <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>บิล 50 ใบต่อเดือน</li>
+        <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>จัดการสต็อกและบิล</li></ul><a class="pricing-action" href="#demo">ลองต้นแบบ</a></article>
+      <article class="pricing-card pricing-basic"><h3>Basic</h3><p>เมื่อรายการสินค้าและบิลเริ่มเพิ่มขึ้น</p><div class="pricing-amount"><span data-price="basic">299</span><span class="pricing-currency">บาท</span></div><div class="pricing-period" data-price-period>ต่อเดือน · แผนที่เสนอ</div><ul class="pricing-list">
+        <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>สินค้า 200 รหัส</li>
+        <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>บิล 500 ใบต่อเดือน</li>
+        <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>จัดการสต็อกและบิล</li></ul><button class="pricing-action" type="button" aria-expanded="false" aria-controls="pricing-basic-detail">ดูรายละเอียดแพ็กเกจ<span class="pricing-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"> Basic</span></button><p class="pricing-detail" id="pricing-basic-detail" hidden>Basic เป็นแนวทางจากสไลด์เสนอผลิตภัณฑ์ ต้นแบบนี้ยังไม่สมัครบัญชีหรือเรียกเก็บเงิน และยังไม่ได้บังคับโควตาของแพ็กเกจในแอป</p></article>
+      <article class="pricing-card"><h3>Pro</h3><p>สำหรับแนวทางร้านที่มีรายการมากขึ้น</p><div class="pricing-amount"><span data-price="pro">699</span><span class="pricing-currency">บาท</span></div><div class="pricing-period" data-price-period>ต่อเดือน · แผนที่เสนอ</div><ul class="pricing-list">
+        <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>สินค้า 1,000 รหัส</li>
+        <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>บิล 2,000 ใบต่อเดือน</li>
+        <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>จัดการสต็อกและบิล</li></ul><button class="pricing-action" type="button" aria-expanded="false" aria-controls="pricing-pro-detail">ดูรายละเอียดแพ็กเกจ<span class="pricing-sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"> Pro</span></button><p class="pricing-detail" id="pricing-pro-detail" hidden>Pro เป็นแนวทางจากสไลด์เสนอผลิตภัณฑ์ ต้นแบบนี้ยังไม่สมัครบัญชีหรือเรียกเก็บเงิน และยังไม่ได้บังคับโควตาของแพ็กเกจในแอป</p></article>
+    </div>
+    <p class="pricing-note">ราคาและโควตานี้เป็นข้อเสนอจากสไลด์ ยังไม่ได้ยืนยันว่าลูกค้ายอมจ่าย และไม่ใช่ข้อจำกัดที่ใช้งานอยู่ในแอปปัจจุบัน ส่วนลดรายปีคำนวณจากราคารายเดือน × 12 แล้วลด 10%</p>
+  </div>
+</section>
+<script>
+(()=>{
+  const section=document.querySelector('.pricing-section');
+  if(!section)return;
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  function changePrice(element,value,direction){
+    const previous=element.dataset.current||element.textContent;
+    if(previous===value)return;
+    element.dataset.current=value;
+    element.setAttribute('aria-label',value+' บาท');
+    const current=document.createElement('span');
+    current.className='price-current';current.textContent=value;
+    element.replaceChildren(current);
+    if(reduced.matches)return;
+    const old=document.createElement('span');old.className='price-outgoing';old.textContent=previous;old.setAttribute('aria-hidden','true');element.append(old);
+    old.animate([{transform:'translateY(0) rotateX(0deg)',opacity:1},{transform:'translateY('+(-direction*110)+'%) rotateX('+(direction*35)+'deg)',opacity:0}],{duration:320,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'}).finished.then(()=>old.remove()).catch(()=>old.remove());
+    current.animate([{transform:'translateY('+(direction*110)+'%) rotateX('+(-direction*35)+'deg)',opacity:0},{transform:'translateY(0) rotateX(0deg)',opacity:1}],{duration:480,delay:40,easing:'cubic-bezier(.22,1,.36,1)',fill:'both'});
+  }
+  section.querySelectorAll('[data-billing]').forEach(button=>button.addEventListener('click',()=>{
+    const annual=button.dataset.billing==='annual';
+    section.querySelectorAll('[data-billing]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+    changePrice(section.querySelector('[data-price="basic"]'),annual?'3,229.20':'299',annual?1:-1);
+    changePrice(section.querySelector('[data-price="pro"]'),annual?'7,549.20':'699',annual?1:-1);
+    section.querySelectorAll('[data-price-period]').forEach(item=>item.textContent=annual?'ยอดรวมต่อปี · แผนที่เสนอ':'ต่อเดือน · แผนที่เสนอ');
+    section.querySelector('[data-free-period]').textContent=annual?'ต่อปี · แผนที่เสนอ':'ต่อเดือน · แผนที่เสนอ';
+  }));
+  section.querySelectorAll('[aria-controls]').forEach(button=>button.addEventListener('click',()=>{
+    const expanded=button.getAttribute('aria-expanded')==='true';
+    button.setAttribute('aria-expanded',String(!expanded));
+    document.getElementById(button.getAttribute('aria-controls')).hidden=expanded;
+  }));
+})();
+</script>

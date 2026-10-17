@@ -1,0 +1,80 @@
+[
+  {
+    "width": 1440,
+    "overflow": false,
+    "pauseResume": true,
+    "hoverPause": "paused",
+    "duplicateHiddenInert": true,
+    "teaserLastStep": true,
+    "pricingAnnual": [
+      3229.2,
+      7549.2
+    ],
+    "pricingMonthly": 299,
+    "optionalDemoAfter": 10,
+    "saleReplay": true,
+    "storage": "empty",
+    "runtimeErrors": []
+  },
+  {
+    "width": 390,
+    "overflow": false,
+    "pauseResume": true,
+    "hoverPause": "paused",
+    "duplicateHiddenInert": true,
+    "teaserLastStep": true,
+    "pricingAnnual": [
+      3229.2,
+      7549.2
+    ],
+    "pricingMonthly": 299,
+    "optionalDemoAfter": 10,
+    "saleReplay": true,
+    "storage": "empty",
+    "runtimeErrors": []
+  },
+  {
+    "width": 320,
+    "overflow": false,
+    "pauseResume": true,
+    "hoverPause": "paused",
+    "duplicateHiddenInert": true,
+    "teaserLastStep": true,
+    "pricingAnnual": [
+      3229.2,
+      7549.2
+    ],
+    "pricingMonthly": 299,
+    "optionalDemoAfter": 10,
+    "saleReplay": true,
+    "storage": "empty",
+    "runtimeErrors": []
+  },
+  {
+    "width": 768,
+    "overflow": false,
+    "pauseResume": true,
+    "hoverPause": "paused",
+    "duplicateHiddenInert": true,
+    "teaserLastStep": true,
+    "pricingAnnual": [
+      3229.2,
+      7549.2
+    ],
+    "pricingMonthly": 299,
+    "optionalDemoAfter": 10,
+    "saleReplay": true,
+    "storage": "empty",
+    "runtimeErrors": []
+  },
+  {
+    "reducedMotion": true,
+    "marqueeRunning": false,
+    "saleFinalImmediate": true,
+    "pricingWorks": true,
+    "activeAnimations": 0
+  },
+  {
+    "productionSourceHashesUnchanged": 33
+  }
+]

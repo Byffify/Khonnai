@@ -1,0 +1,170 @@
+[
+  {
+    "width": 1440,
+    "heroImages": 4,
+    "removedButtons": true,
+    "duplicateStoriesRemoved": true,
+    "priceAnimations": [
+      {
+        "playState": "running",
+        "frames": [
+          {
+            "transform": "translateY(0px) rotateX(0deg)",
+            "opacity": "1"
+          },
+          {
+            "transform": "translateY(-110%) rotateX(35deg)",
+            "opacity": "0"
+          }
+        ]
+      },
+      {
+        "playState": "running",
+        "frames": [
+          {
+            "transform": "translateY(110%) rotateX(-35deg)",
+            "opacity": "0"
+          },
+          {
+            "transform": "translateY(0px) rotateX(0deg)",
+            "opacity": "1"
+          }
+        ]
+      }
+    ],
+    "rapidPriceSwitch": true,
+    "keyboardBilling": true,
+    "overflow": false,
+    "runtimeErrors": [],
+    "storage": "empty",
+    "optionalSelection": 10
+  },
+  {
+    "width": 390,
+    "heroImages": 4,
+    "removedButtons": true,
+    "duplicateStoriesRemoved": true,
+    "priceAnimations": [
+      {
+        "playState": "running",
+        "frames": [
+          {
+            "transform": "translateY(0px) rotateX(0deg)",
+            "opacity": "1"
+          },
+          {
+            "transform": "translateY(-110%) rotateX(35deg)",
+            "opacity": "0"
+          }
+        ]
+      },
+      {
+        "playState": "running",
+        "frames": [
+          {
+            "transform": "translateY(110%) rotateX(-35deg)",
+            "opacity": "0"
+          },
+          {
+            "transform": "translateY(0px) rotateX(0deg)",
+            "opacity": "1"
+          }
+        ]
+      }
+    ],
+    "rapidPriceSwitch": true,
+    "keyboardBilling": true,
+    "overflow": false,
+    "runtimeErrors": [],
+    "storage": "empty",
+    "optionalSelection": 10
+  },
+  {
+    "width": 320,
+    "heroImages": 4,
+    "removedButtons": true,
+    "duplicateStoriesRemoved": true,
+    "priceAnimations": [
+      {
+        "playState": "running",
+        "frames": [
+          {
+            "transform": "translateY(0px) rotateX(0deg)",
+            "opacity": "1"
+          },
+          {
+            "transform": "translateY(-110%) rotateX(35deg)",
+            "opacity": "0"
+          }
+        ]
+      },
+      {
+        "playState": "running",
+        "frames": [
+          {
+            "transform": "translateY(110%) rotateX(-35deg)",
+            "opacity": "0"
+          },
+          {
+            "transform": "translateY(0px) rotateX(0deg)",
+            "opacity": "1"
+          }
+        ]
+      }
+    ],
+    "rapidPriceSwitch": true,
+    "keyboardBilling": true,
+    "overflow": false,
+    "runtimeErrors": [],
+    "storage": "empty",
+    "optionalSelection": 10
+  },
+  {
+    "width": 768,
+    "heroImages": 4,
+    "removedButtons": true,
+    "duplicateStoriesRemoved": true,
+    "priceAnimations": [
+      {
+        "playState": "running",
+        "frames": [
+          {
+            "transform": "translateY(0px) rotateX(0deg)",
+            "opacity": "1"
+          },
+          {
+            "transform": "translateY(-110%) rotateX(35deg)",
+            "opacity": "0"
+          }
+        ]
+      },
+      {
+        "playState": "running",
+        "frames": [
+          {
+            "transform": "translateY(110%) rotateX(-35deg)",
+            "opacity": "0"
+          },
+          {
+            "transform": "translateY(0px) rotateX(0deg)",
+            "opacity": "1"
+          }
+        ]
+      }
+    ],
+    "rapidPriceSwitch": true,
+    "keyboardBilling": true,
+    "overflow": false,
+    "runtimeErrors": [],
+    "storage": "empty",
+    "optionalSelection": 10
+  },
+  {
+    "reducedMotion": true,
+    "priceImmediate": true,
+    "activeAnimations": 0
+  },
+  {
+    "sourceHashesUnchanged": 33
+  }
+]

@@ -1,0 +1,20 @@
+import { readFile,writeFile } from 'node:fs/promises'
+const file='.scratch/landing-v2-prototypes/d.html'
+let html=await readFile(file,'utf8')
+for (const screen of ['catalog','stock','sale','receipt']) html=html.replaceAll(`demo-${screen}.png`,`latest-${screen}.jpg`)
+html=html.replaceAll('ภาพแอปและข้อมูลตัวอย่างจากสไลด์','ภาพจากแอปเวอร์ชันปัจจุบัน · ข้อมูลสาธิต').replaceAll('หน้าจอจากสไลด์และข้อมูลตัวอย่าง','หน้าจอจาก khonnai.vercel.app พร้อมข้อมูลสาธิต')
+html=html.replace(/<section class="sme-hero"[\s\S]*?<\/section>/,'<div id="khonnai-scroll-hero"></div>')
+html=html.replace("hero.style.setProperty('--sme-progress'", "hero?.style.setProperty('--sme-progress'")
+html=html.replace(/<script>\(\(\)=>\{const hero=document.querySelector\('\.sme-hero'\),gallery=[\s\S]*?<\/script>/,'')
+html=html.replace('</body>',`<style>
+html{scroll-behavior:auto}.nav{top:24px;min-height:64px;width:min(984px,calc(100% - 48px));padding:9px 14px 9px 22px;border:1px solid rgba(255,255,255,.78);background:rgba(255,255,255,.58);backdrop-filter:blur(32px) saturate(145%);-webkit-backdrop-filter:blur(32px) saturate(145%);box-shadow:0 8px 32px rgba(25,59,90,.08);transition:background-color 240ms cubic-bezier(.24,1,.4,1)}.nav[data-scrolled=true]{background:rgba(255,255,255,.76)}.nav a{color:#193b5a}.nav .btn{color:#fff;background:#193b5a}.nav .btn:hover{background:#244d70}.nav .wordmark{background-image:linear-gradient(90deg,#193b5a 12%,#ed7c32 96%)}.pricing-section{background:#f5f5f5}.pricing-card{background:#fff;border:1px solid #d4dde4;border-radius:16px;box-shadow:none}.pricing-card.pricing-basic{background:#fff;color:#193b5a;border:2px solid #193b5a;box-shadow:none}.pricing-card:hover,.pricing-card:focus-within{box-shadow:none;border-color:#193b5a;transform:none}.pricing-basic:before{background:#fff0e4;color:#9b450e;border:1px solid #f0bd99}.pricing-amount{font-weight:500;font-size:clamp(38px,3.6vw,50px)}.pricing-action,.pricing-basic .pricing-action{border-radius:99px;min-height:52px;background:#193b5a;color:#fff}.pricing-billing{background:#e6e9ec}.pricing-card>p{color:#536778}.pricing-card h3{font-weight:500}.pricing-heading h2{font-size:clamp(32px,3.5vw,48px)}.fit-section h2,.start-heading h2{font-weight:500}.teaser-card{box-shadow:none;border:1px solid #ebebeb;border-radius:16px;background:#f5f5f5}.teaser-card:nth-child(even){background:#fff}.getting-started{background:#f5f5f5}.capability{font-weight:500}.ref-hero+*{clear:both}
+@media(max-width:700px){.nav{top:16px;width:calc(100% - 32px);min-height:64px;padding:9px 10px 9px 16px}.nav .brand{font-size:20px}.nav .btn{min-height:44px;padding:10px 15px;font-size:14px}.pricing-amount{font-size:40px}}
+.nav{background:linear-gradient(115deg,rgba(255,255,255,.54),rgba(255,255,255,.22));border-color:rgba(255,255,255,.68);box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -1px 0 rgba(255,255,255,.18),0 8px 32px rgba(25,59,90,.1);backdrop-filter:blur(32px) saturate(160%);-webkit-backdrop-filter:blur(32px) saturate(160%)}
+.nav[data-scrolled=true]{background:linear-gradient(115deg,rgba(255,255,255,.58),rgba(255,255,255,.3))}
+@supports not ((backdrop-filter:blur(32px)) or (-webkit-backdrop-filter:blur(32px))){.nav,.nav[data-scrolled=true]{background:rgba(255,255,255,.94)}}
+@media(prefers-reduced-motion:reduce){.nav{transition:none}}
+.teaser-window{max-width:100%;height:auto;aspect-ratio:16/9}.teaser-window img{width:100%;height:100%;object-fit:contain}
+</style><link rel="stylesheet" href="hero-runtime/dist/hero.css"><script defer src="hero-runtime/dist/hero.js"></script><script>(()=>{const nav=document.querySelector('.nav');function update(){nav.dataset.scrolled=String(scrollY>80)}addEventListener('scroll',update,{passive:true});update()})();</script></body>`)
+html=html.replace('Prototype D · โครงเรื่องใหม่และ motion · ข้อมูลสาธิต','Prototype D · Hero ตาม source และธีมคนใน · ข้อมูลสาธิต')
+await writeFile(file,html)
+console.log('D mounts source-based ReactLenis/Motion hero; glass nav and all pricing cards use Khonnai surfaces')

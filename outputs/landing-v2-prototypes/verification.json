@@ -1,0 +1,56 @@
+[
+  {
+    "variant": "a",
+    "width": 1440,
+    "overflow": false,
+    "sizeColorResult": "22 and10",
+    "storage": {
+      "local": [],
+      "session": []
+    },
+    "runtimeErrors": []
+  },
+  {
+    "variant": "a",
+    "width": 390,
+    "overflow": false,
+    "sizeColorResult": "22 and10",
+    "storage": {
+      "local": [],
+      "session": []
+    },
+    "runtimeErrors": []
+  },
+  {
+    "variant": "a",
+    "reducedMotion": "demo selection works",
+    "activeAnimations": 0
+  },
+  {
+    "variant": "b",
+    "width": 1440,
+    "overflow": false,
+    "sizeColorResult": "22 and10",
+    "storage": {
+      "local": [],
+      "session": []
+    },
+    "runtimeErrors": []
+  },
+  {
+    "variant": "b",
+    "width": 390,
+    "overflow": false,
+    "sizeColorResult": "22 and10",
+    "storage": {
+      "local": [],
+      "session": []
+    },
+    "runtimeErrors": []
+  },
+  {
+    "variant": "b",
+    "reducedMotion": "demo selection works",
+    "activeAnimations": 0
+  }
+]

@@ -81,7 +81,7 @@ receipt:
 
 ## Direction and authority
 
-Approved whole-app Fastwork redesign,17 October2026: white workspace, navy/orange brand, neutral grouping, soft geometry and purposeful task feedback. PRODUCT.md and UX-CONTRACT.md retain product truth and behavior. The representative preview in outputs/fastwork-preview was approved in chat. Landing stays deferred; preserve docs/research/fastwork/landing-reference.md.
+Approved whole-app Fastwork redesign,17 October2026: white workspace, navy/orange brand, neutral grouping, soft geometry and purposeful task feedback. PRODUCT.md and UX-CONTRACT.md retain product truth and behavior. The representative preview in outputs/fastwork-preview was approved in chat. The user subsequently authorized a public landing at `/landing` and `/landing/`; `/` retains the operational app. Preserve docs/research/fastwork/landing-reference.md as source evidence, with implementation details in docs/research/landing-implementation.md.
 
 Follow-up user decisions: Iconly SVG icons; Rammetto One for the English wordmark; **navy→orange gradient from left to right**. Scope the gradient to the wordmark, never amounts/headings/body. Keep the existing mascot and Thai คนใน in readable UI type. Receipt shop identity stays unchanged.
 
@@ -116,3 +116,17 @@ Check token drift, typecheck/lint/unit/build/browser,320/390/768/1440, zoom200%,
 ### Settings and language
 
 Settings uses quiet white icon rows grouped into Your shop, Preferences, and Data/history. Rows open separate task pages with a labeled back arrow; no decorative search or unsupported account settings. Reuse original Iconly Light SVGs and runtime tokens. Thai uses Anuphan, Latin remains Plus Jakarta Sans. UI language is Thai/English; source shop text and receipt typography are preserved.
+
+### Public landing
+
+18 October 2026: implement approved prototype D as a separate static marketing surface at `/landing/` (Thai) and `/en/landing/` (English). The root `/` redirects to `/landing/` and the operational app opens at `/app`; shop schemas, commands, preferences, paper bills and PNG stay unchanged. Marketing source lives in `landing/`, localized copy in `src/landing/content.ts`, shared brand keyword motion in `src/landing/keyword.css`, and its builder in `scripts/build-landing.mjs`. See docs/research/landing-implementation.md for current verification and SEO boundaries.
+
+The white/navy/orange Fastwork world remains authoritative. Preserve the photo scroll hero, 32px glass navbar blur, one guided sale example, preparation card carousel, future pricing and FAQ. New marketing text, including the wordmark, uses self-hosted Noto Sans and Noto Sans Thai, per the user's explicit request for Noto throughout this page. Operational and receipt font tokens above do not change. Generated `src/styles/tokens.css` is copied into the landing build; the landing stylesheet owns marketing layout and font overrides only.
+
+The hero headline is 600 weight, up to100px desktop and58px mobile. The hero photos illustrate clothing and underwear SMBs; AI provenance is explicit. Actual app captures remain in the separate guided demo and use clearly labeled synthetic stock and sales data.
+
+The user explicitly approved gradient motion in three heading keywords: ด้วยตัวเอง, ลองกับร้านคุณ, งานของร้านคุณ; English equivalents carry the same treatment. Their navy-to-orange highlight travels left to right at a constant speed,3.6s per seamless loop, with no dwell frames. Keyword phrases stay together on one line. These approved highlights and the existing brand gradient are scoped exceptions to the general no-gradient-heading rule. Offscreen/hidden-page work pauses; reduced motion and forced colors expose readable static text. At narrow zoom widths, headings scale to keep the complete phrase visible.
+
+Use short, literal language for shop owners: backup file, current phone/computer, quantity left. Do not expose JSON, localStorage, browser or PNG terminology in marketing copy. Explain that data stays on the current device and backups are manual. Price tiers are future plans, not current fees, quotas or payment functionality. No adoption claims, fake customer logos or testimonials.
+
+The build emits complete localized HTML, canonical/hreflang links, descriptive page metadata, social images, truthful WebPage/SoftwareApplication structured data and a two-page sitemap. Language selection navigates between real localized URLs. Landing demonstration state never reads shop records. Native FAQ/details, language select and keyboard carousel controls remain available.
