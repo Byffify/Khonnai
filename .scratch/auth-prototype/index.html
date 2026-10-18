@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="color-scheme" content="light">
+    <title>เข้าสู่ระบบ · Khonnai · Prototype</title>
+    <link rel="icon" href="/assets/mark.png">
+    <link rel="stylesheet" href="/style.css">
+    <script src="/preview.js" defer></script>
+  </head>
+  <body data-appearance="edge">
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Khonnai"><img src="/assets/mark.png" width="38" height="38" alt=""><span>Khonnai</span></a>
+      <label class="language"><span id="language-label">ภาษา</span><select id="language" aria-labelledby="language-label"><option value="th">ไทย</option><option value="en">English</option></select></label>
+    </header>
+    <main>
+      <div class="auth-stage">
+        <div class="brand-light" aria-hidden="true"></div>
+        <section class="auth-card" aria-labelledby="screen-title"><div id="screen"></div></section>
+      </div>
+    </main>
+    <footer class="review-tools" aria-labelledby="review-title">
+      <div class="review-intro"><strong id="review-title">Prototype สำหรับเลือกแบบ</strong><span id="review-note">ยังไม่เชื่อมระบบ ไม่เก็บรหัสผ่าน และไม่ส่งอีเมลจริง</span></div>
+      <div class="review-options">
+        <label><span id="appearance-label">แสงพื้นหลัง</span><select id="appearance" aria-labelledby="appearance-label"><option value="halo">A · แสงฟุ้งหลังการ์ด</option><option value="edge" selected>B · แสงเฉพาะขอบ</option></select></label>
+        <label><span id="scenario-label">จำลองผลเมื่อกดดำเนินการ</span><select id="scenario" aria-labelledby="scenario-label"><option value="disconnected">ยังไม่เชื่อมระบบ</option><option value="credentials">ข้อมูลเข้าสู่ระบบไม่ถูกต้อง</option><option value="network">เชื่อมต่อไม่ได้</option><option value="rate-limit">ลองบ่อยเกินไป</option><option value="expired">ลิงก์หมดอายุ</option><option value="cancelled">ยกเลิก Google</option><option value="unconfirmed">ต้องยืนยันการเข้าสู่ระบบ</option></select></label>
+      </div>
+    </footer>
+  </body>
+</html>

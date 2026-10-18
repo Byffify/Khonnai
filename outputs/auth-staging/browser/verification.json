@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-10-18T13:12:31.422Z",
+  "passed": true,
+  "checks": [
+    "Real browser sign-in/reload succeeds; session cookie is HttpOnly; no provider session or shop data in localStorage",
+    "Recovery confirmation while already signed in uses bootstrap CSRF, consumes provider token only after button press, and removes URL fragment",
+    "Logout clears browser session and protected account state",
+    "Recovery rotates the opaque session; consumed one-time token replay is rejected",
+    "TH/EN setup at320/390/768/1440: separate email step, four live checks, no horizontal overflow, reduced motion honored"
+  ],
+  "scope": "Real local browser + staging provider/database; email recovery token fixture bypasses delivery only. No real email, Google or inventory/cloud data workflow tested."
+}

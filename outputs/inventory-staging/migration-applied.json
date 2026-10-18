@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-10-18T13:50:13.689Z",
+  "passed": true,
+  "version": "20261018134456",
+  "sha256": "59589a66b604bf00206293f62a672e1e9af63c6978552cb50337de16fbbfdc13",
+  "recorded": true,
+  "rls_tables": 10,
+  "scope": "Additive staging migration only. No local import, existing account changes or production deployment."
+}

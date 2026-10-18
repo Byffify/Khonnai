@@ -238,6 +238,8 @@ main > fieldset > :is(.stack,form) { animation: content-in var(--ds-motion-conte
 .settings-back { justify-self: start; }
 .settings-menu { display: grid; gap: 32px; }
 .settings-group { display: grid; gap: 4px; }
+.settings-account-email { display: grid; gap: 8px; margin: 0; }
+.settings-account-email dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
 .settings-group > h2 { padding: 0 16px 8px; color: var(--ds-muted); font-size: 14px; line-height: 22px; }
 .settings-menu-row { display: flex; align-items: center; gap: 16px; width: 100%; min-height: 88px; padding: 16px; border: 0; border-radius: var(--ds-control-radius); background: var(--ds-paper); color: var(--ds-ink); text-align: start; transition: background-color var(--ds-motion-feedback) var(--ds-motion-ease); }
 .settings-menu-row:hover, .settings-menu-row:focus-visible { background: var(--ds-surface); }

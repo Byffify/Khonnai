@@ -13,6 +13,7 @@ import { Icon } from './Icon'
 import type { IconName } from './Icon'
 import { ConfirmDialog } from './ConfirmDialog'
 import type { Confirmation } from './ConfirmDialog'
+import { CloudFailure, type CloudInventory } from './data/cloud'
 
 type Page = 'catalog' | 'bills' | 'reservations' | 'returns' | 'settings'
 const pages: { id: Page; label: string; icon: IconName; accessible?: string }[] = [
@@ -27,15 +28,18 @@ function initial() {
   try { return { state: load(localStorage), error: '' } }
   catch (error) { return { state: emptyState(), error: error instanceof Error ? error.message : 'อ่านข้อมูลไม่ได้' } }
 }
-export default function App() {
+export type CloudAppPort = { client: CloudInventory; state: State; sessionEnded: () => void; signOut: () => void }
+export default function App({ cloud }: { cloud?: CloudAppPort } = {}) {
   const { t, language } = useI18n()
 
-  const [boot] = useState(initial)
+  const [boot] = useState(() => cloud ? { state: cloud.state, error: '' } : initial())
   const [state, setState] = useState(boot.state)
   const current = useRef(state)
   const saving = useRef(false)
   const dirty = useRef(false)
   const [busy, setBusy] = useState(false)
+  const [unconfirmed, setUnconfirmed] = useState(false)
+  const [recovered, setRecovered] = useState(0)
   const [blocked, setBlocked] = useState(!!boot.error)
   const [notice, setNotice] = useState({ message: boot.error ? 'ข้อมูลที่บันทึกไว้เปิดไม่ได้ กรุณากู้จากไฟล์สำรอง ระบบยังไม่ได้ลบหรือเขียนทับข้อมูลเดิม' : '', error: !!boot.error })
   const [page, setPage] = useState<Page>('catalog')
@@ -57,30 +61,60 @@ export default function App() {
   const update = (next: State) => { current.current = next; setState(next) }
   useEffect(() => {
     const changed = (event: StorageEvent) => {
+      if (cloud) return
       if (event.key !== STORAGE_KEY && event.key !== null) return
       try { const latest = load(localStorage); current.current = latest; setState(latest); setNotice({ message: 'โหลดข้อมูลล่าสุดจากอีกแท็บแล้ว', error: false }) }
       catch (error) { setBlocked(true); setNotice({ message: String(error), error: true }) }
     }
     window.addEventListener('storage', changed)
-    const unload = (event: BeforeUnloadEvent) => { if (dirty.current || hasUnsavedStock()) { event.preventDefault(); event.returnValue = '' } }
+    const unload = (event: BeforeUnloadEvent) => { if (dirty.current || hasUnsavedStock() || cloud?.client.uncertain) { event.preventDefault(); event.returnValue = '' } }
     window.addEventListener('beforeunload', unload)
     return () => { window.removeEventListener('storage', changed); window.removeEventListener('beforeunload', unload) }
-  }, [])
+  }, [cloud])
+  useEffect(() => {
+    if (!cloud) return
+    let active = true
+    const refresh = async () => {
+      if (saving.current) return
+      try {
+        if (cloud.client.uncertain) { await cloud.client.checkSession(); return }
+        const next = await cloud.client.load()
+        if (active && !saving.current && !cloud.client.uncertain && next.revision >= current.current.revision) update(next)
+      } catch (error) { if (active && error instanceof CloudFailure && error.kind === 'session') cloud.sessionEnded() }
+    }
+    window.addEventListener('focus', refresh)
+    const interval = window.setInterval(() => { if (document.visibilityState === 'visible') void refresh() }, 30_000)
+    return () => { active = false; window.removeEventListener('focus', refresh); window.clearInterval(interval) }
+  }, [cloud])
   async function act(command: Command) {
     const form = focusedForm()
     if (blocked) { report('ข้อมูลเดิมอ่านไม่ได้ กรุณานำเข้าไฟล์สำรองก่อน ระบบจะไม่เขียนทับข้อมูลเดิม', true); return false }
     if (saving.current) return false
+    if (cloud?.client.uncertain) return false
     saving.current = true; setBusy(true)
     try {
       const save = () => commit(localStorage, current.current, command)
-      const next = navigator.locks ? await navigator.locks.request(STORAGE_KEY, save) : save()
+      const next = cloud ? await cloud.client.commit(current.current, command) : navigator.locks ? await navigator.locks.request(STORAGE_KEY, save) : save()
       update(next); dirty.current = false; report('บันทึกแล้ว'); return true
     } catch (error) {
+      if (cloud && error instanceof CloudFailure) {
+        if (error.kind === 'session') { cloud.sessionEnded(); return false }
+        if (error.kind === 'conflict') {
+          try { update(await cloud.client.load()) } catch (refreshError) { if (refreshError instanceof CloudFailure && refreshError.kind === 'session') cloud.sessionEnded() }
+          report(language === 'th' ? 'ข้อมูลร้านเปลี่ยนแล้ว โหลดข้อมูลล่าสุดให้แล้ว กรุณาตรวจรายการ หากกำลังแก้ข้อมูลร้านหรือสินค้า ให้กลับไปเปิดฟอร์มใหม่' : 'Shop data changed. Check the latest quantities. Reopen the form when editing a shop or product.', true, form)
+          return false
+        }
+        setUnconfirmed(cloud.client.uncertain)
+        if (error.kind === 'rejected' && error.message !== 'SAVE_FAILED') { report(t(error.message), true, form); return false }
+        report(language === 'th' ? cloud.client.uncertain ? 'ยังยืนยันการบันทึกไม่ได้ กรุณากดตรวจสอบรายการเดิมก่อนทำรายการต่อ' : 'บันทึกไม่สำเร็จ กรุณาตรวจข้อมูลแล้วลองอีกครั้ง' : cloud.client.uncertain ? 'Save not confirmed. Check the pending entry before continuing.' : 'Unable to save. Check the entry and try again.', true, form)
+        return false
+      }
       report(error instanceof Error ? error.message : 'บันทึกไม่สำเร็จ', true, form)
       return false
     } finally { saving.current = false; setBusy(false) }
   }
   async function restore(file: File) {
+    if (cloud) return
     try {
       if (file.size > 4_500_000) throw new Error('ไฟล์สำรองใหญ่เกินขนาดที่รองรับ')
       const next = parseBackup(await file.text())
@@ -92,6 +126,30 @@ export default function App() {
       update(next); setBlocked(false); report('นำเข้าข้อมูลสำเร็จ')
     } catch (error) { report(error instanceof Error ? error.message : 'นำเข้าไม่ได้', true) }
   }
+  async function reconcile() {
+    if (!cloud || saving.current) return
+    saving.current = true; setBusy(true)
+    try {
+      update(await cloud.client.retry()); dirty.current = false; setUnconfirmed(false); setPage('catalog'); setRecovered(value => value + 1)
+      report(language === 'th' ? 'ตรวจสอบแล้ว บันทึกรายการสำเร็จ' : 'Entry checked and saved.')
+    } catch (error) {
+      if (error instanceof CloudFailure && error.kind === 'session') cloud.sessionEnded()
+      else if (error instanceof CloudFailure && error.kind === 'conflict') {
+        try { update(await cloud.client.load()) } catch { /* Keep the visible draft when refresh is unavailable. */ }
+        setUnconfirmed(false); report(language === 'th' ? 'ข้อมูลร้านเปลี่ยนแล้ว กรุณาตรวจรายการก่อนบันทึกอีกครั้ง' : 'Shop data changed. Check the entry before saving again.', true)
+      } else { setUnconfirmed(cloud.client.uncertain); report(language === 'th' ? 'ยังตรวจสอบไม่ได้ กรุณาลองอีกครั้งเมื่อเชื่อมต่อได้' : 'Unable to check yet. Try again when connected.', true) }
+    } finally { saving.current = false; setBusy(false) }
+  }
   const props = { state, act, report, ask, leave }
-  return <div className="shell"><header className="topbar"><Brand /><span className="local-label">{t("ข้อมูลบนเครื่องนี้")}</span></header>{notice.message && <div className="mb-5"><Notice error={notice.error} focusError>{notice.message}</Notice></div>}{blocked && <Notice error>{t("ข้อมูลเดิมอ่านไม่ได้และยังไม่ถูกลบ ใช้ไฟล์สำรองเพื่อกู้ข้อมูลร้าน")}</Notice>}<main onClickCapture={e => { if (e.target instanceof Element && e.target.closest('[data-draft]')) dirty.current = true }} onChangeCapture={e => { const element = e.target; if (element instanceof Element && element.hasAttribute('data-transient')) return; if ((element instanceof HTMLInputElement || element instanceof HTMLSelectElement || element instanceof HTMLTextAreaElement) && (element.form || element.hasAttribute('data-stock-draft'))) dirty.current = true }}><fieldset disabled={busy} className="border-0 m-0 p-0 min-w-0">{blocked ? <Settings {...props} restore={restore} damaged /> : <>{page === 'catalog' && <Catalog {...props} />}{page === 'bills' && <Bills {...props} />}{page === 'reservations' && <Reservations {...props} />}{page === 'returns' && <Returns {...props} />}{page === 'settings' && <Settings {...props} restore={restore} damaged={blocked} />}</>}</fieldset>{busy && <p className="loading-status" role="status">{t("กำลังบันทึก…")}</p>}</main><nav className="app-nav" aria-label={t("เมนูหลัก")}><div className="nav-brand"><Brand /></div>{pages.map(({ id, label, icon, accessible }) => <button key={id} disabled={busy || (blocked && id !== 'settings')} aria-label={t(accessible ?? label)} aria-current={(blocked ? 'settings' : page) === id ? 'page' : undefined} onClick={() => void leave(() => { setPage(id); window.scrollTo({ top: 0 }) })}><Icon name={icon} /><span>{language === 'en' && id === 'reservations' ? 'Reserve' : id === 'returns' && language === 'en' ? 'Returns' : t(label)}</span></button>)}<p className="nav-local">{t("ข้อมูลบนเครื่องนี้")}</p></nav><ConfirmDialog request={question} /></div>
+  const account = cloud?.client.user ? {
+    email: cloud.client.user.email,
+    sendPasswordReset: async () => {
+      try { await cloud.client.sendPasswordReset() }
+      catch (error) {
+        if (error instanceof CloudFailure && error.kind === 'session') cloud.sessionEnded()
+        throw error
+      }
+    },
+  } : undefined
+  return <div className="shell"><header className="topbar"><Brand /><span className="local-label">{cloud ? (language === 'th' ? 'ข้อมูลร้านในบัญชีของคุณ' : 'Your account’s shop data') : t("ข้อมูลบนเครื่องนี้")}</span></header>{notice.message && <div className="mb-5"><Notice error={notice.error} focusError>{notice.message}</Notice></div>}{blocked && <Notice error>{t("ข้อมูลเดิมอ่านไม่ได้และยังไม่ถูกลบ ใช้ไฟล์สำรองเพื่อกู้ข้อมูลร้าน")}</Notice>}<main key={recovered} onClickCapture={e => { if (e.target instanceof Element && e.target.closest('[data-draft]')) dirty.current = true }} onChangeCapture={e => { const element = e.target; if (element instanceof Element && element.hasAttribute('data-transient')) return; if ((element instanceof HTMLInputElement || element instanceof HTMLSelectElement || element instanceof HTMLTextAreaElement) && (element.form || element.hasAttribute('data-stock-draft'))) dirty.current = true }}><fieldset disabled={busy || unconfirmed} className="border-0 m-0 p-0 min-w-0">{blocked ? <Settings {...props} restore={restore} damaged /> : <>{page === 'catalog' && <Catalog {...props} />}{page === 'bills' && <Bills {...props} />}{page === 'reservations' && <Reservations {...props} />}{page === 'returns' && <Returns {...props} />}{page === 'settings' && <Settings {...props} restore={restore} damaged={blocked} cloud={!!cloud} account={account} onSignOut={cloud ? () => void leave(cloud.signOut) : undefined} />}</>}</fieldset>{busy && <p className="loading-status" role="status">{t("กำลังบันทึก…")}</p>}{unconfirmed && <section className="section stack" aria-label={language === 'th' ? 'ตรวจสอบการบันทึก' : 'Check pending save'}><p className="notice warning" role="status">{language === 'th' ? 'อย่าเพิ่งปิดหน้านี้ รายการอาจบันทึกแล้ว ระบบจะตรวจรายการเดิมเพื่อป้องกันบันทึกซ้ำ' : 'Keep this page open. The entry may already be saved. We will check the same entry to avoid duplicates.'}</p><button type="button" className="button" disabled={busy} onClick={() => void reconcile()}>{language === 'th' ? 'ตรวจสอบรายการเดิม' : 'Check pending entry'}</button></section>}</main><nav className="app-nav" aria-label={t("เมนูหลัก")}><div className="nav-brand"><Brand /></div>{pages.map(({ id, label, icon, accessible }) => <button key={id} disabled={busy || unconfirmed || (blocked && id !== 'settings')} aria-label={t(accessible ?? label)} aria-current={(blocked ? 'settings' : page) === id ? 'page' : undefined} onClick={() => void leave(() => { setPage(id); window.scrollTo({ top: 0 }) })}><Icon name={icon} /><span>{language === 'en' && id === 'reservations' ? 'Reserve' : id === 'returns' && language === 'en' ? 'Returns' : t(label)}</span></button>)}<p className="nav-local">{cloud ? (language === 'th' ? 'ข้อมูลร้านในบัญชีของคุณ' : 'Your account’s shop data') : t("ข้อมูลบนเครื่องนี้")}</p></nav><ConfirmDialog request={question} /></div>
 }
