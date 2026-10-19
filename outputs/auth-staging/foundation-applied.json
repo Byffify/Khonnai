@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-18T09:11:42.208Z",
+  "project": "brwkigtdecywivcfijvq",
+  "version": "20261018090754",
+  "sha256": "0537b442e9b04cbc8d083cc45b97bf961ed70939a79e6a28584b509432421d04",
+  "recorded": true,
+  "rls_tables": 6,
+  "auth_users": 0,
+  "scope": "Foundation applied via pinned CLI with migration history. No runtime login, inventory import or production deployment."
+}

@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-10-18T13:50:00.931Z",
+  "passed": true,
+  "rolledBack": true,
+  "version": "20261018134456",
+  "sha256": "59589a66b604bf00206293f62a672e1e9af63c6978552cb50337de16fbbfdc13",
+  "checks": [
+    "DDL applied inside rollback-only transaction",
+    "Runtime RLS rejects foreign shop insert and hides rows",
+    "Composite FK rejects cross-shop product reference",
+    "Runtime cannot delete command receipts",
+    "Synthetic users and DDL rolled back"
+  ],
+  "scope": "Staging rollback-only SQL preflight. No original accounts changed."
+}

@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-18T14:15:59.536Z",
+  "checks": [
+    "Real provider login opens an empty account shop while corrupt local-demo sentinel remains unread and unchanged",
+    "Product and uploaded image persist on real database and survive reload without local business-data writes",
+    "Real sale commits before response loss; temporary Auth503 preserves pending command; receipt reconciliation confirms it without a second POST or duplicate sale",
+    "Separately signed-in browser context reads the same committed stock and bill",
+    "All five cloud menus fit320/390/768/1440px; original fixed bill fixture produces byte-identical PNG",
+    "Signed-in actions have12px spacing; account Settings shows authenticated email and blocks duplicate reset requests. Recover request intercepted for UI assertion; no email delivery claimed",
+    "English account shell works; revoked session closes prior shop data on reload"
+  ],
+  "stage": "english-and-expiry"
+}

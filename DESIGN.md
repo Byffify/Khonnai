@@ -12,6 +12,8 @@ colors:
   add-ink: "#102d47"
   add-surface: "#fff0e3"
   nav-surface: "#ffffff"
+  nav-glass: "linear-gradient(145deg, rgb(255 255 255 / 48%), rgb(255 255 255 / 8%) 45%, rgb(25 59 90 / 4%)), rgb(255 255 255 / 52%)"
+  nav-border: "rgb(25 59 90 / 12%)"
   ink: "#171717"
   muted: "#646464"
   canvas: "#ffffff"
@@ -36,6 +38,7 @@ rounded:
   card-radius: "16px"
   photo-radius: "16px"
   pill-radius: "9999px"
+  dock-radius: "9999px"
 runtime:
   font: '"Plus Jakarta Sans", "Anuphan", "IBM Plex Sans Thai Looped", "Leelawadee UI", Tahoma, sans-serif'
   label-font: 'var(--ds-font)'
@@ -61,6 +64,11 @@ runtime:
   panel-space: "32px"
   amount-size: "32px"
   amount-line: "40px"
+  dock-width: "620px"
+  dock-blur: "64px"
+  dock-saturation: "1.8"
+  dock-inset: "16px"
+  dock-shadow: "inset 0 1px 0 rgb(255 255 255 / 90%), inset 0 -1px 0 rgb(25 59 90 / 6%), 0 12px 32px rgb(25 59 90 / 12%), -24px 12px 32px -20px rgb(237 124 50 / 30%), 24px 12px 32px -20px rgb(25 59 90 / 22%)"
 motion:
   feedback: "125ms"
   selection: "160ms"
@@ -95,7 +103,11 @@ The scalar frontmatter blocks colors/rounded/runtime/motion/receipt above are ca
 
 Self-host Anuphan variable100–700 for Thai application text, Plus Jakarta Sans400/500/700 for Latin, and Rammetto One regular only for the wordmark, with OFL notices retained. User requested a premium Thai-font recommendation and continuation on17 October2026; Anuphan is the recommended first implementation, with IBM Plex Sans Thai and Noto Sans Thai recorded as alternatives. Body18/28, label16/24, caption14/22; headings28/36 mobile and32/40 desktop weight500; no Thai tracking; tabular figures for quantities. IBM Plex Sans Thai Looped400/500/600/700 stays available as fallback and is retained in the frozen receipt family; **do not replace receipt.font with the app font**.
 
-Mobile base with16–20px content padding and safe-area bottom navigation. White240px desktop sidebar at1024px, same five labels/destinations/guards. Catalog2 columns mobile,3 at601px,4 at1151px, photo/code only. Detail shows photo/code, explicit size selection, separate white color/mixed-pack cards. Secondary screens keep BackButton, original focus/search restoration and unsaved guards.
+19 October 2026: user approved Quiet Gallery with photo and code as equal recognition cues, and Floating Dock on desktop/mobile. Mobile has16–20px content padding and2 gallery columns; from601px the gallery has3 columns, maximum1120px. Each photo and complete code footer form one button, with a quiet directional icon. Keep no-photo tiles useful; synthetic concept photographs never seed a real shop. Detail retains explicit size selection before color/mixed-pack cards. Desktop separates identity and variant workspace; mobile stacks them. Secondary screens retain BackButton, search/focus restoration and unsaved guards.
+
+One glass bottom dock owns the same five labeled destinations on every viewport; no desktop sidebar. Match concept C with a full capsule silhouette, at most620px wide, inset16px desktop/8px narrow mobile plus safe area, blur64px and saturation1.8. Desktop uses64px menu targets with8px vertical and24px horizontal padding; phones use72px targets with6px padding, growing for wrapped Thai labels. Solid white is the fallback; supported browsers use52% white glass beneath a diagonal reflective sheen, with a fine navy boundary and inset light-catching edges. Opaque ink menu icons and labels stay crisp over the translucent surface; the selected item retains navy text and an opaque pale-blue surface. A soft navy elevation and faint orange/navy edge shadows echo the concept. Nav labels remain at least14px and targets at least48px. Content and scroll clearance include the dock height, safe area and gap so final actions/errors are reachable. Brand and data context move to the topbar on every viewport. Keep glass scoped to navigation; all forms and amounts use opaque surfaces.
+
+The narrow English dock retains the incumbent full-word labels Products / Bills / Reserve / Returns / Settings; accessible names retain Reservations and Returns / exchange. These are deliberate compact navigation variants, with complete destination headings on each page. Keep English dock labels on one line at320px without reducing14px type. Gallery announces the filtered product-code count, never combined stock quantities.
 
 ## Components and surfaces
 

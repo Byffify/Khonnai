@@ -3,6 +3,7 @@ export const english: Record<string, string> = {
   "รายการสินค้า": "Product",
   "จำนวน {0}": "Quantity {0}",
   "สินค้า": "Products",
+  "แสดง {0} จาก {1} รหัส": "Showing {0} of {1} product codes",
   "บิล": "Bills",
   "จอง": "Reservations",
   "คืน/เปลี่ยน": "Returns / exchange",
