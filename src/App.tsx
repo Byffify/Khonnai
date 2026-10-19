@@ -12,7 +12,7 @@ import { Settings } from './features/Settings'
 import { Icon } from './Icon'
 import type { IconName } from './Icon'
 import { ConfirmDialog } from './ConfirmDialog'
-import type { Confirmation } from './ConfirmDialog'
+import type { Confirmation, ConfirmOptions } from './ConfirmDialog'
 import { CloudFailure, type CloudInventory } from './data/cloud'
 
 type Page = 'catalog' | 'bills' | 'reservations' | 'returns' | 'settings'
@@ -45,17 +45,17 @@ export default function App({ cloud }: { cloud?: CloudAppPort } = {}) {
   const [page, setPage] = useState<Page>('catalog')
   const [question, setQuestion] = useState<Confirmation | null>(null)
   const pendingQuestion = useRef(false)
-  const ask = (message: string, action: string): Promise<boolean> => {
+  const ask = (message: string, action: string, options: ConfirmOptions = {}): Promise<boolean> => {
     if (pendingQuestion.current) return Promise.resolve(false)
     pendingQuestion.current = true
-    return new Promise(resolve => setQuestion({ message, action, finish: answer => { pendingQuestion.current = false; setQuestion(null); resolve(answer) } }))
+    return new Promise(resolve => setQuestion({ message, action, ...options, finish: answer => { pendingQuestion.current = false; setQuestion(null); resolve(answer) } }))
   }
   const report = (message: string, error = false, form = focusedForm()) => {
     if (error && reportFormFailure(form, message)) { setNotice(previous => ({ message: '', error: false, sequence: previous.sequence })); return }
     setNotice(previous => ({ message, error, sequence: previous.sequence + 1 }))
   }
   const leave = async (next: () => void) => {
-    if ((dirty.current || hasUnsavedStock()) && !await ask('มีข้อมูลที่ยังไม่ได้บันทึก ต้องการออกจากหน้านี้และทิ้งข้อมูลที่กรอกหรือไม่?', 'ทิ้งข้อมูลที่ยังไม่บันทึก')) return
+    if ((dirty.current || hasUnsavedStock()) && !await ask('มีข้อมูลที่ยังไม่ได้บันทึก ต้องการออกจากหน้านี้และทิ้งข้อมูลที่กรอกหรือไม่?', 'ทิ้งข้อมูลที่ยังไม่บันทึก', { danger: true, cancel: 'แก้ต่อ' })) return
     dirty.current = false; next(); report('')
   }
   const update = (next: State) => { current.current = next; setState(next) }
@@ -118,7 +118,7 @@ export default function App({ cloud }: { cloud?: CloudAppPort } = {}) {
     try {
       if (file.size > 4_500_000) throw new Error('ไฟล์สำรองใหญ่เกินขนาดที่รองรับ')
       const next = parseBackup(await file.text())
-      if (!await ask('นำเข้าและแทนที่ข้อมูลปัจจุบัน? ตรวจว่าคุณสำรองข้อมูลเดิมแล้ว', 'นำเข้าข้อมูล')) return
+      if (!await ask('นำเข้าและแทนที่ข้อมูลปัจจุบัน? ตรวจว่าคุณสำรองข้อมูลเดิมแล้ว', 'นำเข้าข้อมูล', { danger: true, cancel: 'ไม่นำเข้า' })) return
       const replace = () => { next.revision = load(localStorage).revision + 1; localStorage.setItem(STORAGE_KEY, JSON.stringify(next)) }
       if (blocked) { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)) }
       else if (navigator.locks) await navigator.locks.request(STORAGE_KEY, replace)

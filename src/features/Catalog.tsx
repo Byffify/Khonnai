@@ -296,6 +296,43 @@ function VariantView({
     </section>
   );
 }
+const isPack = (unit: string) => /แพ็ก|pack/i.test(unit);
+const splitList = (text: string) => [...new Set(text.split(/[,،、\n]/).map(part => part.trim()).filter(Boolean))];
+const sameText = (a: string, b: string) => a.trim().toLocaleLowerCase() === b.trim().toLocaleLowerCase();
+// Builds every size × colour row in one step so a code with several sizes and colours doesn't need one panel filled by hand per combination.
+function VariantGenerator({ product, variants, saved, open, apply }: { product: Product; variants: Variant[]; saved: Variant[]; open: boolean; apply: (rows: Variant[]) => void }) {
+  const { t } = useI18n()
+  const [sizes, setSizes] = useState("");
+  const [colors, setColors] = useState("");
+  const [price, setPrice] = useState("");
+  const [done, setDone] = useState("");
+  const sizeList = splitList(sizes), colorList = splitList(colors);
+  const priceValue = Number(price);
+  const validPrice = price.trim() !== "" && Number.isFinite(priceValue) && priceValue >= 0;
+  const combos = sizeList.flatMap(size => colorList.map(color => ({ size, color })));
+  const fresh = combos.filter(combo => !variants.some(v => sameText(v.size, combo.size) && sameText(v.color, combo.color)));
+  function generate() {
+    // Blank rows that were never saved are placeholders; the generated rows replace them.
+    const kept = variants.filter(v => saved.some(s => s.id === v.id) || v.size.trim() || v.color.trim());
+    apply([...kept, ...fresh.map(combo => ({ ...freshVariant(product.id), ...combo, price: Math.round(priceValue * 100) }))]);
+    setDone(t("เพิ่ม {0} รายการแล้ว ใส่ยอดเริ่มต้นของแต่ละรายการด้านล่าง", fresh.length));
+    setSizes(""); setColors("");
+  }
+  return <details className="panel variant-generator" open={open}>
+    <summary>{t("เพิ่มหลายไซซ์ / สีพร้อมกัน")}</summary>
+    <div className="stack">
+      <p className="muted">{t("คั่นแต่ละค่าด้วยจุลภาค ระบบสร้างทุกคู่ไซซ์กับสีให้ แล้วค่อยใส่ยอดเริ่มต้นทีละรายการ")}</p>
+      <div className="form-grid">
+        <Field data-transient label={t("ไซซ์ทั้งหมด")} placeholder="34, 36, 38" value={sizes} onChange={e => { setSizes(e.target.value); setDone(""); }} />
+        <Field data-transient label={t("สีทั้งหมด")} placeholder={t("ดำ, ครีม, ขาว")} value={colors} onChange={e => { setColors(e.target.value); setDone(""); }} />
+        <Field data-transient label={t("ราคาเดียวกันทุกรายการ (บาท)")} suffix={product.unit ? t("บาท / {0}", product.unit) : t("บาท")} type="number" min="0" step="0.01" inputMode="decimal" value={price} onChange={e => { setPrice(e.target.value); setDone(""); }} />
+      </div>
+      {combos.length > 0 && fresh.length < combos.length && <p className="muted">{t("มีอยู่แล้ว {0} รายการ จะไม่สร้างซ้ำ", combos.length - fresh.length)}</p>}
+      <Button data-draft variant="secondary" disabled={!fresh.length || !validPrice} onClick={generate}><Icon name="plus" />{fresh.length ? t("สร้าง {0} รายการ", fresh.length) : t("สร้างรายการ")}</Button>
+      {done && <p className="notice" role="status">{done}</p>}
+    </div>
+  </details>;
+}
 function ProductForm({
   state,
   act,
@@ -318,6 +355,9 @@ function ProductForm({
   );
   const [photoBusy, setPhotoBusy] = useState(false);
   const [sourceRevision] = useState(state.revision);
+  // Field labels name their row only when there is more than one, so a screen reader can tell repeated fields apart.
+  const rowLabel = (label: string, index: number) => variants.length > 1 ? t("{0} (รายการที่ {1})", t(label), index + 1) : t(label);
+  const pack = isPack(product.unit);
   const updateVariant = (id: string, patch: Partial<Variant>) =>
     setVariants((rows) =>
       rows.map((v) => (v.id === id ? { ...v, ...patch } : v)),
@@ -411,28 +451,29 @@ function ProductForm({
           />
         </section>
         <div className="variant-form-list stack">
+          <VariantGenerator product={product} variants={variants} saved={state.variants} open={!existing} apply={setVariants} />
           {variants.map((v, i) => (
             <section className="panel stack" key={v.id}>
               <div className="row justify-between">
-                <h2>{t("ตัวเลือกสินค้า ")}{i + 1}</h2>
+                <h2>{v.size.trim() && v.color.trim() ? t("ไซซ์ {0} · {1}", v.size.trim(), v.color.trim()) : t("รายการที่ {0}", i + 1)}</h2>
                 {variants.length > 1 &&
                   !state.variants.some((x) => x.id === v.id) && (
                     <Button
                       data-draft
                       variant="danger"
-                      aria-label={t("ลบตัวเลือกสินค้า {0}", i + 1)}
+                      aria-label={t("ลบรายการที่ {0}", i + 1)}
                       onClick={() =>
                         setVariants((rows) =>
                           rows.filter((row) => row.id !== v.id),
                         )
                       }
                     >
-                      {t("ลบตัวเลือกนี้")}</Button>
+                      {t("ลบรายการนี้")}</Button>
                   )}
               </div>
               <div className="form-grid">
                 <Field
-                  label={t("ไซซ์")}
+                  label={rowLabel("ไซซ์", i)}
                   required
                   value={v.size}
                   onChange={(e) =>
@@ -440,7 +481,7 @@ function ProductForm({
                   }
                 />
                 <Field
-                  label={t("สี / คละสี")}
+                  label={rowLabel("สี / คละสี", i)}
                   required
                   value={v.color}
                   onChange={(e) =>
@@ -448,7 +489,7 @@ function ProductForm({
                   }
                 />
                 <Field
-                  label={t("ราคาต่อหน่วย (บาท)")}
+                  label={rowLabel("ราคาต่อหน่วย (บาท)", i)}
                   suffix={product.unit ? t("บาท / {0}", product.unit) : t("บาท")}
                   type="number"
                   min="0"
@@ -462,10 +503,10 @@ function ProductForm({
                   }
                 />
                 <Field
-                  label={
+                  label={rowLabel(
                     state.variants.some((x) => x.id === v.id)
-                      ? t("ยอดคงเหลือ (ปรับที่หน้าสินค้า)")
-                      : t("ยอดเริ่มต้น")
+                      ? "ยอดคงเหลือ (ปรับที่หน้าสินค้า)"
+                      : "ยอดเริ่มต้น", i)
                   }
                   disabled={state.variants.some((x) => x.id === v.id)}
                   suffix={product.unit ? t("หน่วย: {0}", product.unit) : undefined}
@@ -479,14 +520,14 @@ function ProductForm({
                   }
                 />
               </div>
-              <Field
-                label={t("รายละเอียดสีภายในแพ็ก (ถ้ามี)")}
+              {(pack || v.contents) && <Field
+                label={rowLabel("รายละเอียดสีภายในแพ็ก (ถ้ามี)", i)}
+                hint={pack ? "แพ็กคละมีไซซ์เดียว ขายทั้งแพ็ก" : undefined}
                 value={v.contents}
                 onChange={(e) =>
                   updateVariant(v.id, { contents: e.target.value })
                 }
-              />
-              <p className="muted">{t("แพ็กคละมีไซซ์เดียว ขายทั้งแพ็ก")}</p>
+              />}
             </section>
           ))}
           <Button

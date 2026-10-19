@@ -83,6 +83,12 @@ input[type=file] { width: 100%; font-size: 16px; line-height: 24px; }
 .input-with-suffix:has(input:disabled) { background: var(--ds-disabled); }
 .input-suffix { align-self: center; max-width: 50%; padding: 8px 14px 8px 0; font-size: 16px; line-height: 24px; color: var(--ds-muted); overflow-wrap: anywhere; pointer-events: none; }
 .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px 16px; }
+.panel.variant-generator { background: var(--ds-action-surface); border-color: transparent; }
+.variant-generator > summary { display: flex; align-items: center; min-height: 48px; color: var(--ds-primary); font: 600 18px/28px var(--ds-font); cursor: pointer; }
+.variant-generator[open] > summary { margin-bottom: 12px; }
+.variant-generator .form-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+.variant-generator .button { justify-self: start; }
+.variant-generator .notice { background: var(--ds-paper); }
 .panel, .section { min-width: 0; padding: var(--ds-panel-space); border: 1px solid var(--ds-border); border-radius: var(--ds-card-radius); background: var(--ds-paper); }
 .empty { display: grid; justify-items: center; gap: 16px; padding: 48px 24px; text-align: center; border-radius: var(--ds-card-radius); background: var(--ds-surface); }
 .empty h2 { font-size: 20px; line-height: 28px; }
@@ -228,6 +234,11 @@ details[open] > form { animation: content-in var(--ds-motion-disclosure) var(--d
 .confirmation { width: min(480px,calc(100vw - 32px)); max-height: calc(100dvh - 32px); margin: auto; padding: 24px; overflow: auto; background: var(--ds-paper); color: var(--ds-ink); border: 1px solid var(--ds-border); border-radius: var(--ds-card-radius); }
 .confirmation[open] { animation: content-in var(--ds-motion-dialog) var(--ds-motion-ease); }
 .confirmation::backdrop { background: var(--ds-scrim); }
+.confirmation h2 { display: flex; align-items: center; gap: 10px; }
+.confirmation.danger h2 { color: var(--ds-danger); }
+.confirmation.danger h2 .icon { width: 24px; height: 24px; flex-shrink: 0; }
+.confirmation.danger .button.danger { color: var(--ds-paper); background: var(--ds-danger); }
+.confirmation.danger .button.danger:hover { background: color-mix(in srgb, var(--ds-danger) 82%, black); }
 .loading-status { margin-top: 20px; color: var(--ds-muted); animation: feedback-in 1ms var(--ds-motion-loading-delay) both; }
 main > fieldset > :is(.stack,form) { animation: content-in var(--ds-motion-content) var(--ds-motion-ease); }
 @keyframes content-in { from { opacity: 1; transform: translateY(4px); } to { opacity: 1; transform: none; } }
