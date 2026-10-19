@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { useI18n } from './languageContext'
+import { ShopLoading } from './ShopLoading'
 
 const Page = lazy(() => import('./App'))
 const AuthPage = lazy(() => import('./AuthPage'))
@@ -7,7 +8,7 @@ const CloudApp = lazy(() => import('./CloudApp'))
 
 function LoadingPage() {
   const { language } = useI18n()
-  return <p className="shell" role="status">{language === 'th' ? 'กำลังเปิดคนใน…' : 'Opening Khonnai…'}</p>
+  return <ShopLoading label={language === 'th' ? 'กำลังเปิดคนใน…' : 'Opening Khonnai…'} />
 }
 
 export function SiteEntry() {
