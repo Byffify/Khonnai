@@ -18,7 +18,8 @@ const freshVariant = (productId: string): Variant => ({
   price: 0,
   stock: 0,
 });
-export function Catalog(props: FeatureProps) {
+type StartTransaction = (kind: "sale" | "reserve", variantId: string) => void;
+export function Catalog({ startTransaction, ...props }: FeatureProps & { startTransaction?: StartTransaction }) {
   const { t } = useI18n()
 
   const [search, setSearch] = useState("");
@@ -53,7 +54,7 @@ export function Catalog(props: FeatureProps) {
             {t("เพิ่มสินค้า")}</Button>
         </div>
       </div>}
-      {selectedProduct ? <ProductView key={selectedProduct.id} {...props} product={selectedProduct}
+      {selectedProduct ? <ProductView key={selectedProduct.id} {...props} start={startTransaction} product={selectedProduct}
         edit={() => void props.leave(() => setEditor(selectedProduct))}
         back={() => { setSelectedId(null); requestAnimationFrame(() => selectedTrigger.current?.focus()); }} /> : <>
       <div className="catalog-search">
@@ -123,7 +124,7 @@ function TileStock({ id, state, product }: { id: string; state: FeatureProps["st
       <li key={size} className={count ? undefined : "sold-out"}><span>{size}</span> {count ? count : t("หมด")}</li>)}</ul>}
   </div>;
 }
-function ProductView({ state, act, ask, leave, product, edit, back }: FeatureProps & { product: Product; edit: () => void; back: () => void }) {
+function ProductView({ state, act, ask, leave, product, edit, back, start }: FeatureProps & { product: Product; edit: () => void; back: () => void; start?: StartTransaction }) {
   const { t } = useI18n()
 
   const variants = state.variants.filter(v => v.productId === product.id);
@@ -158,7 +159,7 @@ function ProductView({ state, act, ask, leave, product, edit, back }: FeaturePro
         </button>;
       })}
     </div>
-    <div className="variant-grid">{variants.filter(v => v.size === size).map(v => <VariantView key={v.id} variant={v} product={product} state={state} act={act} ask={ask} />)}</div>
+    <div className="variant-grid">{variants.filter(v => v.size === size).map(v => <VariantView key={v.id} variant={v} product={product} state={state} act={act} ask={ask} start={start} />)}</div>
     </div>
     </div>
   </section>;
@@ -169,14 +170,16 @@ function VariantView({
   state,
   act,
   ask,
+  start,
 }: {
   variant: Variant;
   product: Product;
   state: FeatureProps["state"];
   act: FeatureProps["act"];
   ask: FeatureProps["ask"];
+  start?: StartTransaction;
 }) {
-  const { t } = useI18n()
+  const { t, language } = useI18n()
 
   const available = availability(state, v.id);
   const [amount, setAmount] = useState("");
@@ -191,7 +194,7 @@ function VariantView({
   return (
     <section className="variant">
       <div className="row justify-between">
-        <h3>{v.color}</h3>
+        <h2 className="variant-color">{v.color}</h2>
         <span>
           {t("฿")}{money(v.price)} / {product.unit}
         </span>
@@ -212,6 +215,12 @@ function VariantView({
       <p className="muted">
         {t("คงเหลือ ")}{v.stock} {product.unit} {t(" · จอง ")}{v.stock - available} {product.unit}
       </p>
+      {start && (
+        <div className="variant-actions">
+          <Button disabled={available <= 0} aria-label={t("ขาย {0} ไซซ์ {1} {2}", product.code, v.size, v.color)} onClick={() => start("sale", v.id)}>{language === "en" ? "Sell" : "ขาย"}</Button>
+          <Button variant="secondary" disabled={available <= 0} aria-label={t("จอง {0} ไซซ์ {1} {2}", product.code, v.size, v.color)} onClick={() => start("reserve", v.id)}>{language === "en" ? "Reserve" : "จอง"}</Button>
+        </div>
+      )}
       {available < 0 && (
         <p role="status" className="danger-text">
           {t("ของไม่พอ ขาด ")}{-available} {product.unit}

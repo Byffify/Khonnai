@@ -178,6 +178,9 @@ html[lang=en] .app-nav button > span { white-space: nowrap; }
 .chip[aria-pressed=true] { background: var(--ds-primary); border-color: var(--ds-primary); color: var(--ds-paper); }
 .variant-grid { display: grid; align-items: start; gap: 20px; }
 .variant { min-width: 0; padding: 24px; border: 1px solid var(--ds-border); border-radius: var(--ds-card-radius); background: var(--ds-paper); }
+.variant .variant-color { margin: 0; font-size: 20px; line-height: 28px; font-weight: 500; overflow-wrap: anywhere; }
+.variant-actions { display: flex; gap: 8px; margin-top: 16px; }
+.variant-actions .button { flex: 1; }
 .variant > * + * { margin-top: 12px; }
 .variant .variant-quantity { font-size: 28px; line-height: 36px; }
 .variant-stock-summary { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
