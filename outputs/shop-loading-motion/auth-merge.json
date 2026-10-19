@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-10-18T15:55:14.207Z",
+  "passed": true,
+  "commonAncestor": "4eb373b074422b7254211bec23045020e38192d9",
+  "authCommit": "03213cb1a94f77edaddcad9e93fbe49891228285",
+  "mainCommit": "515027e4bcc6e266942b4552f96f0649a3817159",
+  "sharedPath": "src/SiteEntry.tsx",
+  "proposedHash": "c91721bf38b1307b88f754925c2865ea5eb59dd6192dd5324ee9c30c4d7e0c69",
+  "checks": [
+    "Current SiteEntry text merges without conflict",
+    "Auth and cloud routes preserved alongside animated fallback",
+    "Neither source file nor Auth ref modified"
+  ],
+  "scope": "Temporary three-way text rehearsal only. No actual branch merge and no live Supabase loading integration."
+}
