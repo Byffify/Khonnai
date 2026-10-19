@@ -10,6 +10,8 @@
   --ds-add-ink: #102d47;
   --ds-add-surface: #fff0e3;
   --ds-nav-surface: #ffffff;
+  --ds-nav-glass: linear-gradient(145deg, rgb(255 255 255 / 48%), rgb(255 255 255 / 8%) 45%, rgb(25 59 90 / 4%)), rgb(255 255 255 / 52%);
+  --ds-nav-border: rgb(25 59 90 / 12%);
   --ds-ink: #171717;
   --ds-muted: #646464;
   --ds-canvas: #ffffff;
@@ -33,6 +35,7 @@
   --ds-card-radius: 16px;
   --ds-photo-radius: 16px;
   --ds-pill-radius: 9999px;
+  --ds-dock-radius: 9999px;
   --ds-font: "Plus Jakarta Sans", "Anuphan", "IBM Plex Sans Thai Looped", "Leelawadee UI", Tahoma, sans-serif;
   --ds-label-font: var(--ds-font);
   --ds-brand-font: "Rammetto One", sans-serif;
@@ -57,6 +60,11 @@
   --ds-panel-space: 32px;
   --ds-amount-size: 32px;
   --ds-amount-line: 40px;
+  --ds-dock-width: 620px;
+  --ds-dock-blur: 64px;
+  --ds-dock-saturation: 1.8;
+  --ds-dock-inset: 16px;
+  --ds-dock-shadow: inset 0 1px 0 rgb(255 255 255 / 90%), inset 0 -1px 0 rgb(25 59 90 / 6%), 0 12px 32px rgb(25 59 90 / 12%), -24px 12px 32px -20px rgb(237 124 50 / 30%), 24px 12px 32px -20px rgb(25 59 90 / 22%);
   --ds-motion-feedback: 125ms;
   --ds-motion-selection: 160ms;
   --ds-motion-content: 220ms;

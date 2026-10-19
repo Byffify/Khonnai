@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-19",
+  "purpose": "Compare inventory compositions while keeping the approved C Floating Dock and shared Khonnai theme",
+  "approvedNavigation": "C Floating Dock on desktop and mobile",
+  "selectedInventoryComposition": "Quiet Gallery",
+  "implementationApproved": "2026-10-19; user requested summary and immediate implementation including navbar",
+  "options": [
+    {
+      "name": "Compact Cards",
+      "image": "c-v2-inventory.png",
+      "prompt": "c-v2-inventory.prompt.txt",
+      "description": "Horizontal photo/code cards; two desktop columns and one mobile column",
+      "strength": "Scan product codes and reach one full-width touch target",
+      "tradeoff": "Less product imagery visible than a photo gallery"
+    },
+    {
+      "name": "Quiet Gallery",
+      "image": "compare-quiet-gallery-v2.png",
+      "prompt": "compare-quiet-gallery-v2.prompt.txt",
+      "sourceImage": "compare-quiet-gallery.png",
+      "sourcePrompt": "compare-quiet-gallery.prompt.txt",
+      "correction": "Unique desktop code sequence and one combined stock action per variant",
+      "description": "Borderless square photo gallery with clear code footers; three desktop columns and two mobile columns",
+      "strength": "Recognize products visually while retaining the explicit code-size-color flow",
+      "tradeoff": "More vertical space per item; a no-photo fallback needs equal care"
+    },
+    {
+      "name": "Split Workspace",
+      "image": "compare-split-workspace-v2.png",
+      "prompt": "compare-split-workspace-v2.prompt.txt",
+      "sourceImage": "compare-split-workspace.png",
+      "sourcePrompt": "compare-split-workspace.prompt.txt",
+      "correction": "Mixed variant stock12 reserved0 available12",
+      "description": "Desktop product-code list beside selected details; mobile retains separate list and detail screens",
+      "strength": "Keep browsing context visible while opening another product on a wide screen",
+      "tradeoff": "Requires sufficient desktop width; draft changes still require the existing unsaved guard"
+    }
+  ],
+  "invariants": [
+    "White, navy/orange, readable Thai and the same glass dock across five operational pages",
+    "No variant quantities before explicitly selecting a product and size",
+    "No aggregate stock total combining units",
+    "No new database fields, receipt design or stock operations",
+    "Demo data and generated images are not live application screenshots"
+  ],
+  "verification": "Visual concept inspection only; no application code changed or runtime tests claimed"
+}

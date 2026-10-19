@@ -78,6 +78,7 @@ export function Catalog(props: FeatureProps) {
         >
           {t("ล้างการค้นหา")}</Button>
       )}
+      {props.state.products.length > 0 && <p className="catalog-count muted" role="status">{t("แสดง {0} จาก {1} รหัส", products.length, props.state.products.length)}</p>}
       {!props.state.products.length ? (
         <EmptyState title={t("ยังไม่มีสินค้า")}>
           <p className="muted">{t("เพิ่มสินค้าจากบันทึกเดิม แล้วตรวจนับยอดจริง")}</p>
@@ -94,7 +95,7 @@ export function Catalog(props: FeatureProps) {
               ref={element => { if (p.id === returnProductId.current) selectedTrigger.current = element; }}
               onClick={() => { returnProductId.current = p.id; setSelectedId(p.id); }}>
               {p.photo ? <img className="photo" src={p.photo} alt={t("สินค้า {0}", p.code)} /> : <div className="photo photo-empty"><Icon name="photo" /><span>{t("ไม่มีรูป")}</span></div>}
-              <h2>{p.code}</h2>
+              <div className="catalog-code"><h2>{p.code}</h2><Icon name="chevron" /></div>
             </button>
           ))}
         </div>
@@ -114,19 +115,25 @@ function ProductView({ state, act, ask, leave, product, edit, back }: FeaturePro
   return <section className="product-detail-page stack">
     <div className="page-header">
       <BackButton aria-label={t("กลับไปดูสินค้า")} onClick={() => void leave(back)} />
+    </div>
+    <div className="detail-layout">
+    <aside className="detail-aside">
       <div className="detail-identity">
         {product.photo ? <img className="photo" src={product.photo} alt={t("สินค้า {0}", product.code)} /> : <div className="photo photo-empty"><Icon name="photo" /><span>{t("ไม่มีรูป")}</span></div>}
         <h1 ref={title} tabIndex={-1}>{product.code}</h1>
       </div>
-    </div>
+      <Button variant="secondary" onClick={edit}>{t("แก้สินค้า")}</Button>
+    </aside>
+    <div className="detail-workspace">
     <div className="row justify-between">
       <p>{t("เลือกไซซ์เพื่อดูสีและจำนวน")}</p>
-      <Button variant="secondary" onClick={edit}>{t("แก้สินค้า")}</Button>
     </div>
     <div className="row" aria-label={t("เลือกไซซ์ {0}", product.code)}>
       {sizes.map(s => <button type="button" className="chip" key={s} aria-pressed={s === size} onClick={() => { if (s !== size) void leave(() => setSize(s)); }}>{s}</button>)}
     </div>
     <div className="variant-grid">{variants.filter(v => v.size === size).map(v => <VariantView key={v.id} variant={v} product={product} state={state} act={act} ask={ask} />)}</div>
+    </div>
+    </div>
   </section>;
 }
 function VariantView({

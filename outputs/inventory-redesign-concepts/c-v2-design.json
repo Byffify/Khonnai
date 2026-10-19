@@ -1,0 +1,20 @@
+{
+  "direction": "C Floating Dock",
+  "directionApproved": true,
+  "revisedContentApproved": false,
+  "date": "2026-10-19",
+  "stage": "Design proposal; no application implementation",
+  "spec": "../../.scratch/floating-dock-redesign/spec.md",
+  "boards": [
+    { "image": "c-v2-inventory.png", "prompt": "c-v2-inventory.prompt.txt", "scope": "Compact catalog and explicit-size detail; desktop/mobile" },
+    { "image": "c-v2-all-pages.png", "prompt": "c-v2-all-pages.prompt.txt", "scope": "Products, bills, reservations, returns/exchanges, settings" }
+  ],
+  "provenance": "Built-in image_gen; synthetic product photographs and demo data",
+  "runtimeVerification": "Not performed; no application code changed",
+  "translationConstraints": [
+    "Keep current receipt pixels/theme",
+    "Keep stock editor behavior; do not implement extra actions from raster",
+    "Use existing shared icons and controls",
+    "Measure actual Thai/English controls and dock clearance in browser"
+  ]
+}

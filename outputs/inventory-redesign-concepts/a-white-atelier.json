@@ -1,0 +1,14 @@
+{
+  "concept": "A",
+  "name": "a-white-atelier",
+  "approved": false,
+  "artifact": "AI generated visual concept; synthetic products; not a runtime screenshot",
+  "responsive": {
+    "phone": "320–600: 2 product columns; glass bottom navigation",
+    "tablet": "601–1023: 3 product columns; glass bottom navigation",
+    "desktop": "1024+: selected desktop navigation; 3 product columns through 1150, then 4"
+  },
+  "contentContract": "Photo/code list -> explicit size selection -> separate color/mixed-pack cards. Preserve all five destinations, Thai/English labels, quantities with units and existing stock behavior.",
+  "promptFile": "a-white-atelier.prompt.txt",
+  "imageFile": "a-white-atelier.png"
+}

@@ -618,6 +618,60 @@ test('return stock preview exposes reservations and remaining shortage', async (
   await page.screenshot({ path: '.audit-qa/ux-return-shortage.png', fullPage: true })
 })
 
+test('quiet gallery and floating dock stay usable across all five pages', async ({ page }) => {
+  const state = emptyState()
+  const photo = 'data:image/webp;base64,' + (await readFile('public/landing/underwear-packs-480.webp')).toString('base64')
+  for (let i = 1; i <= 6; i++) {
+    state.products.push({ id: `gallery-${i}`, code: i === 6 ? 'KH-รหัสสินค้ายาวสำหรับตรวจการอ่านบนมือถือ-006' : `KH-00${i}`, unit: 'แพ็ก', photo: i === 1 ? photo : '' })
+    state.variants.push({ id: `gallery-v${i}`, productId: `gallery-${i}`, size: 'M', color: 'ดำ', contents: '', price: 12000, stock: 24 })
+  }
+  await page.addInitScript(data => localStorage.setItem('micro-erp-v1', JSON.stringify(data)), state)
+  await page.goto('/app')
+  await expect(page.locator('.catalog-tile')).toHaveCount(6)
+  for (const width of [320, 390, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: 900 })
+    const nav = page.getByRole('navigation', { name: 'เมนูหลัก' })
+    for (const label of ['สินค้า', 'บิล', 'จอง', 'คืน/เปลี่ยน', 'ตั้งค่า']) {
+      await nav.getByRole('button', { name: label, exact: true }).click()
+      const box = await nav.boundingBox()
+      expect(box!.x).toBeGreaterThanOrEqual(6)
+      expect(box!.x + box!.width).toBeLessThanOrEqual(width - 6)
+      expect(box!.y).toBeGreaterThan(700)
+      expect(box!.y + box!.height).toBeLessThanOrEqual(894)
+      await expect(nav.getByRole('button', { name: label, exact: true })).toHaveAttribute('aria-current', 'page')
+      await expect(nav.getByRole('button', { name: label, exact: true })).toHaveCSS('background-color', 'rgb(234, 240, 245)')
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+      for (const button of await nav.getByRole('button').all()) expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(48)
+    }
+    await nav.getByRole('button', { name: 'สินค้า', exact: true }).click()
+    const columns = await page.locator('.product-list').evaluate(element => getComputedStyle(element).gridTemplateColumns.split(' ').length)
+    expect(columns).toBe(width <= 600 ? 2 : 3)
+    await expect(page.locator('.catalog-tile').first().getByRole('heading')).toHaveText('KH-001')
+    await page.locator('.catalog-tile').first().click()
+    await expect(page.locator('.variant')).toHaveCount(0)
+    await page.getByRole('button', { name: 'M', exact: true }).click()
+    await expect(page.locator('.variant')).toContainText('ขายได้')
+    await expect(page.locator('.variant')).toContainText('24 แพ็ก')
+    await page.getByRole('button', { name: 'กลับไปดูสินค้า', exact: true }).click()
+    await expect(page.locator('.catalog-tile').first()).toBeFocused()
+  }
+  await page.getByLabel('ค้นหารหัสสินค้า', { exact: true }).fill('KH-001')
+  await expect(page.getByRole('status')).toHaveText('แสดง 1 จาก 6 รหัส')
+  await page.evaluate(() => localStorage.setItem('khonnai-language', 'en'))
+  await page.reload()
+  await page.evaluate(() => document.fonts.ready)
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 900 })
+    const labels = await page.locator('.app-nav button > span').evaluateAll(elements => elements.map(element => {
+      const context = document.createElement('canvas').getContext('2d')!
+      context.font = getComputedStyle(element).font
+      return { text: element.textContent!, textWidth: context.measureText(element.textContent!).width, available: element.clientWidth }
+    }))
+    for (const label of labels) expect(label.textWidth, `${label.text} at ${width}`).toBeLessThanOrEqual(label.available + 1)
+    expect((await page.getByRole('heading', { name: 'Products', exact: true }).boundingBox())!.height).toBeLessThanOrEqual(40)
+  }
+})
+
 test('operational theme uses readable controls and clear navigation without changing workflow', async ({ page }) => {
   await page.goto('/app')
   for (const width of [390, 1280]) {
@@ -631,7 +685,8 @@ test('operational theme uses readable controls and clear navigation without chan
     } else {
       await expect(current).toHaveCSS('background-color', 'rgb(234, 240, 245)')
     }
-    await expect(page.getByRole('navigation')).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+    await expect(page.getByRole('navigation')).toHaveCSS('background-color', 'rgba(255, 255, 255, 0.52)')
+    await expect(page.getByRole('navigation')).toHaveCSS('backdrop-filter', 'blur(64px) saturate(1.8)')
   }
   const primary = page.getByRole('button', { name: 'เพิ่มสินค้า', exact: true })
   const style = await primary.evaluate(element => ({ fill: getComputedStyle(element).backgroundColor, ink: getComputedStyle(element).color, radius: getComputedStyle(element).borderRadius, labelFont: getComputedStyle(element).fontFamily, canvas: getComputedStyle(document.documentElement).backgroundColor }))
@@ -650,7 +705,7 @@ test('operational theme uses readable controls and clear navigation without chan
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
 })
 
-test('Fastwork presentation stays readable across screens, zoom and reduced motion', async ({ page }) => {
+test('Fastwork presentation stays readable across screens, zoom and reduced motion', async ({ page }, testInfo) => {
   const state = emptyState()
   for (let i = 1; i <= 8; i++) {
     state.products.push({ id: 'p' + i, code: i === 8 ? 'KH-รหัสสินค้าที่ยาวเพื่อทดสอบการตัดบรรทัด-008' : 'KH-00' + i, unit: 'แพ็ก', photo: '' })
@@ -665,16 +720,16 @@ test('Fastwork presentation stays readable across screens, zoom and reduced moti
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 960 })
     const nav = page.getByRole('navigation', { name: 'เมนูหลัก' })
-    const brand = page.locator(width >= 1024 ? '.nav-brand .brand' : '.topbar .brand')
+    const brand = page.locator('.topbar .brand')
     await expect(brand).toHaveCSS('font-family', '"Rammetto One", sans-serif')
     await expect(brand).toHaveCSS('background-image', 'linear-gradient(90deg, rgb(25, 59, 90) 0%, rgb(237, 124, 50) 100%)')
-    if (width === 390) await page.locator('.topbar .brand-lockup').screenshot({ path: 'outputs/fastwork-preview/wordmark.png', animations: 'disabled' })
+    if (width === 390) await page.locator('.topbar .brand-lockup').screenshot({ path: testInfo.outputPath('wordmark.png'), animations: 'disabled' })
     await expect(nav.getByRole('button')).toHaveCount(5)
     for (const [label, screenshot] of [['สินค้า', 'catalog'], ['บิล', 'bills'], ['จอง', 'reservations'], ['คืน/เปลี่ยน', 'returns'], ['ตั้งค่า', 'settings']]) {
       await nav.getByRole('button', { name: label, exact: true }).click()
       await expect(nav.getByRole('button', { name: label, exact: true })).toHaveAttribute('aria-current', 'page')
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
-      if (width === 390 || width === 1440) await page.screenshot({ path: `outputs/fastwork-preview/app-${screenshot}-${width}.png`, fullPage: true, animations: 'disabled' })
+      if (width === 390 || width === 1440) await page.screenshot({ path: testInfo.outputPath(`app-${screenshot}-${width}.png`), fullPage: true, animations: 'disabled' })
     }
     await nav.getByRole('button', { name: 'สินค้า', exact: true }).click()
     await page.getByRole('button', { name: 'ดูไซซ์ / สีและจัดการ KH-001', exact: true }).click()
@@ -682,12 +737,12 @@ test('Fastwork presentation stays readable across screens, zoom and reduced moti
     await page.getByRole('button', { name: 'M', exact: true }).click()
     await expect(page.locator('.variant')).toHaveCount(2)
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
-    if (width === 390 || width === 1440) await page.screenshot({ path: `outputs/fastwork-preview/app-detail-${width}.png`, fullPage: true, animations: 'disabled' })
+    if (width === 390 || width === 1440) await page.screenshot({ path: testInfo.outputPath(`app-detail-${width}.png`), fullPage: true, animations: 'disabled' })
     await page.getByRole('button', { name: 'กลับไปดูสินค้า', exact: true }).click()
     if (width === 390 || width === 1440) {
       await nav.getByRole('button', { name: 'บิล', exact: true }).click()
       await page.getByRole('button', { name: 'สร้างบิล', exact: true }).click()
-      await page.screenshot({ path: `outputs/fastwork-preview/app-sale-${width}.png`, fullPage: true, animations: 'disabled' })
+      await page.screenshot({ path: testInfo.outputPath(`app-sale-${width}.png`), fullPage: true, animations: 'disabled' })
       await nav.getByRole('button', { name: 'สินค้า', exact: true }).click()
     }
   }
@@ -705,7 +760,7 @@ test('Fastwork presentation stays readable across screens, zoom and reduced moti
   // CSS zoom exercises enlarged text/layout in Chromium; OS/browser chrome zoom is a separate manual check.
   await page.evaluate(() => { document.documentElement.style.zoom = '2' })
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
-  await page.screenshot({ path: 'outputs/fastwork-preview/app-zoom-200.png', fullPage: true, animations: 'disabled' })
+  await page.screenshot({ path: testInfo.outputPath('app-zoom-200.png'), fullPage: true, animations: 'disabled' })
 })
 
 test('slow save blocks duplicates immediately while visual loading is delayed', async ({ page }) => {
@@ -839,7 +894,7 @@ test('landing sale examples and controls never access shop storage', async ({ pa
   expect(await page.evaluate(() => Reflect.get(window, '__shopAccess'))).toEqual([])
 })
 
-test('landing is readable in both languages, reduced motion and keyboard navigation', async ({ page }) => {
+test('landing is readable in both languages, reduced motion and keyboard navigation', async ({ page }, testInfo) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/landing/')
   await expect(page.getByRole('link', { name: 'เริ่มใช้งานคนใน', exact: true }).first()).toHaveAttribute('href', '/app')
@@ -852,8 +907,8 @@ test('landing is readable in both languages, reduced motion and keyboard navigat
       const headline = page.getByRole('heading', { level: 1 })
       await expect(headline).toBeVisible()
       if (width === 390 || width === 1440) {
-        await page.screenshot({ path: `outputs/landing-page/${language}-${width}.png`, fullPage: true, animations: 'disabled' })
-        await page.screenshot({ path: `outputs/landing-page/${language}-hero-${width}.png`, animations: 'disabled' })
+        await page.screenshot({ path: testInfo.outputPath(`${language}-${width}.png`), fullPage: true, animations: 'disabled' })
+        await page.screenshot({ path: testInfo.outputPath(`${language}-hero-${width}.png`), animations: 'disabled' })
       }
     }
   }
@@ -864,7 +919,7 @@ test('landing is readable in both languages, reduced motion and keyboard navigat
   await page.setViewportSize({ width: 390, height: 960 })
   await page.evaluate(() => { document.documentElement.style.zoom = '2' })
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
-  await page.screenshot({ path: 'outputs/landing-page/en-zoom-200.png', fullPage: true, animations: 'disabled' })
+  await page.screenshot({ path: testInfo.outputPath('en-zoom-200.png'), fullPage: true, animations: 'disabled' })
 })
 
 test('root redirects to landing before entering the application', async ({ page, request }) => {
