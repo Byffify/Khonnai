@@ -41,7 +41,7 @@ export default function App({ cloud }: { cloud?: CloudAppPort } = {}) {
   const [unconfirmed, setUnconfirmed] = useState(false)
   const [recovered, setRecovered] = useState(0)
   const [blocked, setBlocked] = useState(!!boot.error)
-  const [notice, setNotice] = useState({ message: boot.error ? 'ข้อมูลที่บันทึกไว้เปิดไม่ได้ กรุณากู้จากไฟล์สำรอง ระบบยังไม่ได้ลบหรือเขียนทับข้อมูลเดิม' : '', error: !!boot.error })
+  const [notice, setNotice] = useState({ message: boot.error ? 'ข้อมูลที่บันทึกไว้เปิดไม่ได้ กรุณากู้จากไฟล์สำรอง ระบบยังไม่ได้ลบหรือเขียนทับข้อมูลเดิม' : '', error: !!boot.error, sequence: 0 })
   const [page, setPage] = useState<Page>('catalog')
   const [question, setQuestion] = useState<Confirmation | null>(null)
   const pendingQuestion = useRef(false)
@@ -51,8 +51,8 @@ export default function App({ cloud }: { cloud?: CloudAppPort } = {}) {
     return new Promise(resolve => setQuestion({ message, action, finish: answer => { pendingQuestion.current = false; setQuestion(null); resolve(answer) } }))
   }
   const report = (message: string, error = false, form = focusedForm()) => {
-    if (error && reportFormFailure(form, message)) { setNotice({ message: '', error: false }); return }
-    setNotice({ message, error })
+    if (error && reportFormFailure(form, message)) { setNotice(previous => ({ message: '', error: false, sequence: previous.sequence })); return }
+    setNotice(previous => ({ message, error, sequence: previous.sequence + 1 }))
   }
   const leave = async (next: () => void) => {
     if ((dirty.current || hasUnsavedStock()) && !await ask('มีข้อมูลที่ยังไม่ได้บันทึก ต้องการออกจากหน้านี้และทิ้งข้อมูลที่กรอกหรือไม่?', 'ทิ้งข้อมูลที่ยังไม่บันทึก')) return
@@ -63,8 +63,8 @@ export default function App({ cloud }: { cloud?: CloudAppPort } = {}) {
     const changed = (event: StorageEvent) => {
       if (cloud) return
       if (event.key !== STORAGE_KEY && event.key !== null) return
-      try { const latest = load(localStorage); current.current = latest; setState(latest); setNotice({ message: 'โหลดข้อมูลล่าสุดจากอีกแท็บแล้ว', error: false }) }
-      catch (error) { setBlocked(true); setNotice({ message: String(error), error: true }) }
+      try { const latest = load(localStorage); current.current = latest; setState(latest); setNotice(previous => ({ message: 'โหลดข้อมูลล่าสุดจากอีกแท็บแล้ว', error: false, sequence: previous.sequence + 1 })) }
+      catch (error) { setBlocked(true); setNotice(previous => ({ message: String(error), error: true, sequence: previous.sequence + 1 })) }
     }
     window.addEventListener('storage', changed)
     const unload = (event: BeforeUnloadEvent) => { if (dirty.current || hasUnsavedStock() || cloud?.client.uncertain) { event.preventDefault(); event.returnValue = '' } }
@@ -86,7 +86,7 @@ export default function App({ cloud }: { cloud?: CloudAppPort } = {}) {
     const interval = window.setInterval(() => { if (document.visibilityState === 'visible') void refresh() }, 30_000)
     return () => { active = false; window.removeEventListener('focus', refresh); window.clearInterval(interval) }
   }, [cloud])
-  async function act(command: Command) {
+  async function act(command: Command): Promise<State | false> {
     const form = focusedForm()
     if (blocked) { report('ข้อมูลเดิมอ่านไม่ได้ กรุณานำเข้าไฟล์สำรองก่อน ระบบจะไม่เขียนทับข้อมูลเดิม', true); return false }
     if (saving.current) return false
@@ -95,7 +95,7 @@ export default function App({ cloud }: { cloud?: CloudAppPort } = {}) {
     try {
       const save = () => commit(localStorage, current.current, command)
       const next = cloud ? await cloud.client.commit(current.current, command) : navigator.locks ? await navigator.locks.request(STORAGE_KEY, save) : save()
-      update(next); dirty.current = false; report('บันทึกแล้ว'); return true
+      update(next); dirty.current = false; report('บันทึกแล้ว'); return next
     } catch (error) {
       if (cloud && error instanceof CloudFailure) {
         if (error.kind === 'session') { cloud.sessionEnded(); return false }
@@ -151,5 +151,5 @@ export default function App({ cloud }: { cloud?: CloudAppPort } = {}) {
       }
     },
   } : undefined
-  return <div className="shell"><header className="topbar"><Brand /><span className="local-label">{cloud ? (language === 'th' ? 'ข้อมูลร้านในบัญชีของคุณ' : 'Your account’s shop data') : t("ข้อมูลบนเครื่องนี้")}</span></header>{notice.message && <div className="mb-5"><Notice error={notice.error} focusError>{notice.message}</Notice></div>}{blocked && <Notice error>{t("ข้อมูลเดิมอ่านไม่ได้และยังไม่ถูกลบ ใช้ไฟล์สำรองเพื่อกู้ข้อมูลร้าน")}</Notice>}<main key={recovered} onClickCapture={e => { if (e.target instanceof Element && e.target.closest('[data-draft]')) dirty.current = true }} onChangeCapture={e => { const element = e.target; if (element instanceof Element && element.hasAttribute('data-transient')) return; if ((element instanceof HTMLInputElement || element instanceof HTMLSelectElement || element instanceof HTMLTextAreaElement) && (element.form || element.hasAttribute('data-stock-draft'))) dirty.current = true }}><fieldset disabled={busy || unconfirmed} className="border-0 m-0 p-0 min-w-0">{blocked ? <Settings {...props} restore={restore} damaged /> : <>{page === 'catalog' && <Catalog {...props} />}{page === 'bills' && <Bills {...props} />}{page === 'reservations' && <Reservations {...props} />}{page === 'returns' && <Returns {...props} />}{page === 'settings' && <Settings {...props} restore={restore} damaged={blocked} cloud={!!cloud} account={account} onSignOut={cloud ? () => void leave(cloud.signOut) : undefined} />}</>}</fieldset>{busy && <p className="loading-status" role="status">{t("กำลังบันทึก…")}</p>}{unconfirmed && <section className="section stack" aria-label={language === 'th' ? 'ตรวจสอบการบันทึก' : 'Check pending save'}><p className="notice warning" role="status">{language === 'th' ? 'อย่าเพิ่งปิดหน้านี้ รายการอาจบันทึกแล้ว ระบบจะตรวจรายการเดิมเพื่อป้องกันบันทึกซ้ำ' : 'Keep this page open. The entry may already be saved. We will check the same entry to avoid duplicates.'}</p><button type="button" className="button" disabled={busy} onClick={() => void reconcile()}>{language === 'th' ? 'ตรวจสอบรายการเดิม' : 'Check pending entry'}</button></section>}</main><nav className="app-nav" aria-label={t("เมนูหลัก")}>{pages.map(({ id, label, icon, accessible }) => <button key={id} disabled={busy || unconfirmed || (blocked && id !== 'settings')} aria-label={t(accessible ?? label)} aria-current={(blocked ? 'settings' : page) === id ? 'page' : undefined} onClick={() => void leave(() => { setPage(id); window.scrollTo({ top: 0 }) })}><Icon name={icon} /><span>{language === 'en' && id === 'reservations' ? 'Reserve' : id === 'returns' && language === 'en' ? 'Returns' : t(label)}</span></button>)}</nav><ConfirmDialog request={question} /></div>
+  return <div className="shell"><header className="topbar"><Brand /><span className="local-label">{cloud ? (language === 'th' ? 'ข้อมูลร้านในบัญชีของคุณ' : 'Your account’s shop data') : t("ข้อมูลบนเครื่องนี้")}</span></header>{notice.message && notice.error && <div className="mb-5"><Notice error focusError>{notice.message}</Notice></div>}{notice.message && !notice.error && <div className="toast" key={notice.sequence}><Notice>{notice.message}</Notice><button type="button" className="toast-close" aria-label={t("ปิดข้อความ")} onClick={() => report('')}><Icon name="close" /></button></div>}{blocked && <Notice error>{t("ข้อมูลเดิมอ่านไม่ได้และยังไม่ถูกลบ ใช้ไฟล์สำรองเพื่อกู้ข้อมูลร้าน")}</Notice>}<main key={recovered} onClickCapture={e => { if (e.target instanceof Element && e.target.closest('[data-draft]')) dirty.current = true }} onChangeCapture={e => { const element = e.target; if (element instanceof Element && element.hasAttribute('data-transient')) return; if ((element instanceof HTMLInputElement || element instanceof HTMLSelectElement || element instanceof HTMLTextAreaElement) && (element.form || element.hasAttribute('data-stock-draft'))) dirty.current = true }}><fieldset disabled={busy || unconfirmed} className="border-0 m-0 p-0 min-w-0">{blocked ? <Settings {...props} restore={restore} damaged /> : <>{page === 'catalog' && <Catalog {...props} />}{page === 'bills' && <Bills {...props} />}{page === 'reservations' && <Reservations {...props} />}{page === 'returns' && <Returns {...props} />}{page === 'settings' && <Settings {...props} restore={restore} damaged={blocked} cloud={!!cloud} account={account} onSignOut={cloud ? () => void leave(cloud.signOut) : undefined} />}</>}</fieldset>{busy && <p className="loading-status" role="status">{t("กำลังบันทึก…")}</p>}{unconfirmed && <section className="section stack" aria-label={language === 'th' ? 'ตรวจสอบการบันทึก' : 'Check pending save'}><p className="notice warning" role="status">{language === 'th' ? 'อย่าเพิ่งปิดหน้านี้ รายการอาจบันทึกแล้ว ระบบจะตรวจรายการเดิมเพื่อป้องกันบันทึกซ้ำ' : 'Keep this page open. The entry may already be saved. We will check the same entry to avoid duplicates.'}</p><button type="button" className="button" disabled={busy} onClick={() => void reconcile()}>{language === 'th' ? 'ตรวจสอบรายการเดิม' : 'Check pending entry'}</button></section>}</main><nav className="app-nav" aria-label={t("เมนูหลัก")}>{pages.map(({ id, label, icon, accessible }) => <button key={id} disabled={busy || unconfirmed || (blocked && id !== 'settings')} aria-label={t(accessible ?? label)} aria-current={(blocked ? 'settings' : page) === id ? 'page' : undefined} onClick={() => void leave(() => { setPage(id); window.scrollTo({ top: 0 }) })}><Icon name={icon} /><span>{language === 'en' && id === 'reservations' ? 'Reserve' : id === 'returns' && language === 'en' ? 'Returns' : t(label)}</span></button>)}</nav><ConfirmDialog request={question} /></div>
 }

@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "src/index.css"
+        ],
+        "createdAt": "2026-10-19T18:33:24.709Z",
+        "reason": "UX-CONTRACT.md:39 requires the navy-to-orange gradient wordmark; tests/browser.spec.ts:764 asserts it"
+      }
+    ]
+  }
+}

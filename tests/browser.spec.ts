@@ -2,6 +2,45 @@ import { test, expect } from '@playwright/test'
 import { readFile } from 'node:fs/promises'
 import { emptyState, execute } from '../src/domain/inventory'
 
+test('shop entry and refresh keep the approved loader until inventory is ready', async ({ page }) => {
+  await page.route('**/api/auth/session', route => route.fulfill({ json: { user: { id: 'loading-test', email: 'loading@example.test' }, csrfToken: 'test-token' } }))
+  let release = () => {}
+  let gate = new Promise<void>(resolve => { release = resolve })
+  await page.route('**/api/inventory/state', async route => {
+    await gate
+    await route.fulfill({ json: { userId: 'loading-test', state: emptyState() } })
+  })
+  await page.goto('/shop')
+  for (let visit = 0; visit < 2; visit++) {
+    const loader = page.locator('.shop-loading')
+    await expect(loader).toBeVisible()
+    await expect(loader.getByRole('status')).toHaveText('กำลังเปิดข้อมูลร้าน…')
+    await expect(loader.locator('.brand-logo')).toBeVisible()
+    expect(await loader.getByRole('status').evaluate(element => element.getBoundingClientRect().height)).toBe(1)
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await expect(loader.locator('.brand-logo')).toHaveCSS('animation-name', 'none')
+    release()
+    await expect(page.getByRole('heading', { name: 'สินค้า', exact: true })).toBeVisible()
+    await expect(loader).toHaveCount(0)
+    if (visit === 0) {
+      gate = new Promise<void>(resolve => { release = resolve })
+      await page.reload()
+    }
+  }
+})
+
+test('shop loading ends with sign-in or a retry when access fails', async ({ page }) => {
+  await page.route('**/api/auth/session', route => route.fulfill({ status: 401, json: {} }))
+  await page.goto('/shop')
+  await expect(page.getByRole('link', { name: 'เข้าสู่ระบบ', exact: true })).toBeVisible()
+  await expect(page.locator('.shop-loading')).toHaveCount(0)
+  await page.unroute('**/api/auth/session')
+  await page.route('**/api/auth/session', route => route.fulfill({ status: 503, json: {} }))
+  await page.reload()
+  await expect(page.getByRole('button', { name: 'ลองเชื่อมต่ออีกครั้ง', exact: true })).toBeVisible()
+  await expect(page.locator('.shop-loading')).toHaveCount(0)
+})
+
 test('language preference translates the real app without changing drafts or shop data', async ({ page }) => {
   await page.goto('/app')
   await page.getByRole('button', { name: 'ตั้งค่า', exact: true }).click()
@@ -90,7 +129,7 @@ test('receipt keeps its approved appearance when application theme changes', asy
   }
 })
 
-test('failed sale keeps the quantity and focuses an error beside submit', async ({ page }) => {
+test('oversold line warns in place and blocks save while keeping the quantity', async ({ page }) => {
   await page.addInitScript(() => Object.defineProperty(navigator, 'locks', { value: undefined }))
   const state = emptyState()
   state.products.push({ id: 'p', code: 'TEST-ERROR', unit: 'แพ็ก', photo: '' })
@@ -101,18 +140,26 @@ test('failed sale keeps the quantity and focuses an error beside submit', async 
   await page.getByRole('button', { name: 'สร้างบิล', exact: true }).click()
   await page.getByRole('button', { name: 'เพิ่มรายการสินค้า', exact: true }).click()
   await page.getByLabel('สินค้า 1', { exact: true }).selectOption('v')
-  await page.getByLabel('จำนวน 1', { exact: true }).fill('13')
-  await page.getByRole('button', { name: 'บันทึกการขาย', exact: true }).click()
-  const error = page.getByRole('alert')
-  await expect(error).toContainText('ของไม่พอ')
-  await expect(error).toBeFocused()
-  const box = await error.boundingBox()
-  expect(box!.y).toBeGreaterThanOrEqual(0)
-  expect(box!.y + box!.height).toBeLessThan(740)
-  await expect(page.getByLabel('จำนวน 1', { exact: true })).toHaveValue('13')
+  const quantity = page.getByLabel('จำนวน 1', { exact: true })
+  await quantity.fill('13')
+  await expect(page.locator('.line-warning')).toHaveText('เกินที่ขายได้ (สูงสุด 12 แพ็ก)')
+  await expect(quantity).toHaveAttribute('aria-invalid', 'true')
+  const save = page.getByRole('button', { name: 'บันทึกการขาย', exact: true })
+  await expect(save).toBeDisabled()
+  await expect(page.locator('.bill-summary')).toContainText('จำนวนบางรายการเกินที่ขายได้ แก้จำนวนก่อนบันทึก')
+  await expect(quantity).toHaveValue('13')
   expect(await page.evaluate(() => JSON.parse(localStorage.getItem('micro-erp-v1')!).variants[0].stock)).toBe(12)
-  await page.getByRole('button', { name: 'บันทึกการขาย', exact: true }).click()
-  await expect(error).toBeFocused()
+  await quantity.fill('12')
+  await expect(page.locator('.line-warning')).toHaveCount(0)
+  await expect(save).toBeEnabled()
+  await save.click()
+  await expect(page.locator('.toast')).toHaveText('บันทึกบิล B00001 · ฿1,200.00 · ตัดสต็อก 12 แพ็กแล้ว')
+  await expect(page.getByRole('tab', { name: /B00001/ })).toHaveAttribute('aria-selected', 'true')
+  const toast = await page.locator('.toast').boundingBox()
+  const dock = await page.getByRole('navigation', { name: 'เมนูหลัก' }).boundingBox()
+  expect(toast!.y + toast!.height).toBeLessThanOrEqual(dock!.y)
+  await page.getByRole('button', { name: 'สินค้า', exact: true }).click()
+  await expect(page.locator('.toast')).toHaveCount(0)
 })
 
 test('changing a return reference requires confirmation before replacing the draft', async ({ page }) => {
@@ -797,9 +844,9 @@ test('English errors and discard confirmations keep the original recovery behavi
   await page.getByRole('button', { name: 'Add item', exact: true }).click()
   await page.getByLabel('Product 1', { exact: true }).selectOption({ index: 1 })
   await page.getByLabel('Quantity 1', { exact: true }).fill('2')
-  await page.getByRole('button', { name: 'Save sale', exact: true }).click()
-  await expect(page.getByRole('alert')).toContainText('Not enough stock')
-  await expect(page.getByRole('alert')).toBeFocused()
+  await expect(page.locator('.line-warning')).toHaveText('More than available (max 1 แพ็ก)')
+  await expect(page.getByRole('button', { name: 'Save sale', exact: true })).toBeDisabled()
+  await expect(page.locator('.bill-summary')).toContainText('Some quantities are more than available. Fix them before saving.')
   await expect(page.getByLabel('Quantity 1', { exact: true })).toHaveValue('2')
   await page.getByRole('button', { name: 'Products', exact: true }).click()
   await expect(page.getByRole('dialog')).toContainText('You have unsaved changes')

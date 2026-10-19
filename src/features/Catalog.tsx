@@ -1,7 +1,7 @@
 import { useI18n } from '../languageContext'
 import { Icon } from "../Icon";
 import { StockStatus } from "../StockStatus";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { availability } from "../domain/inventory";
 import type { Product, Variant } from "../domain/inventory";
@@ -91,11 +91,12 @@ export function Catalog(props: FeatureProps) {
         <div className="product-list">
           {products.map((p) => (
             <button type="button" className="product-card catalog-tile" key={p.id}
-              aria-label={t("ดูไซซ์ / สีและจัดการ {0}", p.code)}
+              aria-label={t("ดูไซซ์ / สีและจัดการ {0}", p.code)} aria-describedby={`tile-stock-${p.id}`}
               ref={element => { if (p.id === returnProductId.current) selectedTrigger.current = element; }}
               onClick={() => { returnProductId.current = p.id; setSelectedId(p.id); }}>
-              {p.photo ? <img className="photo" src={p.photo} alt={t("สินค้า {0}", p.code)} /> : <div className="photo photo-empty"><Icon name="photo" /><span>{t("ไม่มีรูป")}</span></div>}
+              {p.photo ? <img className="photo" src={p.photo} alt={t("สินค้า {0}", p.code)} /> : <div className="tile-no-photo"><Icon name="photo" /><span>{t("ไม่มีรูป")}</span></div>}
               <div className="catalog-code"><h2>{p.code}</h2><Icon name="chevron" /></div>
+              <TileStock id={`tile-stock-${p.id}`} state={props.state} product={p} />
             </button>
           ))}
         </div>
@@ -104,11 +105,31 @@ export function Catalog(props: FeatureProps) {
     </div>
   );
 }
+// Sellable count per size for one code. Reserved pieces are already excluded; a shortage counts as zero, never negative.
+function sellableBySize(state: FeatureProps["state"], productId: string) {
+  const sizes = new Map<string, number>();
+  for (const v of state.variants.filter(v => v.productId === productId)) sizes.set(v.size, (sizes.get(v.size) ?? 0) + Math.max(0, availability(state, v.id)));
+  return sizes;
+}
+function TileStock({ id, state, product }: { id: string; state: FeatureProps["state"]; product: Product }) {
+  const { t } = useI18n()
+  const sizes = [...sellableBySize(state, product.id)];
+  const total = sizes.reduce((sum, [, count]) => sum + count, 0);
+  return <div className="tile-stock" id={id}>
+    {total > 0
+      ? <p className="tile-total">{t("พร้อมขาย")} <strong>{total}</strong> {product.unit}</p>
+      : <StockStatus available={0} />}
+    {sizes.length > 0 && <ul className="tile-sizes">{sizes.map(([size, count]) =>
+      <li key={size} className={count ? undefined : "sold-out"}><span>{size}</span> {count ? count : t("หมด")}</li>)}</ul>}
+  </div>;
+}
 function ProductView({ state, act, ask, leave, product, edit, back }: FeatureProps & { product: Product; edit: () => void; back: () => void }) {
   const { t } = useI18n()
 
   const variants = state.variants.filter(v => v.productId === product.id);
   const sizes = [...new Set(variants.map(v => v.size))];
+  const sellable = sellableBySize(state, product.id);
+  const chipId = useId();
   const [size, setSize] = useState("");
   const title = useRef<HTMLHeadingElement>(null);
   useEffect(() => { title.current?.focus({ preventScroll: true }); window.scrollTo({ top: 0 }); }, []);
@@ -129,7 +150,13 @@ function ProductView({ state, act, ask, leave, product, edit, back }: FeaturePro
       <p>{t("เลือกไซซ์เพื่อดูสีและจำนวน")}</p>
     </div>
     <div className="row" aria-label={t("เลือกไซซ์ {0}", product.code)}>
-      {sizes.map(s => <button type="button" className="chip" key={s} aria-pressed={s === size} onClick={() => { if (s !== size) void leave(() => setSize(s)); }}>{s}</button>)}
+      {sizes.map((s, index) => {
+        const count = sellable.get(s) ?? 0;
+        return <button type="button" className={`chip size-chip${count ? "" : " sold-out"}`} key={s} aria-label={s} aria-describedby={`${chipId}-${index}`} aria-pressed={s === size} onClick={() => { if (s !== size) void leave(() => setSize(s)); }}>
+          <span>{s}</span><span className="chip-count" aria-hidden="true">{count ? count : t("หมด")}</span>
+          <span id={`${chipId}-${index}`} hidden>{count ? t("ขายได้ {0} {1}", count, product.unit) : t("หมด")}</span>
+        </button>;
+      })}
     </div>
     <div className="variant-grid">{variants.filter(v => v.size === size).map(v => <VariantView key={v.id} variant={v} product={product} state={state} act={act} ask={ask} />)}</div>
     </div>
