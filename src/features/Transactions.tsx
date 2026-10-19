@@ -1,6 +1,7 @@
 import { useI18n } from '../languageContext'
 import { Icon } from '../Icon'
-import { useMemo, useState } from 'react'
+import { useId, useMemo, useRef, useState } from 'react'
+import type { KeyboardEvent } from 'react'
 import { availability } from '../domain/inventory'
 import type { Item, Bill, ReturnedItem } from '../domain/inventory'
 import { BackButton, Button, EmptyState, Field, Form } from '../ui'
@@ -39,17 +40,64 @@ export function ItemsEditor({ state, lines, change, prices = false, kind = 'norm
   const { t, language } = useI18n()
   const requested = quantities(lines)
 
-  const [query, setQuery] = useState('')
   const productLabel = kind === 'incoming' ? t("สินค้ารับคืน") : kind === 'outgoing' ? t("สินค้าใหม่") : language === 'en' ? t("รายการสินค้า") : 'สินค้า'
   const quantityLabel = kind === 'incoming' ? t("จำนวนรับคืน") : kind === 'outgoing' ? t("จำนวนส่งออก") : t("จำนวน")
-  const matching = state.variants.filter(variant => state.products.find(product => product.id === variant.productId)?.code.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase()))
-  return <div className="stack item-editor">{lines.length > 0 && <div className="transaction-search row"><Field data-transient label={t("ค้นหารหัส{0}", productLabel)} type="search" value={query} onChange={event => setQuery(event.target.value)} />{query && <Button variant="secondary" aria-label={t("ล้างการค้นหา{0}", productLabel)} onClick={event => { setQuery('' ); event.currentTarget.parentElement?.querySelector<HTMLInputElement>('input[type=search]')?.focus() }}>{t("ล้างค้นหา")}</Button>}</div>}{query.trim() && <p className="muted" role="status">{t("พบ ")}{matching.length} {t(" ตัวเลือกไซซ์ / สี")}</p>}{lines.map((line, i) => {
+  return <div className="stack item-editor"><ItemSearch state={state} lines={lines} change={change} prices={prices} label={t("ค้นหารหัส{0}", productLabel)} selling={kind !== 'incoming'} returnable={returnable} />{lines.map((line, i) => {
     const variant = state.variants.find(v => v.id === line.variantId)
     const product = state.products.find(p => p.id === variant?.productId)
     const max = returnable && variant ? returnable[variant.id]?.left ?? 0 : limit && variant ? limitFor(state, variant.id, allowance) : undefined
     const over = max !== undefined && variant !== undefined && requested[variant.id] > max
-    return <div className="line-item" key={i}><label className="field"><span>{productLabel} {i + 1}</span><select required aria-label={`${productLabel} ${i + 1}`} value={line.variantId} onChange={e => { const selected = state.variants.find(v => v.id === e.target.value); change(lines.map((l, j) => j === i ? { variantId: selected?.id ?? '', quantity: l.quantity, ...(prices ? { price: selected?.price ?? 0 } : {}) } : l)) }}><option value="">{t("เลือกสินค้า")}</option>{state.variants.filter(v => (matching.includes(v) && (!returnable || v.id in returnable)) || v.id === line.variantId).map(v => <option key={v.id} value={v.id}>{description(state, v.id)} {returnable ? <>{t(" · คืนได้ ")}{returnable[v.id]?.left ?? 0}</> : kind !== 'incoming' && <>{t(" · ขายได้ ")}{Math.max(0, availability(state, v.id))}</>}</option>)}</select></label><Field label={`${quantityLabel} ${i + 1}`} hint={product ? t("หน่วย: {0}", product.unit) : undefined} type="number" min="1" step="1" inputMode="numeric" aria-invalid={over || undefined} value={line.quantity} onChange={e => change(lines.map((l, j) => j === i ? { ...l, quantity: Number(e.target.value) } : l))} /><Button data-draft className="remove" variant="danger" aria-label={t("ลบ{0} {1}", productLabel, i + 1)} onClick={() => change(lines.filter((_, j) => j !== i))}>{t("ลบ")}</Button>{over && product && <p className="line-warning" role="status"><Icon name="warning" />{returnable ? t("เกินที่คืนได้ (สูงสุด {0} {1})", max, product.unit) : t("เกินที่ขายได้ (สูงสุด {0} {1})", max, product.unit)}</p>}{variant && product && <div className="selected-item" role="group" aria-label={t("รายละเอียด{0}ที่เลือก {1}", productLabel, i + 1)}><p><strong>{product.code}</strong> {t(" · ไซซ์ ")}{variant.size} · {variant.color}</p><p>{t("หน่วย: ")}{product.unit} {t(" · ราคา ฿")}{money(line.price ?? variant.price)} / {product.unit}</p>{kind !== 'incoming' ? <p>{t("ขายได้ ")}{Math.max(0, availability(state, variant.id))} {product.unit}</p> : returnable && <p>{t("ซื้อไป {0} · คืนได้ {1} {2}", returnable[variant.id]?.sold ?? 0, returnable[variant.id]?.left ?? 0, product.unit)}</p>}{variant.contents && <p className="muted">{t("ในแพ็ก: ")}{variant.contents}</p>}</div>}{prices && <Field label={t("ราคา {0} (บาท)", i + 1)} type="number" min="0" step="0.01" value={(line.price ?? variant?.price ?? 0) / 100} onChange={e => change(lines.map((l, j) => j === i ? { ...l, price: Math.round(Number(e.target.value) * 100) } : l))} />}</div>
+    return <div className="line-item" key={i}><label className="field"><span>{productLabel} {i + 1}</span><select required aria-label={`${productLabel} ${i + 1}`} value={line.variantId} onChange={e => { const selected = state.variants.find(v => v.id === e.target.value); change(lines.map((l, j) => j === i ? { variantId: selected?.id ?? '', quantity: l.quantity, ...(prices ? { price: selected?.price ?? 0 } : {}) } : l)) }}><option value="">{t("เลือกสินค้า")}</option>{state.variants.filter(v => !returnable || v.id in returnable || v.id === line.variantId).map(v => <option key={v.id} value={v.id}>{description(state, v.id)} {returnable ? <>{t(" · คืนได้ ")}{returnable[v.id]?.left ?? 0}</> : kind !== 'incoming' && <>{t(" · ขายได้ ")}{Math.max(0, availability(state, v.id))}</>}</option>)}</select></label><Field label={`${quantityLabel} ${i + 1}`} hint={product ? t("หน่วย: {0}", product.unit) : undefined} type="number" min="1" step="1" inputMode="numeric" aria-invalid={over || undefined} value={line.quantity} onChange={e => change(lines.map((l, j) => j === i ? { ...l, quantity: Number(e.target.value) } : l))} /><Button data-draft className="remove" variant="danger" aria-label={t("ลบ{0} {1}", productLabel, i + 1)} onClick={() => change(lines.filter((_, j) => j !== i))}>{t("ลบ")}</Button>{over && product && <p className="line-warning" role="status"><Icon name="warning" />{returnable ? t("เกินที่คืนได้ (สูงสุด {0} {1})", max, product.unit) : t("เกินที่ขายได้ (สูงสุด {0} {1})", max, product.unit)}</p>}{variant && product && <div className="selected-item" role="group" aria-label={t("รายละเอียด{0}ที่เลือก {1}", productLabel, i + 1)}><p><strong>{product.code}</strong> {t(" · ไซซ์ ")}{variant.size} · {variant.color}</p><p>{t("หน่วย: ")}{product.unit} {t(" · ราคา ฿")}{money(line.price ?? variant.price)} / {product.unit}</p>{kind !== 'incoming' ? <p>{t("ขายได้ ")}{Math.max(0, availability(state, variant.id))} {product.unit}</p> : returnable && <p>{t("ซื้อไป {0} · คืนได้ {1} {2}", returnable[variant.id]?.sold ?? 0, returnable[variant.id]?.left ?? 0, product.unit)}</p>}{variant.contents && <p className="muted">{t("ในแพ็ก: ")}{variant.contents}</p>}</div>}{prices && <Field label={t("ราคา {0} (บาท)", i + 1)} type="number" min="0" step="0.01" value={(line.price ?? variant?.price ?? 0) / 100} onChange={e => change(lines.map((l, j) => j === i ? { ...l, price: Math.round(Number(e.target.value) * 100) } : l))} />}</div>
   })}<Button data-draft variant="secondary" disabled={!state.variants.length} onClick={() => change([...lines, { variantId: '', quantity: 1 }])}><Icon name="plus" />{t("เพิ่มรายการสินค้า")}</Button></div>
+}
+// Type a code, size or colour, then pick a result to add it as a line (or add one more of it if it is already on the list).
+function ItemSearch({ state, lines, change, prices, label, selling, returnable }: { state: FeatureProps['state']; lines: Item[]; change: (lines: Item[]) => void; prices: boolean; label: string; selling: boolean; returnable?: Returnable }) {
+  const { t } = useI18n()
+  const id = useId()
+  const input = useRef<HTMLInputElement>(null)
+  const [query, setQuery] = useState('')
+  const [open, setOpen] = useState(false)
+  const [active, setActive] = useState(0)
+  const [added, setAdded] = useState('')
+  const tokens = query.trim().toLocaleLowerCase().split(/s+/).filter(Boolean)
+  const results = tokens.length ? state.variants.filter(v => (!returnable || v.id in returnable) && tokens.every(token => searchText(state, v.id).includes(token))).slice(0, 8) : []
+  const cap = (variantId: string) => returnable ? returnable[variantId]?.left ?? 0 : selling ? Math.max(0, availability(state, variantId)) : undefined
+  const pickable = (variantId: string) => cap(variantId) !== 0
+  const expanded = open && tokens.length > 0
+  function pick(variantId: string) {
+    if (!pickable(variantId)) return
+    const variant = state.variants.find(v => v.id === variantId)!
+    const existing = lines.findIndex(line => line.variantId === variantId)
+    const blank = lines.findIndex(line => !line.variantId)
+    const fresh = { variantId, quantity: 1, ...(prices ? { price: variant.price } : {}) }
+    change(existing >= 0 ? lines.map((line, i) => i === existing ? { ...line, quantity: validCount(line.quantity) + 1 } : line) : blank >= 0 ? lines.map((line, i) => i === blank ? fresh : line) : [...lines, fresh])
+    setAdded(t(existing >= 0 ? 'เพิ่มจำนวน {0} แล้ว' : 'เพิ่ม {0} แล้ว', description(state, variantId)))
+    setQuery(''); setOpen(false); setActive(0); input.current?.focus()
+  }
+  function keys(event: KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'ArrowDown' && results.length) { event.preventDefault(); setOpen(true); setActive(i => (i + 1) % results.length) }
+    else if (event.key === 'ArrowUp' && results.length) { event.preventDefault(); setOpen(true); setActive(i => (i + results.length - 1) % results.length) }
+    else if (event.key === 'Enter') { event.preventDefault(); if (expanded && results[active]) pick(results[active].id) }
+    else if (event.key === 'Escape' && query) { event.preventDefault(); setQuery(''); setOpen(false) }
+  }
+  return <div className="item-search">
+    <label htmlFor={`${id}-input`}>{label}</label>
+    <div className="item-search-box"><Icon name="search" /><input ref={input} id={`${id}-input`} data-transient type="search" role="combobox" autoComplete="off" aria-autocomplete="list" aria-expanded={expanded} aria-controls={`${id}-list`} aria-activedescendant={expanded && results[active] ? `${id}-${active}` : undefined} placeholder={t('พิมพ์รหัส ไซซ์ หรือสี เช่น B101 36')} value={query} onChange={event => { setQuery(event.target.value); setOpen(true); setActive(0); setAdded('') }} onKeyDown={keys} onBlur={() => setOpen(false)} onFocus={() => setOpen(true)} /></div>
+    {expanded && <ul className="item-search-results" role="listbox" id={`${id}-list`} aria-label={label}>{results.length ? results.map((v, i) => {
+      const count = cap(v.id)
+      const product = state.products.find(p => p.id === v.productId)!
+      return <li key={v.id} id={`${id}-${i}`} role="option" aria-selected={i === active} aria-disabled={!pickable(v.id) || undefined} onMouseDown={event => event.preventDefault()} onMouseEnter={() => setActive(i)} onClick={() => pick(v.id)}>
+        <span><strong>{product.code}</strong> · {v.size} · {v.color}</span>
+        {count !== undefined && <span className={count ? 'item-search-count' : 'item-search-count empty'}>{count ? t(returnable ? 'คืนได้ {0} {1}' : 'ขายได้ {0} {1}', count, product.unit) : returnable ? t('คืนครบแล้ว') : t('หมด')}</span>}
+      </li>
+    }) : <li className="item-search-empty" role="presentation">{t('ไม่พบสินค้าที่ตรงกับ “{0}”', query.trim())}</li>}</ul>}
+    <p className="sr-only" role="status">{added}</p>
+  </div>
+}
+const searchText = (state: FeatureProps['state'], variantId: string) => {
+  const variant = state.variants.find(v => v.id === variantId)!
+  const product = state.products.find(p => p.id === variant.productId)
+  return `${product?.code ?? ''} ${variant.size} ${variant.color}`.toLocaleLowerCase()
 }
 const billTotal = (bill: Bill) => bill.lines.reduce((sum, line) => sum + line.quantity * line.price, 0)
 // Counts are grouped by each product's own unit; mixed units are never summed together.

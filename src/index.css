@@ -206,7 +206,19 @@ details[open] > form { animation: content-in var(--ds-motion-disclosure) var(--d
 .file-input { position: absolute; width: 1px !important; height: 1px; min-height: 0; opacity: 0; }
 .form-actions { display: flex; justify-content: flex-end; }
 .form-actions .button { min-width: 180px; }
-.transaction-search .field { flex: 1 1 220px; }
+.item-search { position: relative; display: grid; gap: 8px; }
+.item-search > label { font: 600 16px/24px var(--ds-font); }
+.item-search-box { position: relative; }
+.item-search-box > .icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--ds-muted); pointer-events: none; }
+.item-search-box input { width: 100%; padding-left: 52px; border-radius: var(--ds-pill-radius); background: var(--ds-surface); }
+.item-search-box input::placeholder { color: var(--ds-muted); opacity: 1; }
+.item-search-results { position: absolute; z-index: 12; top: 100%; left: 0; right: 0; margin: 6px 0 0; padding: 6px; list-style: none; max-height: min(360px, 50dvh); overflow-y: auto; border: 1px solid var(--ds-border); border-radius: var(--ds-card-radius); background: var(--ds-paper); box-shadow: 0 12px 28px rgb(25 59 90 / 14%); }
+.item-search-results [role=option] { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 52px; padding: 10px 14px; border-radius: var(--ds-control-radius); cursor: pointer; overflow-wrap: anywhere; }
+.item-search-results [role=option][aria-selected=true] { background: var(--ds-selected); }
+.item-search-results [role=option][aria-disabled=true] { cursor: not-allowed; color: var(--ds-muted); }
+.item-search-count { flex-shrink: 0; padding: 2px 10px; border-radius: var(--ds-pill-radius); background: var(--ds-stock-surface); color: var(--ds-success); font: 600 14px/22px var(--ds-font); font-variant-numeric: tabular-nums; }
+.item-search-count.empty { background: var(--ds-warning-surface); color: var(--ds-warning); }
+.item-search-empty { padding: 12px 14px; color: var(--ds-muted); }
 .line-item { display: grid; align-items: start; align-content: start; grid-template-columns: minmax(0,1fr) 132px auto; gap: 16px 12px; padding: 20px 0; border-bottom: 1px solid var(--ds-border); min-width: 0; }
 .line-item > .remove { align-self: start; margin-top: 32px; }
 .line-warning { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; margin-top: -4px; padding: 10px 14px; border-radius: var(--ds-control-radius); color: var(--ds-danger); background: var(--ds-danger-surface); font: 600 16px/24px var(--ds-font); }
