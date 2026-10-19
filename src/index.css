@@ -97,6 +97,13 @@ input[type=file] { width: 100%; font-size: 16px; line-height: 24px; }
 .notice { padding: 16px; border-radius: var(--ds-control-radius); background: var(--ds-selected); color: var(--ds-primary); overflow-wrap: anywhere; animation: feedback-in var(--ds-motion-selection) var(--ds-motion-ease); }
 .notice.error { color: var(--ds-danger); background: var(--ds-danger-surface); }
 .notice.warning { color: var(--ds-warning); background: var(--ds-warning-surface); }
+.backup-reminder { display: grid; grid-template-columns: auto minmax(0,1fr); align-items: start; gap: 8px 12px; margin-bottom: 24px; padding: 16px; border-radius: var(--ds-card-radius); background: var(--ds-warning-surface); color: var(--ds-ink); }
+.backup-reminder > .icon { width: 24px; height: 24px; margin-top: 2px; color: var(--ds-warning); }
+.backup-reminder > p { font-weight: 500; }
+.backup-reminder-actions { grid-column: 2; display: flex; flex-wrap: wrap; gap: 8px; }
+@media(min-width: 768px) { .backup-reminder { grid-template-columns: auto minmax(0,1fr) auto; align-items: center; } .backup-reminder-actions { grid-column: auto; } }
+.backup-due { color: var(--ds-warning); font-weight: 600; }
+.backup-status { font-size: 16px; line-height: 24px; }
 .toast { position: fixed; z-index: 11; left: 50%; bottom: calc(max(var(--ds-dock-inset), env(safe-area-inset-bottom)) + 100px); transform: translateX(-50%); width: min(var(--ds-dock-width), calc(100% - 32px)); display: flex; align-items: center; gap: 4px; padding-right: 4px; border: 1px solid var(--ds-nav-border); border-radius: var(--ds-card-radius); background: var(--ds-selected); box-shadow: 0 8px 24px rgb(25 59 90 / 14%); animation: toast-in 240ms var(--ds-motion-ease) both; }
 .toast > .notice { flex: 1; min-width: 0; padding: 14px 4px 14px 18px; background: transparent; font-weight: 600; animation: none; }
 .toast-close { display: grid; place-items: center; flex-shrink: 0; width: 48px; height: 48px; border: 0; border-radius: var(--ds-control-radius); background: transparent; color: var(--ds-primary); }

@@ -5,20 +5,21 @@ import { Icon, type IconName } from '../Icon'
 import { STORAGE_KEY } from '../data/storage'
 import { Button, Field, Form } from '../ui'
 import { download } from './BillImage'
+import { backupDue, daysSince, type BackupRecord } from '../data/backupReminder'
 import type { FeatureProps } from './types'
 
 type SettingsPage = 'account' | 'shop' | 'language' | 'backup' | 'history'
 type AccountSettings = { email: string; sendPasswordReset: () => Promise<void> }
 
-export function Settings({ state, act, report, restore, damaged = false, cloud = false, onSignOut, account }: FeatureProps & { restore: (file: File) => Promise<void>; damaged?: boolean; cloud?: boolean; onSignOut?: () => void; account?: AccountSettings }) {
+export function Settings({ state, act, report, restore, damaged = false, cloud = false, onSignOut, account, backup = null, onBackup, initialPage = null }: FeatureProps & { restore: (file: File) => Promise<void>; damaged?: boolean; cloud?: boolean; onSignOut?: () => void; account?: AccountSettings; backup?: BackupRecord | null; onBackup?: () => void; initialPage?: SettingsPage | null }) {
   const { t, locale, language } = useI18n()
-  const [page, setPage] = useState<SettingsPage | null>(null)
+  const [page, setPage] = useState<SettingsPage | null>(initialPage)
   const [name, setName] = useState(state.shop.name)
   const [phone, setPhone] = useState(state.shop.phone)
   const [sourceRevision, setSourceRevision] = useState(state.revision)
   const heading = useRef<HTMLHeadingElement>(null)
   const origin = useRef<HTMLButtonElement | null>(null)
-  const navigating = useRef(false)
+  const navigating = useRef(initialPage !== null)
   const resetBusy = useRef(false)
   const [resetStatus, setResetStatus] = useState<'idle' | 'pending' | 'sent' | 'error' | 'limited'>('idle')
   const accountGroup = language === 'th' ? 'บัญชีของคุณ' : 'Your account'
@@ -42,9 +43,13 @@ export function Settings({ state, act, report, restore, damaged = false, cloud =
     { id: 'history', group: 'ข้อมูลและประวัติ', title: 'ประวัติการเคลื่อนไหว', description: 'ดูรายการเปลี่ยนแปลงสินค้า สต็อก และบิล', icon: 'activity' },
   ]
   if (account) categories.unshift({ id: 'account', group: accountGroup, title: language === 'th' ? 'บัญชีและความปลอดภัย' : 'Account and security', description: language === 'th' ? 'อีเมลที่ใช้งานและเปลี่ยนรหัสผ่าน' : 'Signed-in email and password changes', icon: 'settings' })
+  const backupAge = backup ? daysSince(backup.date) : null
+  const backupStatus = backupAge === null ? t('ยังไม่เคยสำรอง') : backupAge === 0 ? t('สำรองวันนี้') : t('สำรองล่าสุด {0} วันก่อน', backupAge)
+  if (!cloud) categories.find(category => category.id === 'backup')!.value = backupStatus
   const active = categories.find(category => category.id === page)
   const exportBackup = () => {
     download(new Blob([damaged ? localStorage.getItem(STORAGE_KEY) ?? '' : JSON.stringify(state, null, 2)], { type: 'application/json' }), `micro-erp-${damaged ? 'recovery' : 'backup'}-${new Date().toISOString().slice(0, 10)}.json`)
+    if (!damaged && !cloud) onBackup?.()
     report(damaged ? 'ดาวน์โหลดข้อมูลเดิมแล้ว เก็บไฟล์นี้ไว้เพื่อช่วยกู้ข้อมูล' : 'ดาวน์โหลดไฟล์สำรองแล้ว เก็บไว้ในที่ที่หาเจอ')
   }
   return <div className="stack settings-page">
@@ -58,7 +63,7 @@ export function Settings({ state, act, report, restore, damaged = false, cloud =
         <h2>{t(group)}</h2>
         {categories.filter(category => category.group === group).map(category => <button key={category.id} type="button" className="settings-menu-row" aria-label={t(category.title)} onClick={event => { origin.current = event.currentTarget; navigating.current = true; setPage(category.id) }}>
           <Icon name={category.icon} /><span className="settings-menu-copy"><span className="settings-menu-title">{t(category.title)}</span><span className="muted">{t(category.description)}</span></span>
-          <span className="settings-menu-end">{category.value && <span className="muted">{category.value}</span>}<Icon name="next" /></span>
+          <span className="settings-menu-end">{category.value && <span className={category.id === 'backup' && backupDue(state, backup) ? 'backup-due' : 'muted'}>{category.value}</span>}<Icon name="next" /></span>
         </button>)}
       </section>)}
       <p className="muted settings-local-note">{cloud ? (language === 'th' ? 'ข้อมูลร้านบันทึกในบัญชีของคุณ ดาวน์โหลดไฟล์สำรองเก็บไว้ได้ ข้อมูลสาธิตบนเครื่องยังอยู่แยกกัน' : 'Shop data is saved to your account. You can download a backup. The local demo remains separate.') : t('ข้อมูลร้านอยู่ในแอปบนเครื่องนี้ การล้างข้อมูลเว็บหรือเปลี่ยนเครื่องอาจทำให้ข้อมูลหาย ดาวน์โหลดไฟล์สำรองไว้สม่ำเสมอ')}</p>
@@ -79,7 +84,8 @@ export function Settings({ state, act, report, restore, damaged = false, cloud =
     <div hidden={!damaged && page !== 'backup'}><section className="section stack">
       <h2>{cloud ? (language === 'th' ? 'สำรองข้อมูลร้าน' : 'Back up shop data') : damaged ? t('เก็บข้อมูลเดิมและกู้จากไฟล์สำรอง') : t('สำรองและย้ายข้อมูลด้วยมือ')}</h2>
       <p className="notice warning">{cloud ? (language === 'th' ? 'ดาวน์โหลดข้อมูลร้านในบัญชีนี้เก็บไว้ได้ ยังไม่เปิดให้นำเข้าไฟล์สำรองในระบบออนไลน์' : 'Download a copy of this account’s shop data. Importing backups into the online shop is not available yet.') : damaged ? t('ข้อมูลเดิมยังอยู่ กรุณาเก็บไฟล์ข้อมูลเดิมก่อน แล้วเลือกไฟล์สำรองที่เคยดาวน์โหลดไว้ ระบบจะไม่สร้างร้านใหม่ทับข้อมูลนี้') : t('ข้อมูลร้านอยู่ในแอปบนเครื่องนี้ การล้างข้อมูลเว็บหรือเปลี่ยนเครื่องอาจทำให้ข้อมูลหาย ดาวน์โหลดไฟล์สำรองไว้สม่ำเสมอ')}</p>
-      <Button variant="secondary" onClick={exportBackup}>{damaged ? t('ดาวน์โหลดข้อมูลเดิมเพื่อกู้คืน') : t('ดาวน์โหลดไฟล์สำรอง')}</Button>
+      {!damaged && !cloud && <p className={backupDue(state, backup) ? 'backup-status backup-due' : 'backup-status'}>{backup ? t('สำรองล่าสุดเมื่อ {0}', new Date(backup.date).toLocaleString(locale, { dateStyle: 'long', timeStyle: 'short', timeZone: 'Asia/Bangkok' })) : t('ยังไม่เคยดาวน์โหลดไฟล์สำรองจากเครื่องนี้')}{backup && backup.revision !== state.revision && <> · {t('มีรายการใหม่หลังสำรอง')}</>}</p>}
+      <Button variant={!damaged && !cloud && backupDue(state, backup) ? 'primary' : 'secondary'} onClick={exportBackup}>{damaged ? t('ดาวน์โหลดข้อมูลเดิมเพื่อกู้คืน') : t('ดาวน์โหลดไฟล์สำรอง')}</Button>
       <p className="muted">{damaged ? t('ไฟล์ข้อมูลเดิมนี้ใช้ช่วยตรวจปัญหา อาจนำเข้ากลับทันทีไม่ได้ ให้เก็บไว้ก่อน') : t('ไฟล์สำรองเก็บสินค้า สต็อก บิล จอง และคืนสินค้าในไฟล์เดียว (.json)')}</p>
       {!cloud && <><label className="field backup-picker"><span>{t('นำเข้าไฟล์สำรอง')}</span><span className="backup-file-control"><span>{t('เลือกไฟล์สำรอง')}</span><input className="file-input" aria-label={t('นำเข้าไฟล์สำรอง')} type="file" accept="application/json,.json" onChange={e => { const file = e.target.files?.[0]; if (file) void restore(file); e.target.value = '' }} /></span></label>
       <p className="muted">{t('เลือกไฟล์สำรองที่เคยดาวน์โหลดจากแอปนี้ การนำเข้าจะแทนที่ข้อมูลบนเครื่องหลังยืนยัน')}</p>
