@@ -9,6 +9,7 @@ const paths = {
   empty: 'M5 12h14',
   warning: 'M12 3 2 21h20L12 3ZM12 9v5M12 17h.01',
   chevron: 'M9 5l7 7-7 7',
+  close: 'M6 6l12 12M18 6 6 18',
   back: 'M20 12H4M11 5l-7 7 7 7',
   photo: 'M3 5h18v14H3V5ZM3 15l5-5 5 5 3-3 5 5M15 8h.01',
   search: 'M10 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14ZM15 15l6 6',

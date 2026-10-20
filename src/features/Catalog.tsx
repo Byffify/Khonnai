@@ -1,7 +1,7 @@
 import { useI18n } from '../languageContext'
 import { Icon } from "../Icon";
 import { StockStatus } from "../StockStatus";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { availability } from "../domain/inventory";
 import type { Product, Variant } from "../domain/inventory";
@@ -18,7 +18,8 @@ const freshVariant = (productId: string): Variant => ({
   price: 0,
   stock: 0,
 });
-export function Catalog(props: FeatureProps) {
+type StartTransaction = (kind: "sale" | "reserve", variantId: string) => void;
+export function Catalog({ startTransaction, ...props }: FeatureProps & { startTransaction?: StartTransaction }) {
   const { t } = useI18n()
 
   const [search, setSearch] = useState("");
@@ -53,7 +54,7 @@ export function Catalog(props: FeatureProps) {
             {t("เพิ่มสินค้า")}</Button>
         </div>
       </div>}
-      {selectedProduct ? <ProductView key={selectedProduct.id} {...props} product={selectedProduct}
+      {selectedProduct ? <ProductView key={selectedProduct.id} {...props} start={startTransaction} product={selectedProduct}
         edit={() => void props.leave(() => setEditor(selectedProduct))}
         back={() => { setSelectedId(null); requestAnimationFrame(() => selectedTrigger.current?.focus()); }} /> : <>
       <div className="catalog-search">
@@ -91,11 +92,12 @@ export function Catalog(props: FeatureProps) {
         <div className="product-list">
           {products.map((p) => (
             <button type="button" className="product-card catalog-tile" key={p.id}
-              aria-label={t("ดูไซซ์ / สีและจัดการ {0}", p.code)}
+              aria-label={t("ดูไซซ์ / สีและจัดการ {0}", p.code)} aria-describedby={`tile-stock-${p.id}`}
               ref={element => { if (p.id === returnProductId.current) selectedTrigger.current = element; }}
               onClick={() => { returnProductId.current = p.id; setSelectedId(p.id); }}>
-              {p.photo ? <img className="photo" src={p.photo} alt={t("สินค้า {0}", p.code)} /> : <div className="photo photo-empty"><Icon name="photo" /><span>{t("ไม่มีรูป")}</span></div>}
+              {p.photo ? <img className="photo" src={p.photo} alt={t("สินค้า {0}", p.code)} /> : <div className="tile-no-photo"><Icon name="photo" /><span>{t("ไม่มีรูป")}</span></div>}
               <div className="catalog-code"><h2>{p.code}</h2><Icon name="chevron" /></div>
+              <TileStock id={`tile-stock-${p.id}`} state={props.state} product={p} />
             </button>
           ))}
         </div>
@@ -104,11 +106,31 @@ export function Catalog(props: FeatureProps) {
     </div>
   );
 }
-function ProductView({ state, act, ask, leave, product, edit, back }: FeatureProps & { product: Product; edit: () => void; back: () => void }) {
+// Sellable count per size for one code. Reserved pieces are already excluded; a shortage counts as zero, never negative.
+function sellableBySize(state: FeatureProps["state"], productId: string) {
+  const sizes = new Map<string, number>();
+  for (const v of state.variants.filter(v => v.productId === productId)) sizes.set(v.size, (sizes.get(v.size) ?? 0) + Math.max(0, availability(state, v.id)));
+  return sizes;
+}
+function TileStock({ id, state, product }: { id: string; state: FeatureProps["state"]; product: Product }) {
+  const { t } = useI18n()
+  const sizes = [...sellableBySize(state, product.id)];
+  const total = sizes.reduce((sum, [, count]) => sum + count, 0);
+  return <div className="tile-stock" id={id}>
+    {total > 0
+      ? <p className="tile-total">{t("พร้อมขาย")} <strong>{total}</strong> {product.unit}</p>
+      : <StockStatus available={0} />}
+    {sizes.length > 0 && <ul className="tile-sizes">{sizes.map(([size, count]) =>
+      <li key={size} className={count ? undefined : "sold-out"}><span>{size}</span> {count ? count : t("หมด")}</li>)}</ul>}
+  </div>;
+}
+function ProductView({ state, act, ask, leave, product, edit, back, start }: FeatureProps & { product: Product; edit: () => void; back: () => void; start?: StartTransaction }) {
   const { t } = useI18n()
 
   const variants = state.variants.filter(v => v.productId === product.id);
   const sizes = [...new Set(variants.map(v => v.size))];
+  const sellable = sellableBySize(state, product.id);
+  const chipId = useId();
   const [size, setSize] = useState("");
   const title = useRef<HTMLHeadingElement>(null);
   useEffect(() => { title.current?.focus({ preventScroll: true }); window.scrollTo({ top: 0 }); }, []);
@@ -129,9 +151,15 @@ function ProductView({ state, act, ask, leave, product, edit, back }: FeaturePro
       <p>{t("เลือกไซซ์เพื่อดูสีและจำนวน")}</p>
     </div>
     <div className="row" aria-label={t("เลือกไซซ์ {0}", product.code)}>
-      {sizes.map(s => <button type="button" className="chip" key={s} aria-pressed={s === size} onClick={() => { if (s !== size) void leave(() => setSize(s)); }}>{s}</button>)}
+      {sizes.map((s, index) => {
+        const count = sellable.get(s) ?? 0;
+        return <button type="button" className={`chip size-chip${count ? "" : " sold-out"}`} key={s} aria-label={s} aria-describedby={`${chipId}-${index}`} aria-pressed={s === size} onClick={() => { if (s !== size) void leave(() => setSize(s)); }}>
+          <span>{s}</span><span className="chip-count" aria-hidden="true">{count ? count : t("หมด")}</span>
+          <span id={`${chipId}-${index}`} hidden>{count ? t("ขายได้ {0} {1}", count, product.unit) : t("หมด")}</span>
+        </button>;
+      })}
     </div>
-    <div className="variant-grid">{variants.filter(v => v.size === size).map(v => <VariantView key={v.id} variant={v} product={product} state={state} act={act} ask={ask} />)}</div>
+    <div className="variant-grid">{variants.filter(v => v.size === size).map(v => <VariantView key={v.id} variant={v} product={product} state={state} act={act} ask={ask} start={start} />)}</div>
     </div>
     </div>
   </section>;
@@ -142,14 +170,16 @@ function VariantView({
   state,
   act,
   ask,
+  start,
 }: {
   variant: Variant;
   product: Product;
   state: FeatureProps["state"];
   act: FeatureProps["act"];
   ask: FeatureProps["ask"];
+  start?: StartTransaction;
 }) {
-  const { t } = useI18n()
+  const { t, language } = useI18n()
 
   const available = availability(state, v.id);
   const [amount, setAmount] = useState("");
@@ -164,7 +194,7 @@ function VariantView({
   return (
     <section className="variant">
       <div className="row justify-between">
-        <h3>{v.color}</h3>
+        <h2 className="variant-color">{v.color}</h2>
         <span>
           {t("฿")}{money(v.price)} / {product.unit}
         </span>
@@ -185,6 +215,12 @@ function VariantView({
       <p className="muted">
         {t("คงเหลือ ")}{v.stock} {product.unit} {t(" · จอง ")}{v.stock - available} {product.unit}
       </p>
+      {start && (
+        <div className="variant-actions">
+          <Button disabled={available <= 0} aria-label={t("ขาย {0} ไซซ์ {1} {2}", product.code, v.size, v.color)} onClick={() => start("sale", v.id)}>{language === "en" ? "Sell" : "ขาย"}</Button>
+          <Button variant="secondary" disabled={available <= 0} aria-label={t("จอง {0} ไซซ์ {1} {2}", product.code, v.size, v.color)} onClick={() => start("reserve", v.id)}>{language === "en" ? "Reserve" : "จอง"}</Button>
+        </div>
+      )}
       {available < 0 && (
         <p role="status" className="danger-text">
           {t("ของไม่พอ ขาด ")}{-available} {product.unit}
@@ -269,6 +305,66 @@ function VariantView({
     </section>
   );
 }
+const isPack = (unit: string) => /แพ็ก|pack/i.test(unit);
+// Commas (or "/" or new lines) separate values when present, so a colour like "เทา อ่อน" survives; otherwise spaces do,
+// which is what a phone keyboard makes easy ("32 34 36").
+const splitList = (text: string) => [...new Set(text.split(/[,،、/\n]/.test(text) ? /[,،、/\n]+/ : /\s+/).map(part => part.trim()).filter(Boolean))];
+const sameText = (a: string, b: string) => a.trim().toLocaleLowerCase() === b.trim().toLocaleLowerCase();
+// Builds every size × colour row in one step. Generating again replaces the rows it made earlier (keeping the ones still
+// wanted, with whatever was typed into them) instead of piling up duplicates; saved and hand-made rows are never touched.
+function VariantGenerator({ product, variants, saved, open, apply }: { product: Product; variants: Variant[]; saved: Variant[]; open: boolean; apply: (rows: Variant[]) => void }) {
+  const { t } = useI18n()
+  const [sizes, setSizes] = useState("");
+  const [colors, setColors] = useState("");
+  const [price, setPrice] = useState("");
+  const [done, setDone] = useState("");
+  const [generated, setGenerated] = useState<string[]>([]);
+  const sizeList = splitList(sizes), colorList = splitList(colors);
+  const priceValue = Number(price);
+  const validPrice = price.trim() !== "" && Number.isFinite(priceValue) && priceValue >= 0;
+  const combos = sizeList.flatMap(size => colorList.map(color => ({ size, color })));
+  const isSaved = (v: Variant) => saved.some(s => s.id === v.id);
+  const ours = variants.filter(v => generated.includes(v.id) && !isSaved(v));
+  const others = variants.filter(v => !ours.includes(v) && (isSaved(v) || v.size.trim() || v.color.trim()));
+  const matches = (v: Variant, combo: { size: string; color: string }) => sameText(v.size, combo.size) && sameText(v.color, combo.color);
+  const existing = combos.filter(combo => others.some(v => matches(v, combo)));
+  const keptOurs = ours.filter(v => combos.some(combo => matches(v, combo)));
+  const removed = ours.length - keptOurs.length;
+  const added = combos.filter(combo => !others.some(v => matches(v, combo)) && !keptOurs.some(v => matches(v, combo)));
+  function generate() {
+    const cents = Math.round(priceValue * 100);
+    const fresh = added.map(combo => ({ ...freshVariant(product.id), ...combo, price: cents }));
+    setGenerated([...keptOurs.map(v => v.id), ...fresh.map(v => v.id)]);
+    apply([...others, ...keptOurs.map(v => ({ ...v, price: cents })), ...fresh]);
+    setDone(t("สร้างแล้ว {0} รายการ ใส่ยอดเริ่มต้นของแต่ละรายการด้านล่าง", keptOurs.length + fresh.length));
+  }
+  function clear() {
+    setGenerated([]);
+    apply(others.length ? others : [freshVariant(product.id)]);
+    setDone(t("ล้างรายการที่สร้างไว้ {0} รายการแล้ว", ours.length));
+  }
+  return <details className="panel variant-generator" open={open}>
+    <summary>{t("เพิ่มหลายไซซ์ / สีพร้อมกัน")}</summary>
+    <div className="stack">
+      <p className="muted">{t("พิมพ์ไซซ์และสี เว้นวรรคหรือใส่จุลภาคระหว่างแต่ละค่า ระบบสร้างทุกคู่ไซซ์กับสีให้ แล้วค่อยใส่ยอดเริ่มต้นทีละรายการ")}</p>
+      <div className="form-grid">
+        <Field data-transient label={t("ไซซ์ทั้งหมด")} placeholder="34 36 38" value={sizes} onChange={e => { setSizes(e.target.value); setDone(""); }} />
+        <Field data-transient label={t("สีทั้งหมด")} placeholder={t("ดำ ครีม ขาว")} value={colors} onChange={e => { setColors(e.target.value); setDone(""); }} />
+        <Field data-transient label={t("ราคาเดียวกันทุกรายการ (บาท)")} suffix={product.unit ? t("บาท / {0}", product.unit) : t("บาท")} type="number" min="0" step="0.01" inputMode="decimal" value={price} onChange={e => { setPrice(e.target.value); setDone(""); }} />
+      </div>
+      {(sizeList.length > 0 || colorList.length > 0) && <div className="generator-preview" aria-live="polite">
+        <p><span className="muted">{t("ไซซ์ {0} ค่า", sizeList.length)}</span>{sizeList.map(size => <span className="generator-chip" key={size}>{size}</span>)}</p>
+        <p><span className="muted">{t("สี {0} ค่า", colorList.length)}</span>{colorList.map(color => <span className="generator-chip" key={color}>{color}</span>)}</p>
+        {combos.length > 0 && <p className="generator-summary">{t("รวม {0} คู่ · เพิ่มใหม่ {1}", combos.length, added.length)}{removed > 0 && <> · {t("เอารายการที่สร้างไว้ออก {0}", removed)}</>}{existing.length > 0 && <> · {t("มีอยู่แล้ว {0}", existing.length)}</>}</p>}
+      </div>}
+      <div className="row">
+        <Button data-draft variant="secondary" disabled={!combos.length || !validPrice || (!added.length && !removed && keptOurs.every(v => v.price === Math.round(priceValue * 100)))} onClick={generate}><Icon name="plus" />{ours.length ? t("สร้างใหม่ {0} รายการ", combos.length - existing.length) : t("สร้าง {0} รายการ", added.length)}</Button>
+        {ours.length > 0 && <Button data-draft variant="secondary" onClick={clear}>{t("ล้างรายการที่สร้าง")}</Button>}
+      </div>
+      {done && <p className="notice" role="status">{done}</p>}
+    </div>
+  </details>;
+}
 function ProductForm({
   state,
   act,
@@ -291,6 +387,9 @@ function ProductForm({
   );
   const [photoBusy, setPhotoBusy] = useState(false);
   const [sourceRevision] = useState(state.revision);
+  // Field labels name their row only when there is more than one, so a screen reader can tell repeated fields apart.
+  const rowLabel = (label: string, index: number) => variants.length > 1 ? t("{0} (รายการที่ {1})", t(label), index + 1) : t(label);
+  const pack = isPack(product.unit);
   const updateVariant = (id: string, patch: Partial<Variant>) =>
     setVariants((rows) =>
       rows.map((v) => (v.id === id ? { ...v, ...patch } : v)),
@@ -384,28 +483,29 @@ function ProductForm({
           />
         </section>
         <div className="variant-form-list stack">
+          <VariantGenerator product={product} variants={variants} saved={state.variants} open={!existing} apply={setVariants} />
           {variants.map((v, i) => (
             <section className="panel stack" key={v.id}>
               <div className="row justify-between">
-                <h2>{t("ตัวเลือกสินค้า ")}{i + 1}</h2>
+                <h2>{v.size.trim() && v.color.trim() ? t("ไซซ์ {0} · {1}", v.size.trim(), v.color.trim()) : t("รายการที่ {0}", i + 1)}</h2>
                 {variants.length > 1 &&
                   !state.variants.some((x) => x.id === v.id) && (
                     <Button
                       data-draft
                       variant="danger"
-                      aria-label={t("ลบตัวเลือกสินค้า {0}", i + 1)}
+                      aria-label={t("ลบรายการที่ {0}", i + 1)}
                       onClick={() =>
                         setVariants((rows) =>
                           rows.filter((row) => row.id !== v.id),
                         )
                       }
                     >
-                      {t("ลบตัวเลือกนี้")}</Button>
+                      {t("ลบรายการนี้")}</Button>
                   )}
               </div>
               <div className="form-grid">
                 <Field
-                  label={t("ไซซ์")}
+                  label={rowLabel("ไซซ์", i)}
                   required
                   value={v.size}
                   onChange={(e) =>
@@ -413,7 +513,7 @@ function ProductForm({
                   }
                 />
                 <Field
-                  label={t("สี / คละสี")}
+                  label={rowLabel("สี / คละสี", i)}
                   required
                   value={v.color}
                   onChange={(e) =>
@@ -421,7 +521,7 @@ function ProductForm({
                   }
                 />
                 <Field
-                  label={t("ราคาต่อหน่วย (บาท)")}
+                  label={rowLabel("ราคาต่อหน่วย (บาท)", i)}
                   suffix={product.unit ? t("บาท / {0}", product.unit) : t("บาท")}
                   type="number"
                   min="0"
@@ -435,10 +535,10 @@ function ProductForm({
                   }
                 />
                 <Field
-                  label={
+                  label={rowLabel(
                     state.variants.some((x) => x.id === v.id)
-                      ? t("ยอดคงเหลือ (ปรับที่หน้าสินค้า)")
-                      : t("ยอดเริ่มต้น")
+                      ? "ยอดคงเหลือ (ปรับที่หน้าสินค้า)"
+                      : "ยอดเริ่มต้น", i)
                   }
                   disabled={state.variants.some((x) => x.id === v.id)}
                   suffix={product.unit ? t("หน่วย: {0}", product.unit) : undefined}
@@ -452,14 +552,14 @@ function ProductForm({
                   }
                 />
               </div>
-              <Field
-                label={t("รายละเอียดสีภายในแพ็ก (ถ้ามี)")}
+              {(pack || v.contents) && <Field
+                label={rowLabel("รายละเอียดสีภายในแพ็ก (ถ้ามี)", i)}
+                hint={pack ? "แพ็กคละมีไซซ์เดียว ขายทั้งแพ็ก" : undefined}
                 value={v.contents}
                 onChange={(e) =>
                   updateVariant(v.id, { contents: e.target.value })
                 }
-              />
-              <p className="muted">{t("แพ็กคละมีไซซ์เดียว ขายทั้งแพ็ก")}</p>
+              />}
             </section>
           ))}
           <Button

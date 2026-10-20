@@ -1,5 +1,5 @@
 import { useI18n } from '../languageContext'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { KeyboardEvent, ReactNode } from 'react'
 import type { Bill } from '../domain/inventory'
 import { money } from '../domain/format'
@@ -8,11 +8,18 @@ import { Icon } from '../Icon'
 const shopDate = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Bangkok' })
 
 
-export function BillArchive({ bills, renderBill }: { bills: Bill[]; renderBill: (bill: Bill) => ReactNode }) {
+export function BillArchive({ bills, renderBill, focus }: { bills: Bill[]; renderBill: (bill: Bill) => ReactNode; focus?: { id: string; sequence: number } }) {
   const { t, locale } = useI18n()
   const dateLabel = new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeZone: 'Asia/Bangkok' })
 
-  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [selectedId, setSelectedId] = useState<string | null>(focus?.id ?? null)
+  // A just-saved bill opens itself so the owner can check and send it without hunting for its tab.
+  const [seenFocus, setSeenFocus] = useState(focus)
+  if (focus !== seenFocus) { setSeenFocus(focus); if (focus) setSelectedId(focus.id) }
+  useEffect(() => {
+    if (!focus) return
+    requestAnimationFrame(() => document.getElementById(`bill-tab-${focus.id}`)?.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }))
+  }, [focus])
   const groups = new Map<string, Bill[]>()
   for (const bill of bills) {
     const day = shopDate.format(new Date(bill.date))

@@ -1,6 +1,7 @@
 import { ShopLoading } from './ShopLoading'
 import { lazy, Suspense } from 'react'
 import { useI18n } from './languageContext'
+import { ShopLoading } from './ShopLoading'
 
 const Page = lazy(() => import('./App'))
 const AuthPage = lazy(() => import('./AuthPage'))

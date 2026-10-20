@@ -1,0 +1,23 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "src/index.css"
+        ],
+        "createdAt": "2026-10-19T18:33:24.709Z",
+        "reason": "UX-CONTRACT.md:39 requires the navy-to-orange gradient wordmark; tests/browser.spec.ts:764 asserts it"
+      },
+      {
+        "rule": "overused-font",
+        "value": "plus jakarta sans",
+        "createdAt": "2026-10-19T18:51:01.140Z",
+        "reason": "DESIGN.md runtime.font specifies Plus Jakarta Sans for Latin text with Anuphan for Thai"
+      }
+    ]
+  }
+}
