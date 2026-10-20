@@ -1,0 +1,94 @@
+[
+  {
+    "width": 320,
+    "zoom": 100,
+    "noOverflow": true,
+    "titleFits": true
+  },
+  {
+    "width": 320,
+    "zoom": 200,
+    "noOverflow": true,
+    "titleFits": true
+  },
+  {
+    "width": 390,
+    "zoom": 100,
+    "noOverflow": true,
+    "titleFits": true
+  },
+  {
+    "width": 390,
+    "zoom": 200,
+    "noOverflow": true,
+    "titleFits": true
+  },
+  {
+    "width": 768,
+    "zoom": 100,
+    "noOverflow": true,
+    "titleFits": true
+  },
+  {
+    "width": 768,
+    "zoom": 200,
+    "noOverflow": true,
+    "titleFits": true
+  },
+  {
+    "width": 1440,
+    "zoom": 100,
+    "noOverflow": true,
+    "titleFits": true
+  },
+  {
+    "width": 1440,
+    "zoom": 200,
+    "noOverflow": true,
+    "titleFits": true
+  },
+  {
+    "noJavaScript": true,
+    "posterAndActions": true
+  },
+  {
+    "playback": {
+      "duration": 6,
+      "width": 1280,
+      "height": 1280,
+      "muted": true,
+      "loop": false,
+      "playsInline": true,
+      "audioTracks": null
+    },
+    "finalPoster": true,
+    "keyboardReplay": true,
+    "pauseResume": true,
+    "dynamicReducedMotion": true,
+    "errors": []
+  },
+  {
+    "file": "hero-phone.mp4",
+    "bytes": 1548599,
+    "decode": {
+      "duration": 6,
+      "width": 1280,
+      "height": 1280,
+      "readyState": 4
+    }
+  },
+  {
+    "file": "hero-phone.webm",
+    "bytes": 998239,
+    "decode": {
+      "duration": 6,
+      "width": 1280,
+      "height": 1280,
+      "readyState": 4
+    }
+  },
+  {
+    "failedMedia": true,
+    "posterAndCTA": true
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "capturedAt": "2026-10-18T08:27:51.660Z",
+  "files": [
+    {
+      "path": "src/App.tsx",
+      "sha256": "6cc82e7c6743eb5c1f4e15b2a595ca3e8ee9e6d3185a360f6f61fdca3f86f004"
+    },
+    {
+      "path": "src/data/storage.ts",
+      "sha256": "37096b9c2133319a6c012692493f2ecab15698dc23dd4debe86ddf6d07dda816"
+    },
+    {
+      "path": "src/domain/inventory.ts",
+      "sha256": "46b7267148b9091f17321f255b29f5ae7a4ee0a499c388583120a96a9d1b73a3"
+    },
+    {
+      "path": "src/features/CashReceipt.tsx",
+      "sha256": "6a5fb7f416f44e04f9d9ef306fa1dd0d1b24a41e992de0a6be93f4ae00e8124b"
+    },
+    {
+      "path": "src/features/BillImage.ts",
+      "sha256": "6959bca458bd4b40d6da0527d68c1fa1dabd1e993c949268f1635c47a9dbe634"
+    },
+    {
+      "path": "landing/site.css",
+      "sha256": "ae9efd01d5a41552b696886c82fbb3b52571d4af02b2f7395879a56b36175222"
+    },
+    {
+      "path": "landing/controller.js",
+      "sha256": "e7b6fd55b5f517dd685155a61f65c30c16b351e576024f64a0f287dca3839cf6"
+    },
+    {
+      "path": "scripts/build-landing.mjs",
+      "sha256": "7130b79fab6396c358eedf2fd01713d383a097f8496678041b6d349a7a634fba"
+    }
+  ]
+}

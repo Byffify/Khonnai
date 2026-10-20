@@ -1,0 +1,387 @@
+{
+  "visual": [
+    {
+      "language": "th",
+      "width": 320,
+      "appearance": "halo",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "th",
+      "width": 320,
+      "appearance": "edge",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "th",
+      "width": 390,
+      "appearance": "halo",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "th",
+      "width": 390,
+      "appearance": "edge",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "th",
+      "width": 768,
+      "appearance": "halo",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "th",
+      "width": 768,
+      "appearance": "edge",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "th",
+      "width": 1440,
+      "appearance": "halo",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "th",
+      "width": 1440,
+      "appearance": "edge",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "en",
+      "width": 320,
+      "appearance": "halo",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "en",
+      "width": 320,
+      "appearance": "edge",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "appearance": "halo",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "appearance": "edge",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "en",
+      "width": 768,
+      "appearance": "halo",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "en",
+      "width": 768,
+      "appearance": "edge",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "en",
+      "width": 1440,
+      "appearance": "halo",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    },
+    {
+      "language": "en",
+      "width": 1440,
+      "appearance": "edge",
+      "font": "\"Noto Sans\", \"Noto Sans Thai\", sans-serif"
+    }
+  ],
+  "interactions": [
+    {
+      "language": "th",
+      "width": 320,
+      "emailValidation": true,
+      "passwordValidation": true,
+      "passwordCleared": true,
+      "recoveryPreview": true,
+      "reducedMotion": true,
+      "zoom200": true,
+      "persistence": false
+    },
+    {
+      "language": "th",
+      "width": 390,
+      "emailValidation": true,
+      "passwordValidation": true,
+      "passwordCleared": true,
+      "recoveryPreview": true,
+      "reducedMotion": true,
+      "zoom200": true,
+      "persistence": false
+    },
+    {
+      "language": "th",
+      "width": 768,
+      "emailValidation": true,
+      "passwordValidation": true,
+      "passwordCleared": true,
+      "recoveryPreview": true,
+      "reducedMotion": true,
+      "zoom200": true,
+      "persistence": false
+    },
+    {
+      "language": "th",
+      "width": 1440,
+      "emailValidation": true,
+      "passwordValidation": true,
+      "passwordCleared": true,
+      "recoveryPreview": true,
+      "reducedMotion": true,
+      "zoom200": true,
+      "persistence": false
+    },
+    {
+      "language": "en",
+      "width": 320,
+      "emailValidation": true,
+      "passwordValidation": true,
+      "passwordCleared": true,
+      "recoveryPreview": true,
+      "reducedMotion": true,
+      "zoom200": true,
+      "persistence": false
+    },
+    {
+      "language": "en",
+      "width": 390,
+      "emailValidation": true,
+      "passwordValidation": true,
+      "passwordCleared": true,
+      "recoveryPreview": true,
+      "reducedMotion": true,
+      "zoom200": true,
+      "persistence": false
+    },
+    {
+      "language": "en",
+      "width": 768,
+      "emailValidation": true,
+      "passwordValidation": true,
+      "passwordCleared": true,
+      "recoveryPreview": true,
+      "reducedMotion": true,
+      "zoom200": true,
+      "persistence": false
+    },
+    {
+      "language": "en",
+      "width": 1440,
+      "emailValidation": true,
+      "passwordValidation": true,
+      "passwordCleared": true,
+      "recoveryPreview": true,
+      "reducedMotion": true,
+      "zoom200": true,
+      "persistence": false
+    }
+  ],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:5292/",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/style.css",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/preview.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/mark.png",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-latin.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-thai.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/style.css",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/preview.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/mark.png",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-latin.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-thai.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/style.css",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/preview.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/mark.png",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-latin.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-thai.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/style.css",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/preview.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/mark.png",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-latin.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-thai.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/style.css",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/preview.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/mark.png",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-latin.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-thai.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/style.css",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/preview.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/mark.png",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-latin.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-thai.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/style.css",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/preview.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/mark.png",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-latin.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-thai.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/style.css",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/preview.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/mark.png",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-latin.woff2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:5292/assets/noto-sans-thai.woff2",
+      "method": "GET"
+    }
+  ],
+  "errors": [],
+  "protectedFilesUnchanged": 8,
+  "realAuthSecurity": "NOT VERIFIED: isolated UI prototype only"
+}

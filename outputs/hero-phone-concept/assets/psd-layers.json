@@ -1,0 +1,133 @@
+[
+  {
+    "name": "✏️ Background",
+    "left": 0,
+    "top": 0,
+    "width": 3680,
+    "height": 2760,
+    "channels": [
+      [
+        -1,
+        165602
+      ],
+      [
+        0,
+        165602
+      ],
+      [
+        1,
+        165602
+      ],
+      [
+        2,
+        165602
+      ]
+    ],
+    "blend": "norm",
+    "clip": 0,
+    "flags": 24,
+    "mask": null,
+    "file": "psd-layer-0.png"
+  },
+  {
+    "name": "Scene",
+    "left": 0,
+    "top": 373,
+    "width": 2661,
+    "height": 2387,
+    "channels": [
+      [
+        -1,
+        155508
+      ],
+      [
+        0,
+        1724388
+      ],
+      [
+        1,
+        1715161
+      ],
+      [
+        2,
+        1730828
+      ]
+    ],
+    "blend": "norm",
+    "clip": 0,
+    "flags": 9,
+    "mask": null,
+    "file": "psd-layer-1.png"
+  },
+  {
+    "name": "Mask",
+    "left": 1128,
+    "top": 403,
+    "width": 1482,
+    "height": 1916,
+    "channels": [
+      [
+        -1,
+        94921
+      ],
+      [
+        0,
+        1956363
+      ],
+      [
+        1,
+        1937436
+      ],
+      [
+        2,
+        1967300
+      ]
+    ],
+    "blend": "norm",
+    "clip": 0,
+    "flags": 9,
+    "mask": null,
+    "file": "psd-layer-2.png"
+  },
+  {
+    "name": "✏️ Change this",
+    "left": 1080,
+    "top": 361,
+    "width": 1589,
+    "height": 2008,
+    "channels": [
+      [
+        -1,
+        83281
+      ],
+      [
+        0,
+        3102076
+      ],
+      [
+        1,
+        3102213
+      ],
+      [
+        2,
+        3102156
+      ],
+      [
+        -2,
+        80173
+      ]
+    ],
+    "blend": "norm",
+    "clip": 1,
+    "flags": 8,
+    "mask": {
+      "top": 402,
+      "left": 1127,
+      "width": 1484,
+      "height": 1918,
+      "default": 0,
+      "flags": 0
+    },
+    "file": "psd-layer-3.png"
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "checkedAt": "2026-10-18T13:36:53.651Z",
+  "passed": false,
+  "checks": [],
+  "scope": "Real staging Auth and database using generated synthetic confirmed fixtures. Email confirmation delivery, Google, browser login, inventory writes and production are not covered."
+}
