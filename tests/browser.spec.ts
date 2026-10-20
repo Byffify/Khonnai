@@ -1,6 +1,16 @@
 import { test, expect } from '@playwright/test'
+import type { Locator, Page } from '@playwright/test'
 import { readFile } from 'node:fs/promises'
 import { emptyState, execute } from '../src/domain/inventory'
+
+// The selected dock item is marked by the liquid blob sliding under it, so "selected" means the blob sits on that button.
+async function expectBlobOn(page: Page, button: Locator) {
+  await expect.poll(async () => {
+    const blob = await page.locator('.dock-blob').boundingBox()
+    const target = await button.boundingBox()
+    return Math.abs(blob!.x - target!.x) + Math.abs(blob!.width - target!.width)
+  }).toBeLessThanOrEqual(2)
+}
 
 test('shop entry and refresh keep the approved loader until inventory is ready', async ({ page }) => {
   await page.route('**/api/auth/session', route => route.fulfill({ json: { user: { id: 'loading-test', email: 'loading@example.test' }, csrfToken: 'test-token' } }))
@@ -769,7 +779,7 @@ test('receive and count previews explain different effects; exchange separates i
   await page.mouse.move(0, 0)
   const selected = page.getByRole('button', { name: 'สินค้า', exact: true })
   await expect(selected).toHaveCSS('color', 'rgb(25, 59, 90)')
-  await expect(selected).toHaveCSS('background-color', 'rgb(234, 240, 245)')
+  await expectBlobOn(page, selected)
 })
 
 test('return stock preview exposes reservations and remaining shortage', async ({ page }) => {
@@ -809,7 +819,7 @@ test('quiet gallery and floating dock stay usable across all five pages', async 
       expect(box!.y).toBeGreaterThan(700)
       expect(box!.y + box!.height).toBeLessThanOrEqual(894)
       await expect(nav.getByRole('button', { name: label, exact: true })).toHaveAttribute('aria-current', 'page')
-      await expect(nav.getByRole('button', { name: label, exact: true })).toHaveCSS('background-color', 'rgb(234, 240, 245)')
+      await expectBlobOn(page, nav.getByRole('button', { name: label, exact: true }))
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
       for (const button of await nav.getByRole('button').all()) expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(48)
     }
@@ -848,15 +858,11 @@ test('operational theme uses readable controls and clear navigation without chan
     await page.setViewportSize({ width, height: 900 })
     expect(await page.locator('.catalog-search input').evaluate(element => getComputedStyle(element).paddingLeft)).toBe('52px')
     const current = page.getByRole('navigation').getByRole('button', { name: 'สินค้า', exact: true })
-    if (width === 390) {
-      await expect(current).toHaveCSS('background-color', 'rgb(234, 240, 245)')
-      await expect(current).toHaveCSS('color', 'rgb(25, 59, 90)')
-      await expect(page.getByRole('navigation')).toHaveCSS('border-top-width', '1px')
-    } else {
-      await expect(current).toHaveCSS('background-color', 'rgb(234, 240, 245)')
-    }
-    await expect(page.getByRole('navigation')).toHaveCSS('background-color', 'rgba(255, 255, 255, 0.52)')
-    await expect(page.getByRole('navigation')).toHaveCSS('backdrop-filter', 'blur(64px) saturate(1.8)')
+    await expectBlobOn(page, current)
+    if (width === 390) await expect(current).toHaveCSS('color', 'rgb(25, 59, 90)')
+    await expect(page.getByRole('navigation')).toHaveCSS('background-color', 'rgba(255, 255, 255, 0.2)')
+    await expect(page.getByRole('navigation')).toHaveCSS('backdrop-filter', 'blur(36px) saturate(1.7) brightness(1.04)')
+    await expect(page.locator('.dock-blob')).toHaveCSS('border-radius', '9999px')
   }
   const primary = page.getByRole('button', { name: 'เพิ่มสินค้า', exact: true })
   const style = await primary.evaluate(element => ({ fill: getComputedStyle(element).backgroundColor, ink: getComputedStyle(element).color, radius: getComputedStyle(element).borderRadius, labelFont: getComputedStyle(element).fontFamily, canvas: getComputedStyle(document.documentElement).backgroundColor }))
