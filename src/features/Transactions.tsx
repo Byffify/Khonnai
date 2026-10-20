@@ -5,6 +5,7 @@ import type { KeyboardEvent } from 'react'
 import { availability } from '../domain/inventory'
 import type { Item, Bill, ReturnedItem } from '../domain/inventory'
 import { BackButton, Button, EmptyState, Field, Form } from '../ui'
+import { useDraftGuard } from '../draftGuard'
 import { money } from '../domain/format'
 import { CashReceipt } from './CashReceipt'
 import { BillArchive } from './BillArchive'
@@ -131,6 +132,9 @@ export function Bills({ intent, ...props }: FeatureProps & { intent?: string }) 
     return [{ variantId: variant.id, code: product.code, size: variant.size, color: variant.color, unit: product.unit, price: line.price ?? variant.price, quantity: line.quantity }]
   }) }), [editing, draftDate, customer, lines, props.state.variants, props.state.products])
   const allowance = editing ? quantities(editing.lines) : {}
+  // An opened bill edit counts as unsaved only once its lines differ from the saved bill.
+  const editBaseline = editing ? JSON.stringify(editing.lines.map(l => ({ variantId: l.variantId, quantity: l.quantity, price: l.price }))) : ''
+  useDraftGuard(creating ? lines.length > 0 || customer.trim() !== '' : !!editing && JSON.stringify(lines) !== editBaseline)
   const overStock = exceedsStock(props.state, lines, allowance)
   const total = lines.reduce((sum, line) => sum + line.quantity * (line.price ?? props.state.variants.find(v => v.id === line.variantId)?.price ?? 0), 0)
   const start = () => { setCreating(true); setEditing(null); setLines([]); setCustomer(''); setDraftDate(new Date().toISOString()) }
@@ -158,6 +162,7 @@ export function Reservations({ intent, ...props }: FeatureProps & { intent?: str
   const [customer, setCustomer] = useState('')
   const [lines, setLines] = useState<Item[]>(() => intent ? [{ variantId: intent, quantity: 1 }] : [])
   const overStock = exceedsStock(props.state, lines)
+  useDraftGuard(creating && (lines.length > 0 || customer.trim() !== ''))
   if (creating) return <Form noValidate className="stack reservation-form" onSubmit={async e => { e.preventDefault(); if (await props.act({ id: crypto.randomUUID(), type: 'reserve', customer, lines })) { setCreating(false); setCustomer(''); setLines([]) } }}><div className="page-header"><BackButton onClick={() => void props.leave(() => setCreating(false))} /><h1>{t("จองสินค้า")}</h1></div><Field label={t("ชื่อลูกค้า")} required value={customer} onChange={e => setCustomer(e.target.value)} /><ItemsEditor state={props.state} lines={lines} change={setLines} limit /><p className="muted">{t("จองแล้วลดจำนวนที่ยังขายได้ ลูกค้าต้องซื้อครบรายการ เจ้าของร้านยกเลิกเอง")}</p><Button type="submit" disabled={!lines.length || overStock}>{t("บันทึกจอง")}</Button>{overStock && <p className="danger-text">{t("จำนวนบางรายการเกินที่ขายได้ แก้จำนวนก่อนบันทึก")}</p>}</Form>
   return <div className="stack reservations-page"><div className="page-heading"><h1>{t("รายการจอง")}</h1><Button className="add-action" disabled={!props.state.variants.length} onClick={() => setCreating(true)}><Icon name="plus" />{t("จองสินค้า")}</Button></div>{!props.state.reservations.length && <EmptyState title={t("ยังไม่มีรายการจอง")}><p className="muted">{t("กรอกรายการจาก LINE เองเมื่อมีลูกค้าสนใจ")}</p></EmptyState>}{props.state.reservations.map(r => <article className="section stack" key={r.id}><div className="row justify-between"><h2>{r.customer}</h2><span className="badge">{r.status === 'active' ? t("รอซื้อ") : r.status === 'sold' ? t("ซื้อครบแล้ว") : t("ยกเลิกแล้ว")}</span></div>{r.lines.map((l, i) => <p key={i}>{description(props.state, l.variantId)} · {l.quantity}</p>)}{r.status === 'active' && <div className="row"><Button onClick={async () => { if (await props.ask('สร้างบิลขายครบทั้งหมดจากรายการจองนี้?', 'สร้างบิลจากจอง')) void props.act({ id: crypto.randomUUID(), type: 'convert', reservationId: r.id }) }}>{t("สร้างบิลจากจอง")}</Button><Button variant="danger" onClick={async () => { if (await props.ask(`ยกเลิกการจองของ ${r.customer} และปล่อย ${reservedCount(props.state, r.lines)} กลับไปขายได้?`, 'ยกเลิกจอง', { danger: true, cancel: 'ไม่ยกเลิกจอง' })) void props.act({ id: crypto.randomUUID(), type: 'cancel-reservation', reservationId: r.id }) }}>{t("ยกเลิกจอง")}</Button></div>}</article>)}</div>
 }
@@ -177,6 +182,7 @@ export function Returns(props: FeatureProps) {
     setLines(Object.entries((id && returnableFor(props.state, id)) || {}).filter(([, count]) => count.left > 0).map(([variantId, count]) => ({ variantId, quantity: count.left })))
   }
   const giveBack = sellable ? quantities(lines) : {}
+  useDraftGuard(lines.length > 0 || replacements.length > 0)
   const overStock = exchange && exceedsStock(props.state, replacements, giveBack)
   const returnable = billId ? returnableFor(props.state, billId) : undefined
   const overReturn = !!returnable && Object.entries(quantities(lines)).some(([variantId, quantity]) => quantity > (returnable[variantId]?.left ?? 0))

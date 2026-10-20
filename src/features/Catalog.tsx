@@ -306,38 +306,61 @@ function VariantView({
   );
 }
 const isPack = (unit: string) => /แพ็ก|pack/i.test(unit);
-const splitList = (text: string) => [...new Set(text.split(/[,،、\n]/).map(part => part.trim()).filter(Boolean))];
+// Commas (or "/" or new lines) separate values when present, so a colour like "เทา อ่อน" survives; otherwise spaces do,
+// which is what a phone keyboard makes easy ("32 34 36").
+const splitList = (text: string) => [...new Set(text.split(/[,،、/\n]/.test(text) ? /[,،、/\n]+/ : /\s+/).map(part => part.trim()).filter(Boolean))];
 const sameText = (a: string, b: string) => a.trim().toLocaleLowerCase() === b.trim().toLocaleLowerCase();
-// Builds every size × colour row in one step so a code with several sizes and colours doesn't need one panel filled by hand per combination.
+// Builds every size × colour row in one step. Generating again replaces the rows it made earlier (keeping the ones still
+// wanted, with whatever was typed into them) instead of piling up duplicates; saved and hand-made rows are never touched.
 function VariantGenerator({ product, variants, saved, open, apply }: { product: Product; variants: Variant[]; saved: Variant[]; open: boolean; apply: (rows: Variant[]) => void }) {
   const { t } = useI18n()
   const [sizes, setSizes] = useState("");
   const [colors, setColors] = useState("");
   const [price, setPrice] = useState("");
   const [done, setDone] = useState("");
+  const [generated, setGenerated] = useState<string[]>([]);
   const sizeList = splitList(sizes), colorList = splitList(colors);
   const priceValue = Number(price);
   const validPrice = price.trim() !== "" && Number.isFinite(priceValue) && priceValue >= 0;
   const combos = sizeList.flatMap(size => colorList.map(color => ({ size, color })));
-  const fresh = combos.filter(combo => !variants.some(v => sameText(v.size, combo.size) && sameText(v.color, combo.color)));
+  const isSaved = (v: Variant) => saved.some(s => s.id === v.id);
+  const ours = variants.filter(v => generated.includes(v.id) && !isSaved(v));
+  const others = variants.filter(v => !ours.includes(v) && (isSaved(v) || v.size.trim() || v.color.trim()));
+  const matches = (v: Variant, combo: { size: string; color: string }) => sameText(v.size, combo.size) && sameText(v.color, combo.color);
+  const existing = combos.filter(combo => others.some(v => matches(v, combo)));
+  const keptOurs = ours.filter(v => combos.some(combo => matches(v, combo)));
+  const removed = ours.length - keptOurs.length;
+  const added = combos.filter(combo => !others.some(v => matches(v, combo)) && !keptOurs.some(v => matches(v, combo)));
   function generate() {
-    // Blank rows that were never saved are placeholders; the generated rows replace them.
-    const kept = variants.filter(v => saved.some(s => s.id === v.id) || v.size.trim() || v.color.trim());
-    apply([...kept, ...fresh.map(combo => ({ ...freshVariant(product.id), ...combo, price: Math.round(priceValue * 100) }))]);
-    setDone(t("เพิ่ม {0} รายการแล้ว ใส่ยอดเริ่มต้นของแต่ละรายการด้านล่าง", fresh.length));
-    setSizes(""); setColors("");
+    const cents = Math.round(priceValue * 100);
+    const fresh = added.map(combo => ({ ...freshVariant(product.id), ...combo, price: cents }));
+    setGenerated([...keptOurs.map(v => v.id), ...fresh.map(v => v.id)]);
+    apply([...others, ...keptOurs.map(v => ({ ...v, price: cents })), ...fresh]);
+    setDone(t("สร้างแล้ว {0} รายการ ใส่ยอดเริ่มต้นของแต่ละรายการด้านล่าง", keptOurs.length + fresh.length));
+  }
+  function clear() {
+    setGenerated([]);
+    apply(others.length ? others : [freshVariant(product.id)]);
+    setDone(t("ล้างรายการที่สร้างไว้ {0} รายการแล้ว", ours.length));
   }
   return <details className="panel variant-generator" open={open}>
     <summary>{t("เพิ่มหลายไซซ์ / สีพร้อมกัน")}</summary>
     <div className="stack">
-      <p className="muted">{t("คั่นแต่ละค่าด้วยจุลภาค ระบบสร้างทุกคู่ไซซ์กับสีให้ แล้วค่อยใส่ยอดเริ่มต้นทีละรายการ")}</p>
+      <p className="muted">{t("พิมพ์ไซซ์และสี เว้นวรรคหรือใส่จุลภาคระหว่างแต่ละค่า ระบบสร้างทุกคู่ไซซ์กับสีให้ แล้วค่อยใส่ยอดเริ่มต้นทีละรายการ")}</p>
       <div className="form-grid">
-        <Field data-transient label={t("ไซซ์ทั้งหมด")} placeholder="34, 36, 38" value={sizes} onChange={e => { setSizes(e.target.value); setDone(""); }} />
-        <Field data-transient label={t("สีทั้งหมด")} placeholder={t("ดำ, ครีม, ขาว")} value={colors} onChange={e => { setColors(e.target.value); setDone(""); }} />
+        <Field data-transient label={t("ไซซ์ทั้งหมด")} placeholder="34 36 38" value={sizes} onChange={e => { setSizes(e.target.value); setDone(""); }} />
+        <Field data-transient label={t("สีทั้งหมด")} placeholder={t("ดำ ครีม ขาว")} value={colors} onChange={e => { setColors(e.target.value); setDone(""); }} />
         <Field data-transient label={t("ราคาเดียวกันทุกรายการ (บาท)")} suffix={product.unit ? t("บาท / {0}", product.unit) : t("บาท")} type="number" min="0" step="0.01" inputMode="decimal" value={price} onChange={e => { setPrice(e.target.value); setDone(""); }} />
       </div>
-      {combos.length > 0 && fresh.length < combos.length && <p className="muted">{t("มีอยู่แล้ว {0} รายการ จะไม่สร้างซ้ำ", combos.length - fresh.length)}</p>}
-      <Button data-draft variant="secondary" disabled={!fresh.length || !validPrice} onClick={generate}><Icon name="plus" />{fresh.length ? t("สร้าง {0} รายการ", fresh.length) : t("สร้างรายการ")}</Button>
+      {(sizeList.length > 0 || colorList.length > 0) && <div className="generator-preview" aria-live="polite">
+        <p><span className="muted">{t("ไซซ์ {0} ค่า", sizeList.length)}</span>{sizeList.map(size => <span className="generator-chip" key={size}>{size}</span>)}</p>
+        <p><span className="muted">{t("สี {0} ค่า", colorList.length)}</span>{colorList.map(color => <span className="generator-chip" key={color}>{color}</span>)}</p>
+        {combos.length > 0 && <p className="generator-summary">{t("รวม {0} คู่ · เพิ่มใหม่ {1}", combos.length, added.length)}{removed > 0 && <> · {t("เอารายการที่สร้างไว้ออก {0}", removed)}</>}{existing.length > 0 && <> · {t("มีอยู่แล้ว {0}", existing.length)}</>}</p>}
+      </div>}
+      <div className="row">
+        <Button data-draft variant="secondary" disabled={!combos.length || !validPrice || (!added.length && !removed && keptOurs.every(v => v.price === Math.round(priceValue * 100)))} onClick={generate}><Icon name="plus" />{ours.length ? t("สร้างใหม่ {0} รายการ", combos.length - existing.length) : t("สร้าง {0} รายการ", added.length)}</Button>
+        {ours.length > 0 && <Button data-draft variant="secondary" onClick={clear}>{t("ล้างรายการที่สร้าง")}</Button>}
+      </div>
       {done && <p className="notice" role="status">{done}</p>}
     </div>
   </details>;
