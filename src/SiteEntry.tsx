@@ -1,4 +1,3 @@
-import { ShopLoading } from './ShopLoading'
 import { lazy, Suspense } from 'react'
 import { useI18n } from './languageContext'
 import { ShopLoading } from './ShopLoading'
