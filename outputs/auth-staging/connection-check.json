@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-10-18T08:57:16.770Z",
+  "url": "https://brwkigtdecywivcfijvq.supabase.co",
+  "status": 200,
+  "emailEnabled": true,
+  "googleEnabled": false,
+  "signupDisabled": false,
+  "emailConfirmationRequired": true,
+  "scope": "Read-only public Auth settings; no accounts, email or database writes"
+}

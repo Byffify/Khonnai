@@ -1,0 +1,15 @@
+{
+  "url": "https://brwkigtdecywivcfijvq.supabase.co",
+  "projectRef": "brwkigtdecywivcfijvq",
+  "environment": "staging",
+  "reportedEmpty": true,
+  "googleConfigured": false,
+  "emailDeliveryConfigured": false,
+  "confirmedBy": "user",
+  "confirmedAt": "2026-10-18T08:55:43.882Z",
+  "connected": false,
+  "authSettingsVerified": true,
+  "databaseConnected": true,
+  "foundationMigration": "20261018090754",
+  "teamEmailTestingOnly": true
+}

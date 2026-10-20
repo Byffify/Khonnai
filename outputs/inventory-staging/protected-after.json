@@ -1,0 +1,30 @@
+[
+  {
+    "path": "src/features/BillImage.ts",
+    "unchanged": true
+  },
+  {
+    "path": "src/features/CashReceipt.tsx",
+    "unchanged": true
+  },
+  {
+    "path": "src/data/storage.ts",
+    "unchanged": true
+  },
+  {
+    "path": "landing/controller.js",
+    "unchanged": true
+  },
+  {
+    "path": "landing/site.css",
+    "unchanged": true
+  },
+  {
+    "path": "scripts/build-landing.mjs",
+    "unchanged": true
+  },
+  {
+    "path": "src/domain/inventory.ts",
+    "unchanged": true
+  }
+]

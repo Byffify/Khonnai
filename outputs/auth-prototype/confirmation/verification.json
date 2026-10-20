@@ -1,0 +1,106 @@
+[
+  {
+    "lang": "th",
+    "width": 320,
+    "rules": 4,
+    "checks": [
+      "minimum8",
+      "ASCIIletter",
+      "ASCIIdigit",
+      "exactMatch"
+    ],
+    "uppercaseAndLowercaseAccepted": true,
+    "failedSubmitBlocked": true
+  },
+  {
+    "lang": "th",
+    "width": 390,
+    "rules": 4,
+    "checks": [
+      "minimum8",
+      "ASCIIletter",
+      "ASCIIdigit",
+      "exactMatch"
+    ],
+    "uppercaseAndLowercaseAccepted": true,
+    "failedSubmitBlocked": true
+  },
+  {
+    "lang": "th",
+    "width": 768,
+    "rules": 4,
+    "checks": [
+      "minimum8",
+      "ASCIIletter",
+      "ASCIIdigit",
+      "exactMatch"
+    ],
+    "uppercaseAndLowercaseAccepted": true,
+    "failedSubmitBlocked": true
+  },
+  {
+    "lang": "th",
+    "width": 1440,
+    "rules": 4,
+    "checks": [
+      "minimum8",
+      "ASCIIletter",
+      "ASCIIdigit",
+      "exactMatch"
+    ],
+    "uppercaseAndLowercaseAccepted": true,
+    "failedSubmitBlocked": true
+  },
+  {
+    "lang": "en",
+    "width": 320,
+    "rules": 4,
+    "checks": [
+      "minimum8",
+      "ASCIIletter",
+      "ASCIIdigit",
+      "exactMatch"
+    ],
+    "uppercaseAndLowercaseAccepted": true,
+    "failedSubmitBlocked": true
+  },
+  {
+    "lang": "en",
+    "width": 390,
+    "rules": 4,
+    "checks": [
+      "minimum8",
+      "ASCIIletter",
+      "ASCIIdigit",
+      "exactMatch"
+    ],
+    "uppercaseAndLowercaseAccepted": true,
+    "failedSubmitBlocked": true
+  },
+  {
+    "lang": "en",
+    "width": 768,
+    "rules": 4,
+    "checks": [
+      "minimum8",
+      "ASCIIletter",
+      "ASCIIdigit",
+      "exactMatch"
+    ],
+    "uppercaseAndLowercaseAccepted": true,
+    "failedSubmitBlocked": true
+  },
+  {
+    "lang": "en",
+    "width": 1440,
+    "rules": 4,
+    "checks": [
+      "minimum8",
+      "ASCIIletter",
+      "ASCIIdigit",
+      "exactMatch"
+    ],
+    "uppercaseAndLowercaseAccepted": true,
+    "failedSubmitBlocked": true
+  }
+]

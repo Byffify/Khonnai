@@ -1,0 +1,28 @@
+{
+  "duration": 6,
+  "fps": 30,
+  "width": 1280,
+  "height": 1280,
+  "frames": 180,
+  "screenQuad": [
+    [
+      1869,
+      362
+    ],
+    [
+      2665,
+      677
+    ],
+    [
+      1856,
+      2366
+    ],
+    [
+      1082,
+      1996
+    ]
+  ],
+  "source": "Original supplied PSD Scene/Mask + real app capture",
+  "motion": "2D whole-scene affine transform; logo-to-app crossfade; final hold 4.5-6 seconds",
+  "audio": false
+}

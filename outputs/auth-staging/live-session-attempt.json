@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-10-18T13:38:02.165Z",
+  "status": "not_run",
+  "passed": null,
+  "stage": "staging-precondition",
+  "reason": "STAGING_NOT_EMPTY",
+  "checks": [],
+  "scope": "Preflight only. Existing accounts prevented fixture creation. No Auth, database isolation or browser tests executed; previous verification artifact preserved."
+}
