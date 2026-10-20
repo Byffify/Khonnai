@@ -12,7 +12,9 @@ colors:
   add-ink: "#102d47"
   add-surface: "#fff0e3"
   nav-surface: "#ffffff"
-  nav-glass: "linear-gradient(145deg, rgb(255 255 255 / 48%), rgb(255 255 255 / 8%) 45%, rgb(25 59 90 / 4%)), rgb(255 255 255 / 52%)"
+  nav-glass: "radial-gradient(70% 150% at 4% 100%, rgb(237 124 50 / 22%), transparent 62%), radial-gradient(70% 150% at 96% 0%, rgb(25 59 90 / 18%), transparent 62%), linear-gradient(135deg, rgb(255 255 255 / 52%), rgb(255 255 255 / 30%) 48%, rgb(255 255 255 / 46%)), rgb(255 255 255 / 20%)"
+  nav-rim: "linear-gradient(90deg, rgb(237 124 50 / 95%), rgb(246 168 116 / 90%) 26%, rgb(255 255 255 / 85%) 50%, rgb(110 142 180 / 90%) 74%, rgb(25 59 90 / 95%))"
+  nav-blob: "radial-gradient(90% 70% at 30% 6%, rgb(255 255 255 / 92%), rgb(255 255 255 / 0%) 62%), linear-gradient(135deg, rgb(237 124 50 / 30%), rgb(255 255 255 / 34%) 50%, rgb(25 59 90 / 24%))"
   nav-border: "rgb(25 59 90 / 12%)"
   ink: "#171717"
   muted: "#646464"
@@ -65,10 +67,10 @@ runtime:
   amount-size: "32px"
   amount-line: "40px"
   dock-width: "620px"
-  dock-blur: "64px"
-  dock-saturation: "1.8"
+  dock-blur: "36px"
+  dock-saturation: "1.7"
   dock-inset: "16px"
-  dock-shadow: "inset 0 1px 0 rgb(255 255 255 / 90%), inset 0 -1px 0 rgb(25 59 90 / 6%), 0 12px 32px rgb(25 59 90 / 12%), -24px 12px 32px -20px rgb(237 124 50 / 30%), 24px 12px 32px -20px rgb(25 59 90 / 22%)"
+  dock-shadow: "inset 0 2px 3px rgb(255 255 255 / 85%), inset 0 -10px 18px rgb(25 59 90 / 8%), 0 14px 34px -6px rgb(25 59 90 / 20%), -22px 14px 34px -18px rgb(237 124 50 / 34%), 22px 14px 34px -18px rgb(25 59 90 / 30%)"
 motion:
   feedback: "125ms"
   selection: "160ms"
@@ -105,7 +107,7 @@ Self-host Anuphan variable100–700 for Thai application text, Plus Jakarta Sans
 
 19 October 2026: user approved Quiet Gallery with photo and code as equal recognition cues, and Floating Dock on desktop/mobile. Mobile has16–20px content padding and2 gallery columns; from601px the gallery has3 columns, maximum1120px. Each photo and complete code footer form one button, with a quiet directional icon. Keep no-photo tiles useful; synthetic concept photographs never seed a real shop. Detail retains explicit size selection before color/mixed-pack cards. Desktop separates identity and variant workspace; mobile stacks them. Secondary screens retain BackButton, search/focus restoration and unsaved guards.
 
-One glass bottom dock owns the same five labeled destinations on every viewport; no desktop sidebar. Match concept C with a full capsule silhouette, at most620px wide, inset16px desktop/8px narrow mobile plus safe area, blur64px and saturation1.8. Desktop uses64px menu targets with8px vertical and24px horizontal padding; phones use72px targets with6px padding, growing for wrapped Thai labels. Solid white is the fallback; supported browsers use52% white glass beneath a diagonal reflective sheen, with a fine navy boundary and inset light-catching edges. Opaque ink menu icons and labels stay crisp over the translucent surface; the selected item retains navy text and an opaque pale-blue surface. A soft navy elevation and faint orange/navy edge shadows echo the concept. Nav labels remain at least14px and targets at least48px. Content and scroll clearance include the dock height, safe area and gap so final actions/errors are reachable. Brand and data context move to the topbar on every viewport. Keep glass scoped to navigation; all forms and amounts use opaque surfaces.
+One glass bottom dock owns the same five labeled destinations on every viewport; no desktop sidebar. Match concept C with a full capsule silhouette, at most620px wide, inset16px desktop/8px narrow mobile plus safe area, blur36px, saturation1.7 and brightness1.04. Desktop uses64px menu targets with8px vertical and24px horizontal padding; phones use72px targets with6px padding, growing for wrapped Thai labels. Solid white is the fallback; supported browsers get liquid glass: a translucent white fill washed with brand orange at the left and navy at the right, a 1.5px orange-to-navy rim, a specular highlight along the top edge and inset light-catching edges. The fill is deliberately dense enough that content scrolling behind never reads as legible text, even where a browser skips the blur. Opaque ink menu icons and labels stay crisp over the translucent surface; the selected item keeps navy text on a full-capsule liquid-glass blob with the same orange-to-navy rim. The blob slides to the chosen item with a springy overshoot and swells while pressed; reduced motion removes the movement, and forced-colors mode swaps the glass for a Highlight outline. A soft navy elevation and faint orange/navy edge shadows echo the concept. Nav labels remain at least14px and targets at least48px. Content and scroll clearance include the dock height, safe area and gap so final actions/errors are reachable. Brand and data context move to the topbar on every viewport. Keep glass scoped to navigation; all forms and amounts use opaque surfaces.
 
 The narrow English dock retains the incumbent full-word labels Products / Bills / Reserve / Returns / Settings; accessible names retain Reservations and Returns / exchange. These are deliberate compact navigation variants, with complete destination headings on each page. Keep English dock labels on one line at320px without reducing14px type. Gallery announces the filtered product-code count, never combined stock quantities.
 
